@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            combat.MeleeAttack();
+            combat.StartMeleeAttack();
         }
     }
 }

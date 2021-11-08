@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
+    [SerializeField] private Weapon weapon;
+
     private Animator animator;
 
     private void Awake()
@@ -11,8 +13,13 @@ public class Combat : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void MeleeAttack()
+    public void StartMeleeAttack()
     {
         animator.SetTrigger("MeleeAttack");
+    }
+
+    public void MeleeHit()
+    {
+        weapon.Hit();
     }
 }
