@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         movement.Move(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
 
-        if (Input.GetAxis("Fire1") != 0)
+        if (Input.GetMouseButtonDown(0))
         {
             combat.MeleeAttack();
         }
