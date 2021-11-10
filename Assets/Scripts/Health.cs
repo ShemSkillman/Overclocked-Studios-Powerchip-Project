@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int hitPoints = 100;
+    [SerializeField] private int hitPoints = 100;
 
     public void TakeDamage(int dmgPoints)
     {
@@ -14,5 +14,10 @@ public class Health : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public bool IsDead()
+    {
+        return hitPoints <= 0;
     }
 }
