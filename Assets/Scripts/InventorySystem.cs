@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class InventorySystem : MonoBehaviour
+public class InventorySystem : MonoBehaviour, IDropHandler
 {
     public GameObject inventoryPanel;
 
-    public GameObject[] slots;
+    [SerializeField]
+    private RectTransform ground;
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(eventData.pointerDrag != null)
+        {
+            eventData.pointerDrag.transform.SetParent(ground.transform);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +35,4 @@ public class InventorySystem : MonoBehaviour
                 inventoryPanel.SetActive(true);
         }
     }
-
-
 }

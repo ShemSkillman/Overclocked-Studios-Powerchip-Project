@@ -12,7 +12,18 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField]
     private Image image;
 
+    [SerializeField]
+    private Canvas canvas;
+
     private Vector2 originalPosition;
+    private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
+
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,24 +36,21 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //print("Dragging has Began!");
+        canvasGroup.blocksRaycasts = false;
 
-        originalPosition = image.transform.position;
+        transform.SetParent(canvas.transform);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        //print("Dragging");
-
-        image.transform.position = Input.mousePosition;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //print("Dragging has ended!");
-
-        image.transform.position = Input.mousePosition;
+        canvasGroup.blocksRaycasts = true;
     }
 }
