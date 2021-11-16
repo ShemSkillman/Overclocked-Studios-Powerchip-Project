@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     Movement movement;
     Combat combat;
 
+    public GameObject inventoryPanel;
+
     private void Awake()
     {
         movement = GetComponent<Movement>();
@@ -16,11 +18,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.Move(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
-
-        if (Input.GetMouseButtonDown(0))
+        if (!inventoryPanel.activeInHierarchy)
         {
-            combat.StartMeleeAttack();
+            movement.Move(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                combat.StartMeleeAttack();
+            }
         }
     }
 }

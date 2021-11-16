@@ -6,14 +6,13 @@ using UnityEngine.EventSystems;
 
 public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [SerializeField] 
-    private Camera cam;
-
     [SerializeField]
     private Image image;
 
     [SerializeField]
     private Canvas canvas;
+
+    public ItemScriptableObject item;
 
     private Vector2 originalPosition;
     private CanvasGroup canvasGroup;
@@ -23,6 +22,8 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+
+        canvas = GetComponentInParent<Canvas>();
     }
 
     // Start is called before the first frame update

@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b375c192575b645b050dd250fc2fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   image: {fileID: 3843137110828592045}
   canvas: {fileID: 0}
+  item: {fileID: 11400000, guid: b7b637315a425534b9f0e7e78e45ccf2, type: 2}
 --- !u!225 &538774620
 CanvasGroup:
   m_ObjectHideFlags: 0
