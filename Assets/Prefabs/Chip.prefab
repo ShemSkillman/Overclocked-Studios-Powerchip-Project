@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 2033230884856424381}
   - component: {fileID: 2033230884856424378}
   - component: {fileID: 2033230884856424379}
-  - component: {fileID: 2033230884856424321}
   - component: {fileID: 2033230884856424382}
   - component: {fileID: 2033230884856424383}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,19 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &2033230884856424321
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033230884856424376}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5.84
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2033230884856424382
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,3 +126,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcaae9e3536c6bd4c8b46c4ab2500f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: b7b637315a425534b9f0e7e78e45ccf2, type: 2}
