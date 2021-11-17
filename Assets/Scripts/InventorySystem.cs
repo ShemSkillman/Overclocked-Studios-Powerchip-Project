@@ -92,6 +92,8 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         {
             Destroy(inventoryChip.gameObject);
         }
+
+        //DeleteGround();
     }
 
     Dictionary<string, InventoryChip> GetGroundInventoryChips()
@@ -107,5 +109,22 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         }
 
         return inventoryChips;
+    }
+
+    void DeleteGround()
+    {
+        int count = ground.transform.childCount;
+        GameObject[] toDelete = new GameObject[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            Transform child = ground.transform.GetChild(i);
+            toDelete[i] = child.gameObject;
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            Destroy(toDelete[i]);
+        }
     }
 }

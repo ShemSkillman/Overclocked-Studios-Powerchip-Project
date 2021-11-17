@@ -464,9 +464,10 @@ GameObject:
   - component: {fileID: 8601524007023144268}
   - component: {fileID: 2072377339}
   - component: {fileID: 599663966095103058}
+  - component: {fileID: 418909914}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,6 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a56c2b11213e84388e9142097e77e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 0}
 --- !u!114 &344384323855693647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +580,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitpoints: 100
   hitPoints: 100
+--- !u!114 &418909914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192323563885328024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362fc829a4522784789f611be8734869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5212338745880020185
 GameObject:
   m_ObjectHideFlags: 0
