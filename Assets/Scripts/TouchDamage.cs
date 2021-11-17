@@ -11,7 +11,6 @@ public class TouchDamage : MonoBehaviour
     //Applies damage every set interval
     Dictionary<Health, float> targetsInContact = new Dictionary<Health, float>();
 
-    //Add new target in contact with cactus
     private void OnTriggerEnter(Collider other)
     {
         Health target = other.gameObject.GetComponentInParent<Health>();
