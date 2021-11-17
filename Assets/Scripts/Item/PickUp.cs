@@ -9,6 +9,5 @@ public class PickUp : MonoBehaviour
     private void Awake()
     {        
         item.id = System.Guid.NewGuid().ToString();
-        print(item.id);
     }
 }
