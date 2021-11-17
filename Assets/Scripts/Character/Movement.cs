@@ -12,6 +12,18 @@ public class Movement : MonoBehaviour
 
     private Vector3 moveVector;
 
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
+
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
