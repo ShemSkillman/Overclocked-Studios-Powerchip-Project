@@ -7,6 +7,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 {
     public GameObject inventoryPanel;
     public GameObject inventoryText;
+    public GameObject speedText;
 
     [SerializeField]
     private RectTransform ground;
@@ -18,7 +19,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if(eventData.pointerDrag != null)
+        if(eventData.pointerDrag != null && eventData.pointerDrag.tag == "InventoryItem")
         {
             eventData.pointerDrag.transform.SetParent(ground.transform);
         }
@@ -38,6 +39,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
             {
                 inventoryPanel.SetActive(false);
                 inventoryText.SetActive(true);
+                speedText.SetActive(true);
                 ReturnItems();
                 Time.timeScale = 1f;
             } 
@@ -45,6 +47,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
             {
                 inventoryPanel.SetActive(true);
                 inventoryText.SetActive(false);
+                speedText.SetActive(false);
                 CheckItemsInRadius(player.transform.position, 5f, LayerMask.GetMask("Pickup"));
                 Time.timeScale = 0f;
             }

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LootBoxDemo.unity
     guid: dc20053601ec49447aa83433acecd590
+  - enabled: 1
+    path: Assets/Scenes/Level 1 Prototype.unity
+    guid: 5fe3df211bdfd0f4ea9164d946c97c97
   m_configObjects: {}

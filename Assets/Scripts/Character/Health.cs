@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHitpoints = 100;
     [SerializeField] private int hitPoints = 100;
+    [SerializeField] private bool destroyOnDeath = true;
 
     public UnityAction OnDead, OnHealthChange;
 
@@ -34,7 +35,10 @@ public class Health : MonoBehaviour
 
         if (hitPoints <= 0)
         {
-            Destroy(gameObject);
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            }
             OnDead?.Invoke();
         }
     }
