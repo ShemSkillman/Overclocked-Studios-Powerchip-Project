@@ -4,21 +4,7 @@ using UnityEngine;
 public class ItemScriptableObject : ScriptableObject
 {
     public string itemName;
-    private string id;
 
     public PickUp pickUp;
-
     public InventoryChip inventoryChip;
-
-    public string ID
-    {
-        get
-        {
-            return id;
-        }
-        set
-        {
-            id = value;
-        }
-    }
 }

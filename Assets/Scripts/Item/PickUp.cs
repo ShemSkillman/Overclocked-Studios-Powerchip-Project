@@ -6,9 +6,10 @@ public class PickUp : MonoBehaviour
 {
     public ItemScriptableObject itemData;
 
+    public string id;
+
     private void Awake()
     {        
-        itemData.ID = System.Guid.NewGuid().ToString();
-        print(itemData.ID);
+        id = System.Guid.NewGuid().ToString();
     }
 }

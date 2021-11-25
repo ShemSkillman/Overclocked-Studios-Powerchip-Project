@@ -6,10 +6,12 @@ using UnityEngine.EventSystems;
 
 public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+
+    public string id;
+
     [SerializeField]
     private Image image;
 
-    [SerializeField]
     private Canvas canvas;
 
     public ItemScriptableObject itemData;
@@ -18,18 +20,26 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
 
+    public Transform DesiredParent { get; set; }
+
+    public Transform PreviousParent { get; set; }
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
 
-        itemData.ID = System.Guid.NewGuid().ToString();
-        print(itemData.ID);
+        if (id == "")
+        {
+            id = System.Guid.NewGuid().ToString();
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        PreviousParent = transform.parent;
+
         canvasGroup.blocksRaycasts = false;
 
         transform.SetParent(canvas.transform);
@@ -42,6 +52,17 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (DesiredParent != null)
+        {
+            transform.SetParent(DesiredParent);
+        }
+        else if (PreviousParent != transform.parent)
+        {
+            transform.SetParent(PreviousParent);
+        }
+
+        DesiredParent = null;
+
         canvasGroup.blocksRaycasts = true;
     }
 }
