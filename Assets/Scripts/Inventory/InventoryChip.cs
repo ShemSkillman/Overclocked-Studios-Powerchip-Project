@@ -12,7 +12,7 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField]
     private Canvas canvas;
 
-    public ItemScriptableObject item;
+    public ItemScriptableObject itemData;
 
     private Vector2 originalPosition;
     private CanvasGroup canvasGroup;
@@ -22,20 +22,10 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-
         canvas = GetComponentInParent<Canvas>();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        itemData.ID = System.Guid.NewGuid().ToString();
+        print(itemData.ID);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

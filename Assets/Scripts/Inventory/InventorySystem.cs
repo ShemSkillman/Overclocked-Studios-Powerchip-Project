@@ -73,9 +73,9 @@ public class InventorySystem : MonoBehaviour, IDropHandler
             ItemScriptableObject item = pickUp.itemData;
 
             InventoryChip clone = Instantiate(item.inventoryChip, ground.transform);
-            clone.item.ID = item.ID;
+            clone.itemData.ID = item.ID;
 
-            print(clone.item.ID);
+            print(clone.itemData.ID);
 
             pickUps[item.ID] = pickUp;
         }
@@ -98,7 +98,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
             if (pickUps.ContainsKey(id) == false)
             {
                 InventoryChip inventoryChip = GetGroundInventoryChips()[id];
-                PickUp clone = Instantiate(inventoryChip.item.pickUp, player.transform.position, Quaternion.identity);
+                PickUp clone = Instantiate(inventoryChip.itemData.pickUp, player.transform.position, Quaternion.identity);
                 clone.itemData.ID = id;
             }
         }
@@ -121,7 +121,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         {
             Transform child = ground.transform.GetChild(i);
             InventoryChip chip = child.GetComponent<InventoryChip>();
-            inventoryChips[chip.item.ID] = chip;
+            inventoryChips[chip.itemData.ID] = chip;
         }
 
         return inventoryChips;
