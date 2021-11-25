@@ -12,6 +12,8 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     [SerializeField]
     private RectTransform ground;
 
+    [SerializeField] float pickupRadius = 5f;
+
     private GameObject player;
 
 
@@ -35,41 +37,51 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (inventoryPanel.activeInHierarchy)
-            {
-                inventoryPanel.SetActive(false);
-                inventoryText.SetActive(true);
-                speedText.SetActive(true);
-                ReturnItems();
-                Time.timeScale = 1f;
-            } 
-            else
-            {
-                inventoryPanel.SetActive(true);
-                inventoryText.SetActive(false);
-                speedText.SetActive(false);
-                CheckItemsInRadius(player.transform.position, 5f, LayerMask.GetMask("Pickup"));
-                Time.timeScale = 0f;
-            }
-                
+            ToggleInventoryView(!inventoryPanel.activeInHierarchy);
         }
     }
 
-    void CheckItemsInRadius(Vector3 center, float radius, LayerMask mask)
+    private void ToggleInventoryView(bool isInventoryOpen)
+    {
+        if (isInventoryOpen)
+        {
+            HandleInventoryOpen();
+            Time.timeScale = 0f;
+        }
+        else
+        {
+
+            HandleInventoryClose();
+            Time.timeScale = 1f;
+        }
+
+        inventoryPanel.SetActive(isInventoryOpen);
+
+        inventoryText.SetActive(!isInventoryOpen);
+        speedText.SetActive(!isInventoryOpen);        
+    }
+
+    void HandleInventoryOpen()
     {
         pickUps = new Dictionary<string, PickUp>();
 
-        Collider[] itemColliders = Physics.OverlapSphere(center, radius, mask);
+        Collider[] itemColliders = Physics.OverlapSphere(player.transform.position, pickupRadius, LayerMask.GetMask("Pickup"));
 
         foreach (var itemCol in itemColliders)
         {
-            ItemScriptableObject item = itemCol.GetComponent<PickUp>().item;
-            Instantiate(item.inventoryChip, ground.transform);
-            pickUps[item.id] = itemCol.GetComponent<PickUp>();
+            PickUp pickUp = itemCol.GetComponent<PickUp>();
+            ItemScriptableObject item = pickUp.itemData;
+
+            InventoryChip clone = Instantiate(item.inventoryChip, ground.transform);
+            clone.item.ID = item.ID;
+
+            print(clone.item.ID);
+
+            pickUps[item.ID] = pickUp;
         }
     }
 
-    void ReturnItems()
+    void HandleInventoryClose()
     {
         // Destroy real world items that are placed in inventory
         foreach (var id in pickUps.Keys)
@@ -81,12 +93,13 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         }
 
         // Create real world placed in ground section of inventory
-        foreach (var id in GetGroundInventoryChips().Keys)
+        foreach (string id in GetGroundInventoryChips().Keys)
         {
             if (pickUps.ContainsKey(id) == false)
             {
                 InventoryChip inventoryChip = GetGroundInventoryChips()[id];
-                Instantiate(inventoryChip.item.pickUp, player.transform.position, Quaternion.identity);
+                PickUp clone = Instantiate(inventoryChip.item.pickUp, player.transform.position, Quaternion.identity);
+                clone.itemData.ID = id;
             }
         }
 
@@ -108,7 +121,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         {
             Transform child = ground.transform.GetChild(i);
             InventoryChip chip = child.GetComponent<InventoryChip>();
-            inventoryChips[chip.item.id] = chip;
+            inventoryChips[chip.item.ID] = chip;
         }
 
         return inventoryChips;

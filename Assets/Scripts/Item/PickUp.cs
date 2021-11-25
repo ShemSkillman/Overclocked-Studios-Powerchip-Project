@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public ItemScriptableObject item;
+    public ItemScriptableObject itemData;
 
     private void Awake()
     {        
-        item.id = System.Guid.NewGuid().ToString();
+        itemData.ID = System.Guid.NewGuid().ToString();
+        print(itemData.ID);
     }
 }
