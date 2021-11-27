@@ -24,6 +24,18 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public float TurnSpeed
+    {
+        get
+        {
+            return turnSpeed;
+        }
+        set
+        {
+            turnSpeed = value;
+        }
+    }
+
     private void Awake()
     {
         charController = GetComponent<CharacterController>();

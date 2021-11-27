@@ -260,7 +260,7 @@ RectTransform:
   m_GameObject: {fileID: 3425205690810016861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 3, z: 1}
   m_Children:
   - {fileID: 6488076347981198925}
   - {fileID: 1719298493750240068}
@@ -377,7 +377,7 @@ RectTransform:
   m_GameObject: {fileID: 3603971921688465437}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01128258, y: 0.03782935, z: 0.01128258}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 1348568052940784059}
   m_Father: {fileID: 4192323563885328028}
@@ -518,6 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a56c2b11213e84388e9142097e77e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
   inventoryPanel: {fileID: 0}
 --- !u!114 &344384323855693647
 MonoBehaviour:
@@ -531,8 +532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304e3f72c8464f1468d78ae701c1c0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  turnSpeed: 5
+  moveSpeed: 5
+  turnSpeed: 15
+  isKeyboardControls: 0
 --- !u!95 &8601524007023144268
 Animator:
   serializedVersion: 3
@@ -579,6 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitpoints: 100
   hitPoints: 100
+  destroyOnDeath: 1
 --- !u!1 &5212338745880020185
 GameObject:
   m_ObjectHideFlags: 0
