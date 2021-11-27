@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1 Prototype.unity
     guid: 5fe3df211bdfd0f4ea9164d946c97c97
+  - enabled: 1
+    path: Assets/Scenes/MobileIntegradation.unity
+    guid: 3dead4a55dc9eb64cab7cb27e16a4463
   m_configObjects: {}

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour, IDropHandler
 {
     public GameObject inventoryPanel;
-    public GameObject inventoryText;
-    public GameObject speedText;
+
+    public GameObject mainGameUI;
 
     [SerializeField]
     private RectTransform nearbyChips;
@@ -20,7 +21,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if(eventData.pointerDrag != null && eventData.pointerDrag.tag == "InventoryItem")
+        if (eventData.pointerDrag != null && eventData.pointerDrag.tag == "InventoryItem")
         {
             eventData.pointerDrag.transform.SetParent(nearbyChips.transform);
         }
@@ -39,7 +40,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         }
     }
 
-    private void ToggleInventoryView(bool isInventoryOpen)
+    public void ToggleInventoryView(bool isInventoryOpen)
     {
         if (isInventoryOpen)
         {
@@ -54,8 +55,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
         inventoryPanel.SetActive(isInventoryOpen);
 
-        inventoryText.SetActive(!isInventoryOpen);
-        speedText.SetActive(!isInventoryOpen);        
+        mainGameUI.SetActive(!isInventoryOpen);
     }
 
     void HandleInventoryOpen()

@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     Movement movement;
     Combat combat;
 
+    [SerializeField] VariableJoystick joystick;
+
     public GameObject inventoryPanel;
 
     private void Awake()
@@ -20,12 +22,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!inventoryPanel.activeInHierarchy)
         {
-            movement.Move(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
+            Vector3 direction = Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal;
+            movement.Move(direction);
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                combat.StartMeleeAttack();
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    combat.StartMeleeAttack();
+            //}
         }
     }
 }
