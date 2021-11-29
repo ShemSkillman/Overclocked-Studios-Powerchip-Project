@@ -66,7 +66,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
         foreach (var itemCol in itemColliders)
         {
-            PickUp pickUp = itemCol.GetComponent<PickUp>();
+            PickUp pickUp = itemCol.GetComponentInParent<PickUp>();
 
             InventoryChip inventoryChip = Instantiate(pickUp.itemData.inventoryChip, nearbyChips.transform);
             inventoryChip.id = pickUp.id;
