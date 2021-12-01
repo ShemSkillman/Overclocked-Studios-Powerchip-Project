@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 7710104587470949427}
   - component: {fileID: 4920645283419013062}
   m_Layer: 3
-  m_Name: Enemy
+  m_Name: Enemy Grunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

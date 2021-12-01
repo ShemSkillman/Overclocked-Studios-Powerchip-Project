@@ -21,6 +21,9 @@ public class ExitLevel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnPlayerEnter.Invoke();
+        if(other.gameObject.tag == "Player")
+        {
+            OnPlayerEnter.Invoke();
+        }
     }
 }

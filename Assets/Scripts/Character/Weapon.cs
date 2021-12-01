@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private float attackRate = 1.5f;
     [SerializeField] private int damage = 10;
     [SerializeField] private float attackRange = 1f;
 
