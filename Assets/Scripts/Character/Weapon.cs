@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int damage = 10;
     [SerializeField] private float attackRange = 1f;
 
+    [SerializeField] private string targetLayerName = "Player";
+
     private CharacterController charController;
 
     private void Awake()
@@ -22,14 +24,9 @@ public class Weapon : MonoBehaviour
         return charController.transform.TransformPoint(charController.center) + offset;
     }
 
-    private Vector3 GetHitBox()
-    {
-        return new Vector3(charController.radius * 2, charController.height / 2, attackRange / 2);
-    }
-
     public void Hit()
     {
-        Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), attackRange, LayerMask.GetMask("Enemy"));
+        Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), attackRange, LayerMask.GetMask(targetLayerName));
 
         foreach (Collider collider in colliders)
         {
@@ -48,5 +45,10 @@ public class Weapon : MonoBehaviour
             charController = GetComponentInParent<CharacterController>();
         }
         Gizmos.DrawWireSphere(GetMeleeAttackCenter(), attackRange);
+    }
+
+    public Collider[] GetTargetColliders()
+    {
+        return Physics.OverlapSphere(GetMeleeAttackCenter(), attackRange, LayerMask.GetMask(targetLayerName));
     }
 }
