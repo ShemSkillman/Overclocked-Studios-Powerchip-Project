@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 1186922017}
   - component: {fileID: 7710104587470949427}
   - component: {fileID: 4920645283419013062}
+  - component: {fileID: 5924011315487146157}
   m_Layer: 3
   m_Name: Enemy Tank
   m_TagString: Untagged
@@ -271,7 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0985d24249ae147ac8dd5821790015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitpoints: 500
   hitPoints: 500
   destroyOnDeath: 1
 --- !u!54 &960955585
@@ -390,7 +390,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 6209334245426412831}
-  rateOfFire: 1.5
+  targetLayerName: Player
+--- !u!114 &5924011315487146157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585988986943563710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b79270c6db1494a9f11ad8b53d0629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMaxHitpoints: 1000
+  baseMovementSpeed: 1
 --- !u!1 &2848680741779269350
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +846,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eec87b09053ddc4c853451c04e806b5, type: 3}
+--- !u!4 &1420430932602543298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1232837967125439002, guid: 4eec87b09053ddc4c853451c04e806b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 192962027862376152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6209334245426412831 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6090684636200895431, guid: 4eec87b09053ddc4c853451c04e806b5,
@@ -844,9 +864,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a1a4f8e60bcd47907ecdf389e8641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1420430932602543298 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1232837967125439002, guid: 4eec87b09053ddc4c853451c04e806b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 192962027862376152}
-  m_PrefabAsset: {fileID: 0}

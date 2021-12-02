@@ -4,21 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 
     public string id;
-
-    [SerializeField]
-    private Image image;
 
     private Canvas canvas;
 
     public ItemScriptableObject itemData;
 
-    private Vector2 originalPosition;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
+
+    private Image image;
 
     public Transform DesiredParent { get; set; }
 
@@ -29,11 +27,17 @@ public class InventoryChip : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
+        image = GetComponent<Image>();
 
         if (id == "")
         {
             id = System.Guid.NewGuid().ToString();
         }
+    }
+
+    private void Start()
+    {
+        image.sprite = itemData.chipSprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

@@ -15,11 +15,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnDrop(PointerEventData eventData)
     {
-        //if (eventData.pointerDrag != null && !IsOccupied())
-        //{
-        //    eventData.pointerDrag.transform.SetParent(transform);
-        //    eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = new Vector3(rectTransform.rect.width / 2, -rectTransform.rect.height / 2, 0);
-        //}
+        
     }
 
     private bool IsOccupied()
@@ -34,7 +30,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
             return;
         }
 
-        InventoryChip draggedChip = eventData.pointerDrag.GetComponent<InventoryChip>();
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
         draggedChip.DesiredParent = transform;
     }
@@ -46,7 +42,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
             return;
         }
 
-        InventoryChip draggedChip = eventData.pointerDrag.GetComponent<InventoryChip>();
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
         draggedChip.DesiredParent = null;
     }

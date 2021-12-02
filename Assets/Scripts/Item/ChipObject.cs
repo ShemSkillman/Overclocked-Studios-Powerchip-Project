@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+public class ChipObject : MonoBehaviour
 {
     public ItemScriptableObject itemData;
 
@@ -10,6 +10,11 @@ public class PickUp : MonoBehaviour
 
     private void Awake()
     {        
-        id = System.Guid.NewGuid().ToString();
+        id = System.Guid.NewGuid().ToString();        
+    }
+
+    private void Start()
+    {
+        Instantiate(itemData.chipModel, transform);
     }
 }

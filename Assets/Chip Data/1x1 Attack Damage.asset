@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efba03d4406826a44ae1d4b65e59b061, type: 3}
+  m_Name: 1x1 Attack Damage
+  m_EditorClassIdentifier: 
+  itemName: Basic Attack Damage
+  chipSprite: {fileID: 21300000, guid: 9903c314551c1fd4489ce3307703bf50, type: 3}
+  chipModel: {fileID: 1325898780916914, guid: feefc8bdbd5cd3340a37ddc39f079c5a, type: 3}
+  chipBuffs:
+  - buffType: 2
+    addiditiveValue: 10

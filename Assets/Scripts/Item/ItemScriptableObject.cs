@@ -5,6 +5,8 @@ public class ItemScriptableObject : ScriptableObject
 {
     public string itemName;
 
-    public PickUp pickUp;
-    public InventoryChip inventoryChip;
+    public Sprite chipSprite;
+    public GameObject chipModel;
+
+    public ChipBuff[] chipBuffs;
 }

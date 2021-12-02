@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efba03d4406826a44ae1d4b65e59b061, type: 3}
+  m_Name: 1x1 Movement Speed
+  m_EditorClassIdentifier: 
+  itemName: Basic Movement Speed
+  pickUp: {fileID: 4063048459381051379, guid: bb18f9dd245a39b4e895706e178a6e24, type: 3}
+  inventoryChip: {fileID: 3843137110828592046, guid: acffac761f6fb2d43b8622f1d66a7df9,
+    type: 3}
+  chipSprite: {fileID: 0}
+  chipModel: {fileID: 0}
+  chipBuffs:
+  - buffType: 3
+    addiditiveValue: 2
