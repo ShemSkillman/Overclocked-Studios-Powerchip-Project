@@ -29,6 +29,8 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
+        slider.maxValue = health.MaxHitPoints;
+
         if (timeSinceHealthChangeSeconds < visibleTimeSeconds)
         {
             timeSinceHealthChangeSeconds += Time.deltaTime;

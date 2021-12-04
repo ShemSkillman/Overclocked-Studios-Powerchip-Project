@@ -13,7 +13,6 @@ public class AIController : MonoBehaviour
     private Vector3 velocity;
     private CharacterController controller;
     private Combat enemyCombat;
-    private Weapon enemyWeapon;
 
     [SerializeField] private Behaviour currentBehaviour = Behaviour.Idle;
 
@@ -24,7 +23,6 @@ public class AIController : MonoBehaviour
     {
         enemyMovement = GetComponent<Movement>();
         enemyCombat = GetComponent<Combat>();
-        enemyWeapon = GetComponentInChildren<Weapon>();
 
         agent = gameObject.GetComponent<NavMeshAgent>();
         controller = gameObject.GetComponent<CharacterController>();
@@ -128,7 +126,7 @@ public class AIController : MonoBehaviour
 
     private bool IsPlayerInRange()
     {
-        Collider[] targetColliders = enemyWeapon.GetTargetColliders();
+        Collider[] targetColliders = enemyCombat.GetTargetColliders();
 
         foreach (var collider in targetColliders)
         {

@@ -20,7 +20,7 @@ public class InventoryNearbyItems : MonoBehaviour, IDropHandler, IPointerEnterHa
             return;
         }
 
-        InventoryChip draggedChip = eventData.pointerDrag.GetComponent<InventoryChip>();
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
         draggedChip.DesiredParent = transform;
     }
@@ -32,7 +32,7 @@ public class InventoryNearbyItems : MonoBehaviour, IDropHandler, IPointerEnterHa
             return;
         }
 
-        InventoryChip draggedChip = eventData.pointerDrag.GetComponent<InventoryChip>();
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
         draggedChip.DesiredParent = null;
     }

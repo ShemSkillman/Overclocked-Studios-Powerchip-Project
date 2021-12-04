@@ -337,7 +337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a1a4f8e60bcd47907ecdf389e8641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRate: 1.5
-  damage: 40
-  attackRange: 1
-  targetLayerName: Player
+  damage: 150
+  attackRange: 2
+  rateOfFire: 1.5

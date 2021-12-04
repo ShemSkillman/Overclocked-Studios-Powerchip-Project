@@ -5,29 +5,28 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHitpoints = 100;
-    [SerializeField] private int hitPoints = 100;
+    private float hitPoints;
     [SerializeField] private bool destroyOnDeath = true;
 
     public UnityAction OnDead, OnHealthChange;
 
-    public int Hitpoints
+    EntityStats stats;
+
+    private void Awake()
     {
-        get
-        {
-            return hitPoints;
-        }
+        stats = GetComponent<EntityStats>();
     }
 
-    public int MaxHitPoints
+    public float Hitpoints { get { return hitPoints; } }
+
+    public float MaxHitPoints { get { return stats.MaxHitpoints; } }
+
+    private void Start()
     {
-        get
-        {
-            return maxHitpoints;
-        }
+        hitPoints = MaxHitPoints;
     }
 
-    public void TakeDamage(int dmgPoints)
+    public void TakeDamage(float dmgPoints)
     {
         hitPoints -= dmgPoints;
 

@@ -13,11 +13,14 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     [SerializeField]
     private RectTransform nearbyChips;
 
+    [SerializeField] Transform inventoryGrid;
+
     [SerializeField] float pickupRadius = 5f;
 
     private GameObject player;
+    EntityStats playerStats;
 
-    private Dictionary<string, PickUp> pickUps;
+    private Dictionary<string, ChipObject> pickUps;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -30,6 +33,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerStats = player.GetComponent<EntityStats>();
     }
 
     void Update()
@@ -60,24 +64,31 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
     void HandleInventoryOpen()
     {
-        pickUps = new Dictionary<string, PickUp>();
+        pickUps = new Dictionary<string, ChipObject>();
 
         Collider[] itemColliders = Physics.OverlapSphere(player.transform.position, pickupRadius, LayerMask.GetMask("Pickup"));
 
         foreach (var itemCol in itemColliders)
         {
-            PickUp pickUp = itemCol.GetComponentInParent<PickUp>();
-
-            InventoryChip inventoryChip = Instantiate(pickUp.itemData.inventoryChip, nearbyChips.transform);
-            inventoryChip.id = pickUp.id;
+            ChipObject pickUp = itemCol.GetComponentInParent<ChipObject>();
+            CreateChipUI(pickUp);
 
             pickUps[pickUp.id] = pickUp;
         }
     }
 
+    private void CreateChipUI(ChipObject pickUp)
+    {
+        ChipUI baseChipUI = Resources.Load<ChipUI>("Base Chip UI");
+        ChipUI instance = Instantiate(baseChipUI, nearbyChips.transform);
+
+        instance.id = pickUp.id;
+        instance.itemData = pickUp.itemData;
+    }
+
     void HandleInventoryClose()
     {
-        Dictionary<string, InventoryChip> nearbyInventoryChips = GetNearbyInventoryChips();
+        Dictionary<string, ChipUI> nearbyInventoryChips = GetNearbyInventoryChips();
 
         // Destroy real world chips that are placed in inventory (no longer a nearby chip)
         foreach (string id in pickUps.Keys)
@@ -93,28 +104,43 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         {
             if (pickUps.ContainsKey(id) == false)
             {
-                InventoryChip inventoryChip = nearbyInventoryChips[id];
-                PickUp clone = Instantiate(inventoryChip.itemData.pickUp, player.transform.position, Quaternion.identity);
-                clone.id = inventoryChip.id;
+                ChipUI inventoryChip = nearbyInventoryChips[id];
+                CreateChipObject(inventoryChip);                
             }
         }
 
         // Delete all UI nearby chips
-        foreach (InventoryChip inventoryChip in nearbyInventoryChips.Values)
+        foreach (ChipUI inventoryChip in nearbyInventoryChips.Values)
         {
             Destroy(inventoryChip.gameObject);
         }
+
+        playerStats.ResetBuffs();
+
+        foreach (ChipUI equippedChip in inventoryGrid.GetComponentsInChildren<ChipUI>())
+        {
+            playerStats.AddBuff(equippedChip.itemData.chipBuffs);
+        }
     }
 
-    Dictionary<string, InventoryChip> GetNearbyInventoryChips()
+    private void CreateChipObject(ChipUI chipUI)
+    {
+        ChipObject chipObject = Resources.Load<ChipObject>("Base Chip Object");
+        ChipObject instance = Instantiate(chipObject, player.transform.position, Quaternion.identity);
+
+        instance.id = chipUI.id;
+        instance.itemData = chipUI.itemData;
+    }
+
+    Dictionary<string, ChipUI> GetNearbyInventoryChips()
     {
         int count = nearbyChips.transform.childCount;
-        Dictionary<string, InventoryChip> inventoryChips = new Dictionary<string, InventoryChip>();
+        Dictionary<string, ChipUI> inventoryChips = new Dictionary<string, ChipUI>();
 
         for (int i = 0; i < count; i++)
         {
             Transform child = nearbyChips.transform.GetChild(i);
-            InventoryChip chip = child.GetComponent<InventoryChip>();
+            ChipUI chip = child.GetComponent<ChipUI>();
             inventoryChips[chip.id] = chip;
         }
 

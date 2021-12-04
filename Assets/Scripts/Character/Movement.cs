@@ -4,51 +4,23 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float turnSpeed = 5f;
     [SerializeField] private bool isKeyboardControls = true;
 
     private CharacterController charController;
+    private EntityStats stats;
 
     private Vector3 moveVector;
-
-    public float MoveSpeed
-    {
-        get
-        {
-            return moveSpeed;
-        }
-        set
-        {
-            moveSpeed = value;
-        }
-    }
-
-    public float TurnSpeed
-    {
-        get
-        {
-            return turnSpeed;
-        }
-        set
-        {
-            turnSpeed = value;
-        }
-    }
 
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
-    }
-
-    private void Update()
-    {
-        
+        stats = GetComponent<EntityStats>();
     }
 
     private void LateUpdate()
     {
-        charController.SimpleMove(moveVector * moveSpeed);
+        charController.SimpleMove(moveVector * stats.MovementSpeed);
 
         transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
     }
