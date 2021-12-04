@@ -15,10 +15,13 @@ public class AIController : MonoBehaviour
     private Combat enemyCombat;
 
     [SerializeField] private Behaviour currentBehaviour = Behaviour.Idle;
+    [SerializeField] private float wanderRange;
 
-    enum Behaviour { Idle, Pursue, Attack };
+    [SerializeField] private float minIdleTime = 1f, maxIdleTime = 5f;
+    [SerializeField] private float currentIdleTime, targetIdleTime;
 
-    // Start is called before the first frame update
+    enum Behaviour { Idle, Wander, Pursue, Attack };
+
     void Start()
     {
         enemyMovement = GetComponent<Movement>();
@@ -26,10 +29,10 @@ public class AIController : MonoBehaviour
 
         agent = gameObject.GetComponent<NavMeshAgent>();
         controller = gameObject.GetComponent<CharacterController>();
-        
+
+        StartIdleBehaviour();
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (currentBehaviour)
@@ -40,14 +43,18 @@ public class AIController : MonoBehaviour
                     currentBehaviour = Behaviour.Pursue;
                 } else
                 {
-                    IdleBehaviour();
+                    UpdateIdleBehaviour();
                 }
+                break;
+
+            case Behaviour.Wander:
+                UpdateWanderBehaviour();
                 break;
 
             case Behaviour.Pursue:
                 if (playerTransform == null)
                 {
-                    currentBehaviour = Behaviour.Idle;
+                    StartIdleBehaviour();
                 }
                 else if (IsPlayerInRange())
                 {
@@ -96,26 +103,73 @@ public class AIController : MonoBehaviour
         agent.destination = transform.position;
     }
 
-    private void IdleBehaviour()
+    private void StartIdleBehaviour()
+    {
+        currentBehaviour = Behaviour.Idle;
+
+        targetIdleTime = Random.Range(minIdleTime, maxIdleTime);
+    }
+
+    private void UpdateIdleBehaviour()
     {
         enemyMovement.Move(Vector3.zero);
+
+        currentIdleTime += Time.deltaTime;
+
+        if(currentIdleTime >= targetIdleTime)
+        {
+            StartWanderBehaviour();
+
+            currentIdleTime = 0f;
+        }
+    }
+
+    private void MoveToLocation()
+    {
+        velocity = agent.desiredVelocity;
+
+        enemyMovement.Move(velocity.normalized);
+        agent.velocity = controller.velocity;
+    }
+
+    private bool IsAtDestination()
+    {
+        NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas);
+
+        float dist = Vector3.Distance(hit.position, agent.destination);
+
+        return dist <= 1f;
+    }
+
+    private void StartWanderBehaviour()
+    {
+        currentBehaviour = Behaviour.Wander;
+
+        Vector3 wanderLocation = Random.insideUnitSphere;
+
+        wanderLocation.y = 0f;
+
+        Vector3 randomPos = wanderLocation.normalized * wanderRange;
+
+        NavMesh.SamplePosition(transform.position + randomPos, out NavMeshHit hit, wanderRange, NavMesh.AllAreas);
+
+        agent.destination = hit.position;
+    }
+
+    private void UpdateWanderBehaviour()
+    {
+        if (IsAtDestination())
+        {
+            StartIdleBehaviour();
+        }
+
+        MoveToLocation();
     }
 
     private void PursueBehaviour()
     {
-        Vector3 lookPos;
-
         agent.destination = playerTransform.position;
-        velocity = agent.desiredVelocity;
-
-        //agent.updatePosition = false;
-        //agent.updateRotation = false;
-
-        lookPos = playerTransform.position - transform.position;
-        lookPos.y = 0f;
-
-        enemyMovement.Move(velocity.normalized);
-        agent.velocity = controller.velocity;
+        MoveToLocation();
     }
 
     private void AttackBehaviour()

@@ -5,14 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Movement movement;
-    Combat combat;
 
     [SerializeField] VariableJoystick joystick;
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
-        combat = GetComponent<Combat>();
     }
 
     void Update()

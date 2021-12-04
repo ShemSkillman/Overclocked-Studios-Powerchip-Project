@@ -22,7 +22,10 @@ public class Movement : MonoBehaviour
     {
         charController.SimpleMove(moveVector * stats.MovementSpeed);
 
-        transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
+        if (moveVector != Vector3.zero)
+        {
+            transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
+        }
     }
 
     public void Move(Vector3 moveVector)

@@ -6,12 +6,11 @@ public class Combat : MonoBehaviour
 {
     [SerializeField] private Weapon weapon;
     
-
     private Animator animator;
     private float timeSinceAttack = Mathf.Infinity;
 
     [SerializeField] private string targetLayerName = "Player";
-    [SerializeField] private float minRateOfFire = 0.3f;
+    [SerializeField] private float minAttackRate = 0.3f;
 
     private CharacterController charController;
 
@@ -28,12 +27,12 @@ public class Combat : MonoBehaviour
     {
         timeSinceAttack += Time.deltaTime;
 
-        animator.SetFloat("attackSpeedMult", 1 / ModifiedRateOfFire());
+        animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
     }
 
-    private float ModifiedRateOfFire()
+    private float GetAttackRate()
     {
-        return Mathf.Max(minRateOfFire, weapon.RateOfFire + stats.GetBuffAdditive(BuffType.AttackSpeed));
+        return Mathf.Max(minAttackRate, weapon.BaseAttackRate + stats.GetBuffAdditive(BuffType.AttackSpeed));
     }
 
     private Vector3 GetMeleeAttackCenter()
@@ -52,7 +51,7 @@ public class Combat : MonoBehaviour
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
             if (health != null)
             {
-                health.TakeDamage(weapon.Damage + stats.GetBuffAdditive(BuffType.AttackStrength));
+                health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
             }
         }
     }
@@ -73,7 +72,7 @@ public class Combat : MonoBehaviour
 
     public void StartMeleeAttack()
     {
-        if (timeSinceAttack >= ModifiedRateOfFire())
+        if (timeSinceAttack >= GetAttackRate())
         {
             animator.SetTrigger("MeleeAttack");
             timeSinceAttack = 0f;

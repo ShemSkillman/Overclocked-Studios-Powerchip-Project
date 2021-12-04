@@ -5,28 +5,12 @@ using UnityEngine;
 public class LootBoxScript : MonoBehaviour
 {
     private Animation animLootBox;
-    private bool isOpen;
-
-    //array of chips from folder "Chips"
     
-
     private BaseHealth health;
 
     private void Awake()
     {
         health = GetComponentInParent<BaseHealth>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        isOpen = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void OpenLootBox()
@@ -46,14 +30,11 @@ public class LootBoxScript : MonoBehaviour
         ChipObject chipObject = Resources.Load<ChipObject>("Base Chip Object");
         ChipObject instance = Instantiate(chipObject, transform.position + transform.right - transform.up * 0.5f, Quaternion.identity);
 
-        //create chip array in folder "Chips"
+        //create chip array in folder "Chip Data"
         ItemScriptableObject[] chipArray = Resources.LoadAll<ItemScriptableObject>("Chip Data");
 
         //select one random chip
         ItemScriptableObject chipData = chipArray[Random.Range(0, chipArray.Length)];
-
-        //Instantiate chip
-        //Instantiate(chip, );
 
         instance.itemData = chipData;
     }

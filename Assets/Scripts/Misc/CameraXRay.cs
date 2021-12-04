@@ -45,7 +45,7 @@ public class CameraXRay : MonoBehaviour
                 // to use a transparent shader.
                 rend.material.shader = Shader.Find("Transparent/Diffuse");
                 Color tempColor = rend.material.color;
-                tempColor.a = 0.3F;
+                tempColor.a = transparencyAlpha;
                 rend.material.color = tempColor;
             }
         }

@@ -303,6 +303,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentBehaviour: 0
+  wanderRange: 4
+  minIdleTime: 1
+  maxIdleTime: 5
+  currentIdleTime: 0
+  targetIdleTime: 0
 --- !u!143 &1186922019
 CharacterController:
   m_ObjectHideFlags: 0
@@ -355,7 +360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304e3f72c8464f1468d78ae701c1c0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
   turnSpeed: 3
   isKeyboardControls: 1
 --- !u!95 &7710104587470949427
@@ -391,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 6209334245426412831}
   targetLayerName: Player
+  minAttackRate: 0.3
 --- !u!114 &5924011315487146157
 MonoBehaviour:
   m_ObjectHideFlags: 0

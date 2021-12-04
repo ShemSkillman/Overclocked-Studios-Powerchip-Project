@@ -232,7 +232,6 @@ GameObject:
   - component: {fileID: 1186922019}
   - component: {fileID: 1186922016}
   - component: {fileID: 1186922017}
-  - component: {fileID: 1186922018}
   - component: {fileID: 7710104587470949427}
   - component: {fileID: 4920645283419013062}
   - component: {fileID: 2210117062738532290}
@@ -304,6 +303,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentBehaviour: 0
+  wanderRange: 0
+  minIdleTime: 1
+  maxIdleTime: 5
+  currentIdleTime: 0
+  targetIdleTime: 0
 --- !u!143 &1186922019
 CharacterController:
   m_ObjectHideFlags: 0
@@ -356,22 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304e3f72c8464f1468d78ae701c1c0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
   turnSpeed: 5
   isKeyboardControls: 1
---- !u!114 &1186922018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2585988986943563710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e59101294a0ef134f92ef06175cda4f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentBehaviour: 0
 --- !u!95 &7710104587470949427
 Animator:
   serializedVersion: 3
@@ -405,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 2374491729586797024}
   targetLayerName: Player
+  minAttackRate: 0.3
 --- !u!114 &2210117062738532290
 MonoBehaviour:
   m_ObjectHideFlags: 0
