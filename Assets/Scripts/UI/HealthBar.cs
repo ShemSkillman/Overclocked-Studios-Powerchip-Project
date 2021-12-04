@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    Health health;
+    EntityHealth health;
     Slider slider;
     Canvas canvas;
 
@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        health = GetComponentInParent<Health>();
+        health = GetComponentInParent<EntityHealth>();
         slider = GetComponent<Slider>();
         canvas = GetComponentInParent<Canvas>();
     }

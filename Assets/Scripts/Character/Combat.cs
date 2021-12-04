@@ -49,7 +49,7 @@ public class Combat : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            Health health = collider.gameObject.GetComponentInParent<Health>();
+            BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
             if (health != null)
             {
                 health.TakeDamage(weapon.Damage + stats.GetBuffAdditive(BuffType.AttackStrength));

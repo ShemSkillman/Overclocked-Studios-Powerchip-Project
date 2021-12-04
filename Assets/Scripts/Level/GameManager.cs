@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private Health player;
+    private EntityHealth player;
 
     private void OnEnable()
     {

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1784904255196538334}
   - component: {fileID: 1784904255196538335}
-  - component: {fileID: 1784904255196538333}
   - component: {fileID: 1784904255196538320}
+  - component: {fileID: 8143818043752855612}
   m_Layer: 3
   m_Name: LootBox
   m_TagString: Untagged
@@ -54,21 +54,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1784904255196538333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784904255196538332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0985d24249ae147ac8dd5821790015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHitpoints: 100
-  hitPoints: 10
-  destroyOnDeath: 0
 --- !u!54 &1784904255196538320
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -85,6 +70,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8143818043752855612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784904255196538332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc01755c5e41504b86cd0a01c5aea05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 10
+  destroyOnDeath: 0
 --- !u!1 &1784904256236147261
 GameObject:
   m_ObjectHideFlags: 0

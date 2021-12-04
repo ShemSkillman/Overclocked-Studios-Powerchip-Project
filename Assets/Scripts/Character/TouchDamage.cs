@@ -9,11 +9,11 @@ public class TouchDamage : MonoBehaviour
 
     //Keeps track of entities touching
     //Applies damage every set interval
-    Dictionary<Health, float> targetsInContact = new Dictionary<Health, float>();
+    Dictionary<EntityHealth, float> targetsInContact = new Dictionary<EntityHealth, float>();
 
     private void OnTriggerEnter(Collider other)
     {
-        Health target = other.gameObject.GetComponentInParent<Health>();
+        EntityHealth target = other.gameObject.GetComponentInParent<EntityHealth>();
         if (target == null) return;
 
         if (!targetsInContact.ContainsKey(target))
@@ -25,7 +25,7 @@ public class TouchDamage : MonoBehaviour
     //Remove target in contact with cactus
     private void OnTriggerExit(Collider other)
     {
-        Health target = other.gameObject.GetComponentInParent<Health>();
+        EntityHealth target = other.gameObject.GetComponentInParent<EntityHealth>();
         if (target == null) return;
 
         if (targetsInContact.ContainsKey(target))
@@ -36,7 +36,7 @@ public class TouchDamage : MonoBehaviour
 
     private void Update()
         {
-            Health[] targets = new Health[targetsInContact.Count];
+            EntityHealth[] targets = new EntityHealth[targetsInContact.Count];
             targetsInContact.Keys.CopyTo(targets, 0);
 
             foreach (var target in targets)
