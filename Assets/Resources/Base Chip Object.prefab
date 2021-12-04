@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcaae9e3536c6bd4c8b46c4ab2500f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chipCollider: {fileID: 7507770575850139430}
   itemData: {fileID: 0}
   id: 

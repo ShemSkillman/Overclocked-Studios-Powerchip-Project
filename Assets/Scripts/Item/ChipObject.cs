@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChipObject : MonoBehaviour
 {
+    [SerializeField] Transform chipCollider;
+
     public ItemScriptableObject itemData;
 
     public string id;
@@ -15,6 +17,6 @@ public class ChipObject : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(itemData.chipModel, transform);
+        Instantiate(itemData.chipModel, chipCollider);
     }
 }
