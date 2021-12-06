@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 7710104587470949427}
   - component: {fileID: 4920645283419013062}
   - component: {fileID: 5924011315487146157}
+  - component: {fileID: 7588887914613239792}
   m_Layer: 3
   m_Name: Enemy Tank
   m_TagString: Untagged
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0985d24249ae147ac8dd5821790015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 500
+  hitPoints: 400
   destroyOnDeath: 1
 --- !u!54 &960955585
 Rigidbody:
@@ -306,8 +307,6 @@ MonoBehaviour:
   wanderRange: 4
   minIdleTime: 1
   maxIdleTime: 5
-  currentIdleTime: 0
-  targetIdleTime: 0
 --- !u!143 &1186922019
 CharacterController:
   m_ObjectHideFlags: 0
@@ -410,6 +409,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMaxHitpoints: 1000
   baseMovementSpeed: 1
+--- !u!114 &7588887914613239792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585988986943563710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94dc3c213cb251a408622afd51b98e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropChance: 0.6
 --- !u!1 &2848680741779269350
 GameObject:
   m_ObjectHideFlags: 0

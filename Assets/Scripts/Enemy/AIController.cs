@@ -15,10 +15,10 @@ public class AIController : MonoBehaviour
     private Combat enemyCombat;
 
     [SerializeField] private Behaviour currentBehaviour = Behaviour.Idle;
-    [SerializeField] private float wanderRange;
+    [SerializeField] private float wanderRange = 5f;
 
     [SerializeField] private float minIdleTime = 1f, maxIdleTime = 5f;
-    [SerializeField] private float currentIdleTime, targetIdleTime;
+    private float currentIdleTime, targetIdleTime;
 
     enum Behaviour { Idle, Wander, Pursue, Attack };
 

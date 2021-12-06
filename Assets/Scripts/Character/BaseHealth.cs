@@ -20,11 +20,11 @@ public class BaseHealth : MonoBehaviour
 
         if (hitPoints <= 0)
         {
+            OnDead?.Invoke();
             if (destroyOnDeath)
             {
                 Destroy(gameObject);
             }
-            OnDead?.Invoke();
         }
     }
 

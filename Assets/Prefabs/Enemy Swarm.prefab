@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 7710104587470949427}
   - component: {fileID: 4920645283419013062}
   - component: {fileID: 4234117977373667317}
+  - component: {fileID: 4818862843193581548}
   m_Layer: 3
   m_Name: Enemy Swarm
   m_TagString: Untagged
@@ -306,8 +307,6 @@ MonoBehaviour:
   wanderRange: 8
   minIdleTime: 0.5
   maxIdleTime: 1.5
-  currentIdleTime: 0
-  targetIdleTime: 0
 --- !u!143 &1186922019
 CharacterController:
   m_ObjectHideFlags: 0
@@ -319,7 +318,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1
+  m_Height: 0.85
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -408,8 +407,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b79270c6db1494a9f11ad8b53d0629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHitpoints: 100
+  baseMaxHitpoints: 10
   baseMovementSpeed: 4.5
+--- !u!114 &4818862843193581548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585988986943563710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94dc3c213cb251a408622afd51b98e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropChance: 0.1
 --- !u!1 &2848680741779269350
 GameObject:
   m_ObjectHideFlags: 0
