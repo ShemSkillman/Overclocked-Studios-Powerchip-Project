@@ -7,6 +7,7 @@ public class ItemScriptableObject : ScriptableObject
 
     public Sprite chipSprite;
     public GameObject chipModel;
+    public Material chipMeshMaterial;
 
     public ChipBuff[] chipBuffs;
 }

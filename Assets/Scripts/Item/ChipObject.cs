@@ -18,5 +18,6 @@ public class ChipObject : MonoBehaviour
     private void Start()
     {
         Instantiate(itemData.chipModel, chipCollider);
+        GetComponentInChildren<MeshRenderer>().material = itemData.chipMeshMaterial;
     }
 }
