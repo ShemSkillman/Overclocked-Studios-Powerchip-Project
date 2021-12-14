@@ -7,6 +7,8 @@ using System.Collections;
 [CustomPropertyDrawer(typeof(ArrayLayout))]
 public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 {
+	private const int size = 4;
+
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
 		EditorGUI.PrefixLabel(position, label);
@@ -14,17 +16,19 @@ public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 		newposition.y += 18f;
 		SerializedProperty data = property.FindPropertyRelative("rows");
 		//data.rows[0][]
-		for (int j = 0; j < 7; j++)
+
+		for (int i = 0; i < size; i++)
 		{
-			SerializedProperty row = data.GetArrayElementAtIndex(j).FindPropertyRelative("row");
+			SerializedProperty row = data.GetArrayElementAtIndex(i).FindPropertyRelative("row");
+
 			newposition.height = 18f;
-			if (row.arraySize != 7)
-				row.arraySize = 7;
-			newposition.width = position.width / 7;
-			for (int i = 0; i < 7; i++)
+			newposition.x = 18f;
+
+			row.arraySize = size;
+			for (int j = 0; j < size; j++)
 			{
-				EditorGUI.PropertyField(newposition, row.GetArrayElementAtIndex(i), GUIContent.none);
-				newposition.x += newposition.width;
+				EditorGUI.PropertyField(newposition, row.GetArrayElementAtIndex(j), GUIContent.none);
+				newposition.x += 18f;
 			}
 
 			newposition.x = position.x;
@@ -34,6 +38,6 @@ public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 
 	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 	{
-		return 18f * 8;
+		return 18f * (size + 1);
 	}
 }
