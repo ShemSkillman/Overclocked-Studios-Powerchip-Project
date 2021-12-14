@@ -8,36 +8,36 @@ using System.Collections;
 public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 {
 	private const int size = 4;
+	private const float checkboxSize = 18f;
 
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
 		EditorGUI.PrefixLabel(position, label);
 		Rect newposition = position;
-		newposition.y += 18f;
+		newposition.y += checkboxSize;
 		SerializedProperty data = property.FindPropertyRelative("rows");
-		//data.rows[0][]
 
 		for (int i = 0; i < size; i++)
 		{
 			SerializedProperty row = data.GetArrayElementAtIndex(i).FindPropertyRelative("row");
 
-			newposition.height = 18f;
-			newposition.x = 18f;
+			newposition.height = checkboxSize;
+			newposition.x = checkboxSize;
 
 			row.arraySize = size;
 			for (int j = 0; j < size; j++)
 			{
 				EditorGUI.PropertyField(newposition, row.GetArrayElementAtIndex(j), GUIContent.none);
-				newposition.x += 18f;
+				newposition.x += checkboxSize;
 			}
 
 			newposition.x = position.x;
-			newposition.y += 18f;
+			newposition.y += checkboxSize;
 		}
 	}
 
 	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 	{
-		return 18f * (size + 1);
+		return checkboxSize * (size + 1);
 	}
 }
