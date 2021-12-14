@@ -7,7 +7,6 @@ using System.Collections;
 [CustomPropertyDrawer(typeof(ArrayLayout))]
 public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 {
-	private const int size = 4;
 	private const float checkboxSize = 18f;
 
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -17,15 +16,15 @@ public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 		newposition.y += checkboxSize;
 		SerializedProperty data = property.FindPropertyRelative("rows");
 
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < ArrayLayout.size; i++)
 		{
 			SerializedProperty row = data.GetArrayElementAtIndex(i).FindPropertyRelative("row");
 
 			newposition.height = checkboxSize;
 			newposition.x = checkboxSize;
 
-			row.arraySize = size;
-			for (int j = 0; j < size; j++)
+			row.arraySize = ArrayLayout.size;
+			for (int j = 0; j < ArrayLayout.size; j++)
 			{
 				EditorGUI.PropertyField(newposition, row.GetArrayElementAtIndex(j), GUIContent.none);
 				newposition.x += checkboxSize;
@@ -38,6 +37,6 @@ public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 
 	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 	{
-		return checkboxSize * (size + 1);
+		return checkboxSize * (ArrayLayout.size + 1);
 	}
 }

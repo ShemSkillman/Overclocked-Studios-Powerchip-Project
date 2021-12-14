@@ -20,3 +20,12 @@ MonoBehaviour:
   chipBuffs:
   - buffType: 3
     addiditiveValue: 10
+  chipLayoutMap:
+    rows:
+    - row: 00000000
+    - row: 00000000
+    - row: 00000000
+    - row: 00000000
+    - row: 0000000000
+    - row: 
+    - row: 
