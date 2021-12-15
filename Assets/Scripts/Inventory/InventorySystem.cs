@@ -84,6 +84,16 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
         instance.id = pickUp.id;
         instance.itemData = pickUp.itemData;
+
+        bool[,] map = instance.itemData.chipLayoutMap.GetBoolean2DArray();
+
+        for (int y = 0; y < ArrayLayout.size; y++)
+        {
+            for (int x = 0; x < ArrayLayout.size; x++)
+            {
+                print("X = " + x + " Y = " + y + " is occupied: " + instance.itemData.chipLayoutMap.rows[y].row[x]);
+            }
+        }
     }
 
     void HandleInventoryClose()
