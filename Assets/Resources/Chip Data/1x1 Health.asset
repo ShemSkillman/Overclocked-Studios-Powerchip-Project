@@ -22,7 +22,7 @@ MonoBehaviour:
     addiditiveValue: 1000
   chipLayoutMap:
     rows:
+    - row: 01000000
+    - row: 01000000
+    - row: 01000000
     - row: 00000000
-    - row: 00010000
-    - row: 00010000
-    - row: 00010100

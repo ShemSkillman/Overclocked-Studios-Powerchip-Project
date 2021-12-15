@@ -20,7 +20,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     private GameObject player;
     EntityStats playerStats;
 
-    private Dictionary<string, ChipObject> pickUps;
+    private Dictionary<string, ChipObject> pickUps = new Dictionary<string, ChipObject>();
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -34,6 +34,8 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerStats = player.GetComponent<EntityStats>();
+
+        ToggleInventoryView(false);
     }
 
     void Update()
@@ -94,6 +96,9 @@ public class InventorySystem : MonoBehaviour, IDropHandler
                 print("X = " + x + " Y = " + y + " is occupied: " + instance.itemData.chipLayoutMap.rows[y].row[x]);
             }
         }
+
+        Vector2 size = instance.itemData.chipLayoutMap.GetSize2D();
+        print("Size X = " + size.x + " size y = " + size.y);
     }
 
     void HandleInventoryClose()

@@ -30,4 +30,46 @@ public class ArrayLayout
 
 		return ret;
     }
+
+	public Vector2 GetSize2D()
+    {
+		bool[,] boolMatrix2D = GetBoolean2DArray();
+
+		int startX = -1, endX = -1;
+		int startY = -1, endY = -1;
+
+		for (int y = 0; y < size; y++)
+		{
+			for (int x = 0; x < size; x++)
+			{
+				if (boolMatrix2D[x, y])
+                {
+					if (startX == -1 || x < startX)
+                    {
+						startX = x;
+                    }
+
+					if (endX == -1 || x > endX)
+                    {
+						endX = x;
+                    }
+
+					if (startY == -1 || y < startY)
+                    {
+						startY = y;
+                    }
+
+					if (endY == -1 || y > endY)
+					{
+						endY = y;
+					}
+				}
+			}
+		}
+
+		int sizeX = endX - startX + 1;
+		int sizeY = endY - startY + 1;
+
+		return new Vector2(sizeX, sizeY);
+	}
 }

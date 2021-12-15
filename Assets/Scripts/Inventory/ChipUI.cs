@@ -47,6 +47,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         canvasGroup.blocksRaycasts = false;
 
         transform.SetParent(canvas.transform);
+
+        rectTransform.sizeDelta = new Vector2(157 * itemData.chipLayoutMap.GetSize2D().x, 157 * itemData.chipLayoutMap.GetSize2D().y);
     }
 
     public void OnDrag(PointerEventData eventData)

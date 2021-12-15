@@ -15,7 +15,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnDrop(PointerEventData eventData)
     {
-        
+        if (eventData.pointerDrag == null || IsOccupied())
+        {
+            return;
+        }
+
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+
+        GetComponent<GridLayoutGroup>().cellSize = new Vector2(157 * draggedChip.itemData.chipLayoutMap.GetSize2D().x, 157 * draggedChip.itemData.chipLayoutMap.GetSize2D().y);
     }
 
     private bool IsOccupied()
@@ -32,7 +39,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
         ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
-        draggedChip.DesiredParent = transform;
+        draggedChip.DesiredParent = transform;        
     }
 
     public void OnPointerExit(PointerEventData eventData)
