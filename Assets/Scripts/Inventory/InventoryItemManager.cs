@@ -33,16 +33,18 @@ public class InventoryItemManager : MonoBehaviour
 
     public void OnDrop(InventorySlot slot)
     {
-        print("drop for slot " + slot.transform.position);
+        print(slot.GetGridCoordinates());
+
+        //print("drop for slot " + slot.transform.position);
     }
 
     public void OnEnter(InventorySlot slot)
     {
-        print("entered slot " + slot.transform.position);
+        //print("entered slot " + slot.transform.position);
     }
 
     public void OnExit(InventorySlot slot)
     {
-        print("exited slot " + slot.transform.position);
+        //print("exited slot " + slot.transform.position);
     }
 }

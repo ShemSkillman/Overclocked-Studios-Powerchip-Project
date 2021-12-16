@@ -16,9 +16,25 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
     public delegate void OnButtonClickDelegate(InventorySlot slot);
     public OnButtonClickDelegate OnSlotDrop, OnSlotEnter, OnSlotExit;
 
+    GridLayoutGroup layoutGroup;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        layoutGroup = GetComponentInParent<GridLayoutGroup>();
+    }
+
+    public Vector2Int GetGridCoordinates()
+    {
+        Rect gridRect = layoutGroup.GetComponent<RectTransform>().rect;
+        
+        Vector2 slotSize = layoutGroup.cellSize;
+        
+
+        int x = Mathf.FloorToInt(rectTransform.localPosition.x / slotSize.x);
+        int y = Mathf.FloorToInt(Mathf.Abs(rectTransform.localPosition.y / slotSize.y));
+
+        return new Vector2Int(x, y);
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -57,6 +73,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
     public void OnPointerExit(PointerEventData eventData)
     {
         OnSlotExit?.Invoke(this);
+
 
         //if (eventData.pointerDrag == null || IsOccupied())
         //{
