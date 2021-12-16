@@ -10873,6 +10873,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 14.856602
       objectReference: {fileID: 0}
+    - target: {fileID: 5343007282773277650, guid: 9e1097c482633254db7412ba820e84de,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 5343007283926979234, guid: 9e1097c482633254db7412ba820e84de,
         type: 3}
       propertyPath: m_Color.b
