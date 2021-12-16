@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
+
+public class InventorySlotEvent : UnityEvent<InventorySlot>
+{
+}
 
 public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform rectTransform;
+
+    public delegate void OnButtonClickDelegate(InventorySlot slot);
+    public OnButtonClickDelegate OnSlotDrop, OnSlotEnter, OnSlotExit;
 
     void Awake()
     {
@@ -15,14 +23,16 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null || IsOccupied())
-        {
-            return;
-        }
+        OnSlotDrop?.Invoke(this);
 
-        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+        //if (eventData.pointerDrag == null || IsOccupied())
+        //{
+        //    return;
+        //}
 
-        GetComponent<GridLayoutGroup>().cellSize = new Vector2(157 * draggedChip.itemData.chipLayoutMap.GetSize2D().x, 157 * draggedChip.itemData.chipLayoutMap.GetSize2D().y);
+        //ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+
+        //GetComponent<GridLayoutGroup>().cellSize = new Vector2(157 * draggedChip.itemData.chipLayoutMap.GetSize2D().x, 157 * draggedChip.itemData.chipLayoutMap.GetSize2D().y);
     }
 
     private bool IsOccupied()
@@ -32,25 +42,29 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null || IsOccupied())
-        {
-            return;
-        }
+        OnSlotEnter?.Invoke(this);
 
-        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+        //if (eventData.pointerDrag == null || IsOccupied())
+        //{
+        //    return;
+        //}
 
-        draggedChip.DesiredParent = transform;        
+        //ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+
+        //draggedChip.DesiredParent = transform;        
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null || IsOccupied())
-        {
-            return;
-        }
+        OnSlotExit?.Invoke(this);
 
-        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+        //if (eventData.pointerDrag == null || IsOccupied())
+        //{
+        //    return;
+        //}
 
-        draggedChip.DesiredParent = null;
+        //ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+
+        //draggedChip.DesiredParent = null;
     }
 }

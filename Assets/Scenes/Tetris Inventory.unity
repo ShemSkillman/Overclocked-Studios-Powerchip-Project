@@ -10987,6 +10987,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 5343007282773277649, guid: 9e1097c482633254db7412ba820e84de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.856602
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343007283926979234, guid: 9e1097c482633254db7412ba820e84de,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.12302546
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343007283926979234, guid: 9e1097c482633254db7412ba820e84de,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.3301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343007283926979234, guid: 9e1097c482633254db7412ba820e84de,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.11681204
+      objectReference: {fileID: 0}
     - target: {fileID: 5584033200168502174, guid: 9e1097c482633254db7412ba820e84de,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -11026,6 +11046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340254779187122121, guid: 9e1097c482633254db7412ba820e84de,
+        type: 3}
+      propertyPath: m_Name
+      value: Inventory Item Manager
       objectReference: {fileID: 0}
     - target: {fileID: 6788222743826266125, guid: 9e1097c482633254db7412ba820e84de,
         type: 3}
