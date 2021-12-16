@@ -37,6 +37,7 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     private void Start()
     {
+        image.preserveAspect = true;
         image.sprite = itemData.chipSprite;
     }
 
@@ -48,7 +49,9 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
         transform.SetParent(canvas.transform);
 
-        rectTransform.sizeDelta = new Vector2(157 * itemData.chipLayoutMap.GetSize2D().x, 157 * itemData.chipLayoutMap.GetSize2D().y);
+        rectTransform.sizeDelta = new Vector2(161 * itemData.chipLayoutMap.GetSize2D().x, 161 * itemData.chipLayoutMap.GetSize2D().y);
+
+        transform.position = Input.mousePosition;
     }
 
     public void OnDrag(PointerEventData eventData)

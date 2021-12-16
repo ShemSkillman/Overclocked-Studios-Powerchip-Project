@@ -31,20 +31,53 @@ public class InventoryItemManager : MonoBehaviour
         }
     }
 
-    public void OnDrop(InventorySlot slot)
-    {
+    public void OnDrop(InventorySlot slot, PointerEventData eventData)
+    {       
+
+        if (eventData.pointerDrag == null)
+        {
+            return;
+        }
+
         print(slot.GetGridCoordinates());
 
-        //print("drop for slot " + slot.transform.position);
+        ChipUI chipUI = eventData.pointerDrag.GetComponent<ChipUI>();
+        RectTransform chipRect = eventData.pointerDrag.GetComponent<RectTransform>();
+
+        chipRect.transform.parent = transform;
+
+        chipRect.anchoredPosition = slot.GetComponent<RectTransform>().anchoredPosition;
+
+        //float offsetX = (chipRect.rect.width % 161) / 2;
+   
+        //float offsetY = (chipRect.rect.height % 161) / 2;
+
+        //chipRect.anchoredPosition = new Vector2(chipRect.anchoredPosition.x + offsetX, chipRect.anchoredPosition.y + offsetY);
+
+        Vector2 chipSize = chipUI.itemData.chipLayoutMap.GetSize2D();
     }
 
-    public void OnEnter(InventorySlot slot)
+    public void OnEnter(InventorySlot slot, PointerEventData eventData)
     {
-        //print("entered slot " + slot.transform.position);
+        if (eventData.pointerDrag == null)
+        {
+            return;
+        }
+
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+
+        draggedChip.DesiredParent = transform;
     }
 
-    public void OnExit(InventorySlot slot)
+    public void OnExit(InventorySlot slot, PointerEventData eventData)
     {
-        //print("exited slot " + slot.transform.position);
+        if (eventData.pointerDrag == null)
+        {
+            return;
+        }
+
+        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
+
+        draggedChip.DesiredParent = null;
     }
 }

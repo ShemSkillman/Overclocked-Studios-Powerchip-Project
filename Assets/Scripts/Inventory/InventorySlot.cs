@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 {
     private RectTransform rectTransform;
 
-    public delegate void OnButtonClickDelegate(InventorySlot slot);
+    public delegate void OnButtonClickDelegate(InventorySlot slot, PointerEventData eventData);
     public OnButtonClickDelegate OnSlotDrop, OnSlotEnter, OnSlotExit;
 
     GridLayoutGroup layoutGroup;
@@ -39,7 +39,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnDrop(PointerEventData eventData)
     {
-        OnSlotDrop?.Invoke(this);
+        OnSlotDrop?.Invoke(this, eventData);
 
         //if (eventData.pointerDrag == null || IsOccupied())
         //{
@@ -58,7 +58,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnSlotEnter?.Invoke(this);
+        OnSlotEnter?.Invoke(this, eventData);
 
         //if (eventData.pointerDrag == null || IsOccupied())
         //{
@@ -72,7 +72,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        OnSlotExit?.Invoke(this);
+        OnSlotExit?.Invoke(this, eventData);
 
 
         //if (eventData.pointerDrag == null || IsOccupied())
