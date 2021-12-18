@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventoryItemManager : MonoBehaviour
 {
     [SerializeField] Transform inventoryGrid;
+    [SerializeField] InventoryNearbyItems inventoryNearby;
+
+    bool[,] gridTakenSpaces = new bool[5,5];
 
     RectTransform rectTransform;
 
@@ -39,7 +43,11 @@ public class InventoryItemManager : MonoBehaviour
     }
 
     public void OnDrop(InventorySlot slot, PointerEventData eventData)
-    {       
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Image>().raycastTarget = true;
+        }
 
         if (eventData.pointerDrag == null)
         {
@@ -54,19 +62,58 @@ public class InventoryItemManager : MonoBehaviour
 
         Vector2 firstChipCellPos = chipUI.GetFirstChipCellPosition(true);
 
-        int x = Mathf.FloorToInt((firstChipCellPos.x / 805f) * 5);
-        int y = Mathf.FloorToInt(Mathf.Abs((firstChipCellPos.y / 805f) * 5));
+        int xGrid = Mathf.Max(Mathf.Min(Mathf.FloorToInt((firstChipCellPos.x / 805f) * 5), 4), 0);
+        int yGrid = Mathf.Max(Mathf.Min(Mathf.FloorToInt(Mathf.Abs((firstChipCellPos.y / 805f) * 5)), 4), 0);        
 
-        print("Grid x = " + x + " y = " + y);
-        chipRect.anchoredPosition = GetSlotLocalPosition(x, y) - chipUI.GetFirstChipCellPosition(false);
+        bool[,] chipMap = chipUI.itemData.chipLayoutMap.GetBoolean2DArray();
 
-        print("Slot pos: " + GetSlotLocalPosition(x,y));
+        for (int y = 0; y < chipMap.GetLength(1); y++)
+        {
+            for (int x = 0; x < chipMap.GetLength(0); x++)
+            {
+                if (chipMap[x,y] == false)
+                {
+                    continue;
+                }
+
+                int newGridX = xGrid + x;
+                int newGridY = yGrid - y;
+
+                print("X = " + newGridX + " Y = " + newGridY);
+
+                if (newGridX >= gridTakenSpaces.GetLength(0) || newGridX < 0 || newGridY >= gridTakenSpaces.GetLength(1) || newGridY < 0)
+                {
+                    print("out of bounds!");
+                    goto Exit;
+                }
+
+                if (gridTakenSpaces[newGridX, newGridY] == true)
+                {
+                    print("space occupied!");
+                    goto Exit;
+                }
+            }
+        }
+
+        for (int y = 0; y < chipMap.GetLength(1); y++)
+        {
+            for (int x = 0; x < chipMap.GetLength(0); x++)
+            {
+                if (chipMap[x, y] == false)
+                {
+                    continue;
+                }
+
+                gridTakenSpaces[xGrid + x, yGrid - y] = true;
+            }
+        }
+
+    Exit:
+        chipRect.anchoredPosition = GetSlotLocalPosition(xGrid, yGrid) - chipUI.GetFirstChipCellPosition(false);
     }
 
     public Vector2 GetSlotLocalPosition(int x, int y)
     {
-        Vector2 pivotCenter = new Vector2(rectTransform.rect.width / 2, rectTransform.rect.height / 2);
-
         Vector2 cellCentrePos = new Vector2((x * 161) + (161 / 2.0f), (-y * 161) + (-161 / 2.0f));
 
         return cellCentrePos;
@@ -82,6 +129,11 @@ public class InventoryItemManager : MonoBehaviour
         ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
         draggedChip.DesiredParent = transform;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Image>().raycastTarget = false;
+        }
     }
 
     public void OnExit(InventorySlot slot, PointerEventData eventData)
@@ -93,6 +145,11 @@ public class InventoryItemManager : MonoBehaviour
 
         ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
 
-        draggedChip.DesiredParent = null;
+        draggedChip.DesiredParent = inventoryNearby.transform;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Image>().raycastTarget = true;
+        }
     }
 }

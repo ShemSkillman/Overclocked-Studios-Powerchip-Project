@@ -104,7 +104,7 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         bool[,] chipMap = itemData.chipLayoutMap.GetBoolean2DArray();
 
-        for (int y = chipMap.GetLength(1) - 1; y >= 0; y--)
+        for (int y = 0; y < chipMap.GetLength(1); y++)
         {
             for (int x = 0; x < chipMap.GetLength(0); x++)
             {
