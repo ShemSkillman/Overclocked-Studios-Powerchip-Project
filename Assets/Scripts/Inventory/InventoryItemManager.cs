@@ -7,6 +7,13 @@ public class InventoryItemManager : MonoBehaviour
 {
     [SerializeField] Transform inventoryGrid;
 
+    RectTransform rectTransform;
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
     private void OnEnable()
     {
         for (int i = 0; i < inventoryGrid.childCount; i++)
@@ -54,12 +61,23 @@ public class InventoryItemManager : MonoBehaviour
 
         //Y = floorToInt((world_red_dot_anchored_position.y / inventory_grid_height) * slots_in_column)
 
-        float x = Mathf.FloorToInt((firstChipCellPos.x / 805f) * 5);
-        float y = Mathf.FloorToInt(Mathf.Abs((firstChipCellPos.y / 805f) * 5));
+        int x = Mathf.FloorToInt((firstChipCellPos.x / 805f) * 5);
+        int y = Mathf.FloorToInt(Mathf.Abs((firstChipCellPos.y / 805f) * 5));
 
 
         print("Grid x = " + x + " y = " + y);
+        chipRect.anchoredPosition = GetSlotLocalPosition(x, y);
 
+        print("Slot pos: " + GetSlotLocalPosition(x,y));
+    }
+
+    public Vector2 GetSlotLocalPosition(int x, int y)
+    {
+        Vector2 pivotCenter = new Vector2(rectTransform.rect.width / 2, rectTransform.rect.height / 2);
+
+        Vector2 cellCentrePos = new Vector2((x * 161) + (161 / 2.0f), (-y * 161) + (-161 / 2.0f));
+
+        return cellCentrePos;
     }
 
     public void OnEnter(InventorySlot slot, PointerEventData eventData)
