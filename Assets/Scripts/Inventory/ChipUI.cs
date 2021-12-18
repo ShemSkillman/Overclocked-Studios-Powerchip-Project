@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [SerializeField] Image debugSquarePrefab;
 
     public string id;
 
@@ -21,6 +22,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     public Transform DesiredParent { get; set; }
 
     public Transform PreviousParent { get; set; }
+
+    Image debugSquare;
 
     void Awake()
     {
@@ -39,6 +42,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         image.preserveAspect = true;
         image.sprite = itemData.chipSprite;
+
+        debugSquare = Instantiate(debugSquarePrefab, Vector3.zero, Quaternion.identity, transform);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -52,11 +57,15 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         rectTransform.sizeDelta = new Vector2(161 * itemData.chipLayoutMap.GetSize2D().x, 161 * itemData.chipLayoutMap.GetSize2D().y);
 
         transform.position = Input.mousePosition;
+
+        debugSquare.enabled = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+
+        debugSquare.rectTransform.anchoredPosition = GetFirstChipCellPosition(false);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -73,5 +82,46 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         DesiredParent = null;
 
         canvasGroup.blocksRaycasts = true;
+
+        debugSquare.enabled = false;
+    }
+
+    public Vector2 GetLocalChipCellPosition(int x, int y)
+    {
+        Vector2 pivotCenter = new Vector2(rectTransform.rect.width / 2, rectTransform.rect.height / 2);
+            
+        Vector2 cellCentrePos = -pivotCenter + new Vector2((x * 161) + (161 / 2.0f), (y * 161) + (161 / 2.0f));
+
+        return cellCentrePos;
+    }
+
+    public Vector2 GetWorldChipCellPosition(int x, int y)
+    {
+        return rectTransform.anchoredPosition + GetLocalChipCellPosition(x, y);
+    }
+
+    public Vector2 GetFirstChipCellPosition(bool isWorldPos)
+    {
+        bool[,] chipMap = itemData.chipLayoutMap.GetBoolean2DArray();
+
+        for (int y = chipMap.GetLength(1) - 1; y >= 0; y--)
+        {
+            for (int x = 0; x < chipMap.GetLength(0); x++)
+            {
+                if (chipMap[x, y] == true)
+                {
+                    if (isWorldPos)
+                    {
+                        return GetWorldChipCellPosition(x, y);
+                    }
+                    else
+                    {
+                        return GetLocalChipCellPosition(x, y);
+                    }                    
+                }
+            }
+        }
+
+        return Vector2.zero;
     }
 }

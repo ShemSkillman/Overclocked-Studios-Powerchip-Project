@@ -39,22 +39,27 @@ public class InventoryItemManager : MonoBehaviour
             return;
         }
 
-        print(slot.GetGridCoordinates());
-
         ChipUI chipUI = eventData.pointerDrag.GetComponent<ChipUI>();
         RectTransform chipRect = eventData.pointerDrag.GetComponent<RectTransform>();
 
+        // Parent chip to item manager
         chipRect.transform.parent = transform;
 
-        chipRect.anchoredPosition = slot.GetComponent<RectTransform>().anchoredPosition;
+        //Sets chip to slot using central position of chip
+        //chipRect.anchoredPosition = slot.GetComponent<RectTransform>().anchoredPosition;
 
-        //float offsetX = (chipRect.rect.width % 161) / 2;
-   
-        //float offsetY = (chipRect.rect.height % 161) / 2;
+        Vector2 firstChipCellPos = chipUI.GetFirstChipCellPosition(true);
 
-        //chipRect.anchoredPosition = new Vector2(chipRect.anchoredPosition.x + offsetX, chipRect.anchoredPosition.y + offsetY);
+        //X = floorToInt((world_red_dot_anchored_position.x / inventory_grid_width) * slots_in_row)
 
-        Vector2 chipSize = chipUI.itemData.chipLayoutMap.GetSize2D();
+        //Y = floorToInt((world_red_dot_anchored_position.y / inventory_grid_height) * slots_in_column)
+
+        float x = Mathf.FloorToInt((firstChipCellPos.x / 805f) * 5);
+        float y = Mathf.FloorToInt(Mathf.Abs((firstChipCellPos.y / 805f) * 5));
+
+
+        print("Grid x = " + x + " y = " + y);
+
     }
 
     public void OnEnter(InventorySlot slot, PointerEventData eventData)
