@@ -9,6 +9,8 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
     [SerializeField] Transform inventoryGrid;
     [SerializeField] InventoryNearbyItems inventoryNearby;
 
+    Dictionary<ChipUI, Vector2Int> storedChips = new Dictionary<ChipUI, Vector2Int>();
+
     bool[,] gridTakenSpaces = new bool[5,5];
 
     RectTransform rectTransform;
@@ -33,10 +35,8 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         ChipUI chipUI = eventData.pointerDrag.GetComponent<ChipUI>();
         RectTransform chipRect = eventData.pointerDrag.GetComponent<RectTransform>();
 
-        chipUI.onStartDrag += OnStartDrag;
-
         // Parent chip to item manager
-        chipRect.transform.parent = transform;
+        chipRect.transform.SetParent(transform);
 
         Vector2Int firstChipCellGridCoords = GetClosestSlotCoodinate(chipUI.GetFirstChipCellPosition(true));
 
@@ -86,6 +86,8 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
                 }
             }
 
+            chipUI.onStartDrag += OnStartDrag;
+            storedChips[chipUI] = chipOriginGridCoords;
             chipRect.anchoredPosition = GetSlotLocalPosition(firstChipCellGridCoords.x, firstChipCellGridCoords.y) - chipUI.GetFirstChipCellPosition(false);
         }
         else
@@ -102,11 +104,28 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         return new Vector2Int(x, y);
     }
 
-    public void OnStartDrag(ChipUI draggedChip)
+    public void OnStartDrag(ChipUI chipUI)
     {
-        draggedChip.onStartDrag -= OnStartDrag;
+        chipUI.onStartDrag -= OnStartDrag;
 
-        print(draggedChip.itemData.itemName + " is being dragged!");
+        print(chipUI.itemData.itemName + " is being dragged!");
+
+        Vector2Int chipOriginGridCoords = storedChips[chipUI];
+
+        bool[,] chipMap = chipUI.itemData.chipLayoutMap.GetBoolean2DArray();
+
+        for (int y = 0; y < chipMap.GetLength(1); y++)
+        {
+            for (int x = 0; x < chipMap.GetLength(0); x++)
+            {
+                if (chipMap[x, y] == false)
+                {
+                    continue;
+                }
+
+                gridTakenSpaces[chipOriginGridCoords.x + x, chipOriginGridCoords.y + y] = false;
+            }
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -148,5 +167,5 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         Vector2 cellCentrePos = new Vector2((x * 161) + (161 / 2.0f), -805f + (y * 161) + (161 / 2.0f));
 
         return cellCentrePos;
-    }    
+    }
 }
