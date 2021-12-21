@@ -28,6 +28,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     public delegate void OnStartDrag(ChipUI chipUI);
     public OnStartDrag onStartDrag;
 
+    public static float chipCellSize;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -57,7 +59,7 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
         transform.SetParent(canvas.transform);
 
-        rectTransform.sizeDelta = new Vector2(161 * itemData.chipLayoutMap.GetSize2D().x, 161 * itemData.chipLayoutMap.GetSize2D().y);
+        rectTransform.sizeDelta = new Vector2(chipCellSize * itemData.chipLayoutMap.GetSize2D().x, chipCellSize * itemData.chipLayoutMap.GetSize2D().y);
 
         transform.position = Input.mousePosition;
 
@@ -95,7 +97,7 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         Vector2 pivotCenter = new Vector2(rectTransform.rect.width / 2, rectTransform.rect.height / 2);
             
-        Vector2 cellCentrePos = -pivotCenter + new Vector2((x * 161) + (161 / 2.0f), (y * 161) + (161 / 2.0f));
+        Vector2 cellCentrePos = -pivotCenter + new Vector2((x * chipCellSize) + (chipCellSize / 2.0f), (y * chipCellSize) + (chipCellSize / 2.0f));
 
         return cellCentrePos;
     }
