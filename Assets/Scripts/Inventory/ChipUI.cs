@@ -70,9 +70,7 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 
-        debugSquare.rectTransform.anchoredPosition = GetFirstChipCellPosition(false);
-
-        //debugSquare.rectTransform.anchoredPosition = GetLocalChipCellPosition(0,0);
+        debugSquare.rectTransform.anchoredPosition = GetLocalChipCellPosition(0,0);
     }
 
     public void OnEndDrag(PointerEventData eventData)

@@ -44,12 +44,77 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 
         bool[,] chipMap = chipUI.itemData.chipLayoutMap.GetBoolean2DArray();
 
-        bool isValid = true;
+        Vector2Int closestSlotCoord = GetClosestSlotCoodinate(chipUI.GetWorldChipCellPosition(0, 0));
+
+        if (IsChipPlacementValid(chipMap, closestSlotCoord))
+        {
+            //for (int y = 0; y < chipMap.GetLength(1); y++)
+            //{
+            //    for (int x = 0; x < chipMap.GetLength(0); x++)
+            //    {
+            //        if (chipMap[x, y] == false)
+            //        {
+            //            continue;
+            //        }
+
+            //        gridTakenSpaces[chipOriginGridCoords.x + x, chipOriginGridCoords.y + y] = true;
+            //    }
+            //}
+
+            //chipUI.onStartDrag += OnStartDrag;
+            //storedChips[chipUI] = chipOriginGridCoords;
+            //chipRect.anchoredPosition = GetSlotLocalPosition(firstChipCellGridCoords.x, firstChipCellGridCoords.y) - chipUI.GetFirstChipCellPosition(false);
+
+            PlaceChip(chipUI, chipOriginGridCoords);
+        }
+        else
+        {
+            if (storedChips.ContainsKey(chipUI))
+            {
+                if(IsChipPlacementValid(chipMap, storedChips[chipUI]))
+                {
+                    PlaceChip(chipUI, storedChips[chipUI]);
+                }
+            }
+            else
+            {
+                chipUI.DesiredParent = inventoryNearby.transform;
+            }
+        }
+    }
+
+    void PlaceChip(ChipUI chipUI, Vector2Int chipOriginGridCoords)
+    {
+        bool[,] chipMap = chipUI.itemData.chipLayoutMap.GetBoolean2DArray();
+        RectTransform chipRect = chipUI.GetComponent<RectTransform>();
+
         for (int y = 0; y < chipMap.GetLength(1); y++)
         {
             for (int x = 0; x < chipMap.GetLength(0); x++)
             {
-                if (chipMap[x,y] == false)
+                if (chipMap[x, y] == false)
+                {
+                    continue;
+                }
+
+                gridTakenSpaces[chipOriginGridCoords.x + x, chipOriginGridCoords.y + y] = true;
+            }
+        }
+
+        chipUI.onStartDrag += OnStartDrag;
+        storedChips[chipUI] = chipOriginGridCoords;
+        chipRect.anchoredPosition = GetSlotLocalPosition(chipOriginGridCoords.x, chipOriginGridCoords.y) - chipUI.GetLocalChipCellPosition(0,0);
+    }
+
+    bool IsChipPlacementValid(bool[,] chipMap, Vector2Int chipOriginGridCoords)
+    {
+        bool isValid = true;
+
+        for (int y = 0; y < chipMap.GetLength(1); y++)
+        {
+            for (int x = 0; x < chipMap.GetLength(0); x++)
+            {
+                if (chipMap[x, y] == false)
                 {
                     continue;
                 }
@@ -71,29 +136,7 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
             }
         }
 
-        if (isValid)
-        {
-            for (int y = 0; y < chipMap.GetLength(1); y++)
-            {
-                for (int x = 0; x < chipMap.GetLength(0); x++)
-                {
-                    if (chipMap[x, y] == false)
-                    {
-                        continue;
-                    }
-
-                    gridTakenSpaces[chipOriginGridCoords.x + x, chipOriginGridCoords.y + y] = true;
-                }
-            }
-
-            chipUI.onStartDrag += OnStartDrag;
-            storedChips[chipUI] = chipOriginGridCoords;
-            chipRect.anchoredPosition = GetSlotLocalPosition(firstChipCellGridCoords.x, firstChipCellGridCoords.y) - chipUI.GetFirstChipCellPosition(false);
-        }
-        else
-        {
-            chipUI.DesiredParent = inventoryNearby.transform;
-        }
+        return isValid;
     }
 
     public Vector2Int GetClosestSlotCoodinate(Vector2 pos)
