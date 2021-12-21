@@ -20,11 +20,11 @@ public class ArrayLayout
     {
 		bool[,] ret = new bool[size,size];
 
-		for (int y = 0; y < size; y++)
+		for (int y = size - 1; y >= 0; y--)
         {
 			for (int x = 0; x < size; x++)
             {
-				ret[x, y] = rows[y].row[x];
+				ret[x, size-y-1] = rows[y].row[x];
             }
         }
 

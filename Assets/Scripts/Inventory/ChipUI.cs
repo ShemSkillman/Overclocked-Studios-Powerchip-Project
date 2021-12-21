@@ -25,6 +25,9 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     Image debugSquare;
 
+    public delegate void OnStartDrag(ChipUI chipUI);
+    public OnStartDrag onStartDrag;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -59,6 +62,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         transform.position = Input.mousePosition;
 
         debugSquare.enabled = true;
+
+        onStartDrag?.Invoke(this);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -66,6 +71,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 
         debugSquare.rectTransform.anchoredPosition = GetFirstChipCellPosition(false);
+
+        //debugSquare.rectTransform.anchoredPosition = GetLocalChipCellPosition(0,0);
     }
 
     public void OnEndDrag(PointerEventData eventData)

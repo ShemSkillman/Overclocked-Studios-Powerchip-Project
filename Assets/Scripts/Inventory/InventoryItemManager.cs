@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemManager : MonoBehaviour
+public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Transform inventoryGrid;
     [SerializeField] InventoryNearbyItems inventoryNearby;
@@ -18,31 +18,7 @@ public class InventoryItemManager : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
-    {
-        for (int i = 0; i < inventoryGrid.childCount; i++)
-        {
-            InventorySlot slot = inventoryGrid.GetChild(i).gameObject.GetComponent<InventorySlot>();
-
-            slot.OnSlotDrop += OnDrop;
-            slot.OnSlotEnter += OnEnter;
-            slot.OnSlotExit += OnExit;
-        }
-    }
-
-    private void OnDisable()
-    {
-        for (int i = 0; i < inventoryGrid.childCount; i++)
-        {
-            InventorySlot slot = inventoryGrid.GetChild(i).gameObject.GetComponent<InventorySlot>();
-
-            slot.OnSlotDrop -= OnDrop;
-            slot.OnSlotEnter -= OnEnter;
-            slot.OnSlotExit -= OnExit;
-        }
-    }
-
-    public void OnDrop(InventorySlot slot, PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -57,16 +33,18 @@ public class InventoryItemManager : MonoBehaviour
         ChipUI chipUI = eventData.pointerDrag.GetComponent<ChipUI>();
         RectTransform chipRect = eventData.pointerDrag.GetComponent<RectTransform>();
 
+        chipUI.onStartDrag += OnStartDrag;
+
         // Parent chip to item manager
         chipRect.transform.parent = transform;
 
-        Vector2 firstChipCellPos = chipUI.GetFirstChipCellPosition(true);
+        Vector2Int firstChipCellGridCoords = GetClosestSlotCoodinate(chipUI.GetFirstChipCellPosition(true));
 
-        int xGrid = Mathf.Max(Mathf.Min(Mathf.FloorToInt((firstChipCellPos.x / 805f) * 5), 4), 0);
-        int yGrid = Mathf.Max(Mathf.Min(Mathf.FloorToInt(Mathf.Abs((firstChipCellPos.y / 805f) * 5)), 4), 0);        
+        Vector2Int chipOriginGridCoords = GetClosestSlotCoodinate(chipUI.GetWorldChipCellPosition(0, 0));
 
         bool[,] chipMap = chipUI.itemData.chipLayoutMap.GetBoolean2DArray();
 
+        bool isValid = true;
         for (int y = 0; y < chipMap.GetLength(1); y++)
         {
             for (int x = 0; x < chipMap.GetLength(0); x++)
@@ -76,50 +54,62 @@ public class InventoryItemManager : MonoBehaviour
                     continue;
                 }
 
-                int newGridX = xGrid + x;
-                int newGridY = yGrid - y;
+                Vector2Int currentGridCoords = new Vector2Int(chipOriginGridCoords.x + x, chipOriginGridCoords.y + y);
 
-                print("X = " + newGridX + " Y = " + newGridY);
+                //print("X = " + currentGridCoords.x + " Y = " + currentGridCoords.y);
 
-                if (newGridX >= gridTakenSpaces.GetLength(0) || newGridX < 0 || newGridY >= gridTakenSpaces.GetLength(1) || newGridY < 0)
+                if (currentGridCoords.x >= gridTakenSpaces.GetLength(0) || currentGridCoords.x < 0 || currentGridCoords.y >= gridTakenSpaces.GetLength(1) || currentGridCoords.y < 0)
                 {
                     print("out of bounds!");
-                    goto Exit;
+                    isValid = false;
                 }
-
-                if (gridTakenSpaces[newGridX, newGridY] == true)
+                else if (gridTakenSpaces[currentGridCoords.x, currentGridCoords.y] == true)
                 {
                     print("space occupied!");
-                    goto Exit;
+                    isValid = false;
                 }
             }
         }
 
-        for (int y = 0; y < chipMap.GetLength(1); y++)
+        if (isValid)
         {
-            for (int x = 0; x < chipMap.GetLength(0); x++)
+            for (int y = 0; y < chipMap.GetLength(1); y++)
             {
-                if (chipMap[x, y] == false)
+                for (int x = 0; x < chipMap.GetLength(0); x++)
                 {
-                    continue;
+                    if (chipMap[x, y] == false)
+                    {
+                        continue;
+                    }
+
+                    gridTakenSpaces[chipOriginGridCoords.x + x, chipOriginGridCoords.y + y] = true;
                 }
-
-                gridTakenSpaces[xGrid + x, yGrid - y] = true;
             }
+
+            chipRect.anchoredPosition = GetSlotLocalPosition(firstChipCellGridCoords.x, firstChipCellGridCoords.y) - chipUI.GetFirstChipCellPosition(false);
         }
-
-    Exit:
-        chipRect.anchoredPosition = GetSlotLocalPosition(xGrid, yGrid) - chipUI.GetFirstChipCellPosition(false);
+        else
+        {
+            chipUI.DesiredParent = inventoryNearby.transform;
+        }
     }
 
-    public Vector2 GetSlotLocalPosition(int x, int y)
+    public Vector2Int GetClosestSlotCoodinate(Vector2 pos)
     {
-        Vector2 cellCentrePos = new Vector2((x * 161) + (161 / 2.0f), (-y * 161) + (-161 / 2.0f));
+        int x = Mathf.Max(Mathf.Min(Mathf.FloorToInt((pos.x / 805f) * 5), 4), 0);
+        int y = Mathf.Max(Mathf.Min(Mathf.FloorToInt(((805f + pos.y) / 805f) * 5), 4), 0);
 
-        return cellCentrePos;
+        return new Vector2Int(x, y);
     }
 
-    public void OnEnter(InventorySlot slot, PointerEventData eventData)
+    public void OnStartDrag(ChipUI draggedChip)
+    {
+        draggedChip.onStartDrag -= OnStartDrag;
+
+        print(draggedChip.itemData.itemName + " is being dragged!");
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
         {
@@ -130,13 +120,13 @@ public class InventoryItemManager : MonoBehaviour
 
         draggedChip.DesiredParent = transform;
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).GetComponent<Image>().raycastTarget = false;
-        }
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    transform.GetChild(i).GetComponent<Image>().raycastTarget = false;
+        //}
     }
 
-    public void OnExit(InventorySlot slot, PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
         {
@@ -147,9 +137,16 @@ public class InventoryItemManager : MonoBehaviour
 
         draggedChip.DesiredParent = inventoryNearby.transform;
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).GetComponent<Image>().raycastTarget = true;
-        }
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    transform.GetChild(i).GetComponent<Image>().raycastTarget = true;
+        //}
     }
+
+    public Vector2 GetSlotLocalPosition(int x, int y)
+    {
+        Vector2 cellCentrePos = new Vector2((x * 161) + (161 / 2.0f), -805f + (y * 161) + (161 / 2.0f));
+
+        return cellCentrePos;
+    }    
 }
