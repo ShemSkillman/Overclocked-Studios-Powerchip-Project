@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: 1x1 Health
   m_EditorClassIdentifier: 
   itemName: Basic Health
-  chipSprite: {fileID: 21300000, guid: eee2fbec958418e4490687602e711d84, type: 3}
+  chipSprite: {fileID: 21300000, guid: 19064271c2a9e9e4b9a3fcf037ba798e, type: 3}
   chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
     type: 3}
   chipMeshMaterial: {fileID: 2100000, guid: 3f94bb5e81a939c4ea81365c4474395d, type: 2}
   chipBuffs:
   - buffType: 0
     addiditiveValue: 1000
+  chipLayoutMap:
+    rows:
+    - row: 00000000
+    - row: 00010000
+    - row: 01010100
+    - row: 00010000

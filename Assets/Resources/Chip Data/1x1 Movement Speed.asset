@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: 1x1 Movement Speed
   m_EditorClassIdentifier: 
   itemName: Basic Movement Speed
-  chipSprite: {fileID: 21300000, guid: 03a3cdab35fcc2147bda5664f2c469f2, type: 3}
+  chipSprite: {fileID: 21300000, guid: 09a16e3c97a014a49b190bd7d68f8d7c, type: 3}
   chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
     type: 3}
   chipMeshMaterial: {fileID: 2100000, guid: d3602cb6ff59aaa4589022a2ab6f44f7, type: 2}
   chipBuffs:
   - buffType: 3
     addiditiveValue: 10
+  chipLayoutMap:
+    rows:
+    - row: 00000000
+    - row: 00000000
+    - row: 00000000
+    - row: 01000000
+    - row: 0000000000
+    - row: 
+    - row: 

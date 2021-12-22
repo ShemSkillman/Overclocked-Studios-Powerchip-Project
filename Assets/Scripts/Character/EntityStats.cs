@@ -7,7 +7,7 @@ public class EntityStats : MonoBehaviour
     [SerializeField] float baseMaxHitpoints = 100;
     [SerializeField] float baseMovementSpeed = 5;
 
-    List<ChipBuff> buffs;
+    List<ChipBuff> buffs = new List<ChipBuff>();
 
     public float MaxHitpoints
     {

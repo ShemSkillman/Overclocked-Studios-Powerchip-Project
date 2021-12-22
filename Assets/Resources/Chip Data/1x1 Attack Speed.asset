@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: 1x1 Attack Speed
   m_EditorClassIdentifier: 
   itemName: Basic Attack Speed
-  chipSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  chipSprite: {fileID: 21300000, guid: 41885042dd462394da45b3dec5b7e1e7, type: 3}
   chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
     type: 3}
   chipMeshMaterial: {fileID: 2100000, guid: f11225f212a9f504b81947b75e1ac312, type: 2}
   chipBuffs:
   - buffType: 1
     addiditiveValue: -0.1
+  chipLayoutMap:
+    rows:
+    - row: 01000000
+    - row: 01000000
+    - row: 01000000
+    - row: 01000000

@@ -1,49 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : MonoBehaviour
 {
     private RectTransform rectTransform;
+
+    GridLayoutGroup layoutGroup;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        layoutGroup = GetComponentInParent<GridLayoutGroup>();
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public Vector2Int GetGridCoordinates()
     {
+        Rect gridRect = layoutGroup.GetComponent<RectTransform>().rect;
         
-    }
+        Vector2 slotSize = layoutGroup.cellSize;
+        
 
-    private bool IsOccupied()
-    {
-        return transform.childCount > 0;
-    }
+        int x = Mathf.FloorToInt(rectTransform.localPosition.x / slotSize.x);
+        int y = Mathf.FloorToInt(rectTransform.localPosition.y / slotSize.y);
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (eventData.pointerDrag == null || IsOccupied())
-        {
-            return;
-        }
-
-        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
-
-        draggedChip.DesiredParent = transform;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (eventData.pointerDrag == null || IsOccupied())
-        {
-            return;
-        }
-
-        ChipUI draggedChip = eventData.pointerDrag.GetComponent<ChipUI>();
-
-        draggedChip.DesiredParent = null;
+        return new Vector2Int(x, y);
     }
 }

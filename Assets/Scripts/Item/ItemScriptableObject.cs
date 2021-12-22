@@ -10,4 +10,6 @@ public class ItemScriptableObject : ScriptableObject
     public Material chipMeshMaterial;
 
     public ChipBuff[] chipBuffs;
+
+    public ArrayLayout chipLayoutMap;
 }

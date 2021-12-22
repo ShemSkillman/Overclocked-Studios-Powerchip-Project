@@ -7,10 +7,6 @@ public class InventoryNearbyItems : MonoBehaviour, IDropHandler, IPointerEnterHa
 {
     public void OnDrop(PointerEventData eventData)
     {
-        //if (eventData.pointerDrag != null)
-        //{
-        //    eventData.pointerDrag.transform.SetParent(transform);
-        //}
     }
 
     public void OnPointerEnter(PointerEventData eventData)
