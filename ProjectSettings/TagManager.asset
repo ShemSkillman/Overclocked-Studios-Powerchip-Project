@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PickUpItem
   - InventoryItem
+  - Level1
+  - Level2
   layers:
   - Default
   - TransparentFX
