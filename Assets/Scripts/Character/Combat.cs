@@ -11,6 +11,7 @@ public class Combat : MonoBehaviour
 
     [SerializeField] private string targetLayerName = "Player";
     [SerializeField] private float minAttackRate = 0.3f;
+    [SerializeField] ParticleSystem slashEffect;
 
     private CharacterController charController;
 
@@ -28,6 +29,24 @@ public class Combat : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
+    }
+
+    public void EnableSlashEffect()
+    {
+        var emission = slashEffect.emission;
+        slashEffect.gameObject.SetActive(true);
+    }
+
+    public void DisableSlashEffect()
+    {
+        var emission = slashEffect.emission;
+        slashEffect.gameObject.SetActive(false);
+    }
+
+    public void EnableSlashEffect(bool isEnabled)
+    {
+        var emission = slashEffect.emission;
+        emission.enabled = isEnabled;
     }
 
     private float GetAttackRate()
