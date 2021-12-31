@@ -28,7 +28,6 @@ public class LevelSelect : MonoBehaviour
         //check if Level has been used
         if(Level1Active == true)
         {
-            Debug.Log("benis");
             btnLevel1.SetActive(true);
         }
 
