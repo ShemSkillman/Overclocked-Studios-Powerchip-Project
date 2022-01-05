@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Combat : MonoBehaviour
 {
     [SerializeField] private Weapon weapon;
-    
+
     private Animator animator;
+    protected AnimatorOverrideController animatorOverrideController;
+
     private float timeSinceAttack = Mathf.Infinity;
 
     [SerializeField] private string targetLayerName = "Player";
@@ -24,6 +27,14 @@ public class Combat : MonoBehaviour
         stats = GetComponent<EntityStats>();
     }
 
+    private void Start()
+    {
+        DisableSlashEffect();
+
+        //animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        animator.runtimeAnimatorController = weapon.AnimationOverride;
+    }
+
     private void Update()
     {
         timeSinceAttack += Time.deltaTime;
@@ -33,20 +44,24 @@ public class Combat : MonoBehaviour
 
     public void EnableSlashEffect()
     {
+        if (slashEffect == null)
+        {
+            return;
+        }
+
         var emission = slashEffect.emission;
         slashEffect.gameObject.SetActive(true);
     }
 
     public void DisableSlashEffect()
     {
+        if (slashEffect == null)
+        {
+            return;
+        }
+
         var emission = slashEffect.emission;
         slashEffect.gameObject.SetActive(false);
-    }
-
-    public void EnableSlashEffect(bool isEnabled)
-    {
-        var emission = slashEffect.emission;
-        emission.enabled = isEnabled;
     }
 
     private float GetAttackRate()
@@ -56,9 +71,7 @@ public class Combat : MonoBehaviour
 
     private Vector3 GetMeleeAttackCenter()
     {
-        Vector3 offset = charController.transform.forward * (charController.radius + weapon.AttackRange);
-
-        return charController.transform.TransformPoint(charController.center) + offset;
+        return charController.transform.TransformPoint(charController.center);
     }
 
     public void MeleeHit()
@@ -67,6 +80,14 @@ public class Combat : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
+            // Check if collider is in front
+            Vector3 enemyDir = collider.transform.position - transform.position;
+
+            if (Vector3.Dot(transform.forward, enemyDir) < 0)
+            {
+                continue;
+            }
+
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
             if (health != null)
             {

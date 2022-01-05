@@ -1,0 +1,17 @@
+Thank you for purchasing the "Low poly Cyberpunk weapon pack" !
+
+
+
+-- Little warning --
+
+The prefab from the previous pack will be displayed pink if your Unity Editor is currently set up in Universal Render Pipeline.
+
+To remove the URP go to "Project Settings"
+
+-Project Settings > Grapics > Scriptable Render Pipeline Settings
+
+-AND
+
+-Project Settings > Quality > Rendering
+
+
