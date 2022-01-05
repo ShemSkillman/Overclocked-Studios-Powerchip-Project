@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 40
   attackRange: 1
-  baseAttackRate: 0.8
+  baseAttackRate: 0.01
+  slashEffect: {fileID: 0}
 --- !u!114 &8876579452884307218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +64,7 @@ MonoBehaviour:
   baseDamage: 40
   attackRange: 1
   baseAttackRate: 0.8
+  slashEffect: {fileID: 0}
 --- !u!1 &7693168761518026274
 GameObject:
   m_ObjectHideFlags: 0

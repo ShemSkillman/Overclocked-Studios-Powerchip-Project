@@ -6443,6 +6443,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2072377339, guid: 4c9f2a866cced0b4ab788935a64f5f4a, type: 3}
+      propertyPath: slashEffect
+      value: 
+      objectReference: {fileID: 2438634646260784746}
+    - target: {fileID: 2072377339, guid: 4c9f2a866cced0b4ab788935a64f5f4a, type: 3}
       propertyPath: minAttackRate
       value: 0.01
       objectReference: {fileID: 0}
@@ -6495,6 +6499,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3416404565670680255, guid: 4c9f2a866cced0b4ab788935a64f5f4a,
+        type: 3}
+      propertyPath: slashEffect
+      value: 
+      objectReference: {fileID: 2438634646260784746}
     - target: {fileID: 3416404565670680255, guid: 4c9f2a866cced0b4ab788935a64f5f4a,
         type: 3}
       propertyPath: targetLayerName
@@ -6625,8 +6634,15 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4684255892560611365, guid: 4c9f2a866cced0b4ab788935a64f5f4a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4c9f2a866cced0b4ab788935a64f5f4a, type: 3}
+--- !u!198 &2438634646260784746 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5899655636549363774, guid: 4c9f2a866cced0b4ab788935a64f5f4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8072716356789892692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8672353924851769862 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 599663966095103058, guid: 4c9f2a866cced0b4ab788935a64f5f4a,
