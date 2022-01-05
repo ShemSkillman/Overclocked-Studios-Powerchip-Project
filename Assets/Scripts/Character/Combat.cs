@@ -25,6 +25,8 @@ public class Combat : MonoBehaviour
         charController = GetComponentInParent<CharacterController>();
         animator = GetComponent<Animator>();
         stats = GetComponent<EntityStats>();
+
+        OverrideAnimation();
     }
 
     private void Start()
@@ -40,6 +42,19 @@ public class Combat : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
+    }
+
+    private void OverrideAnimation()
+    {
+        var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+        if (weapon.AnimationOverride != null)
+        {
+            animator.runtimeAnimatorController = weapon.AnimationOverride;
+        }
+        else if (overrideController != null)
+        {
+            animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
+        }
     }
 
     public void EnableSlashEffect()
