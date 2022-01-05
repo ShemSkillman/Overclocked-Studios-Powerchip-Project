@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     private EntityStats stats;
 
     private Vector3 moveVector;
+    public Transform lookAt;
 
     private void Awake()
     {
@@ -22,10 +23,15 @@ public class Movement : MonoBehaviour
     {
         charController.SimpleMove(moveVector * stats.MovementSpeed);
 
-        if (moveVector != Vector3.zero)
+        if (lookAt != null)
+        {
+            transform.forward = Vector3.RotateTowards(transform.forward, (lookAt.position - transform.position).normalized, Time.deltaTime * turnSpeed, 0.0f);
+        }
+        else if (moveVector != Vector3.zero)
         {
             transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
         }
+        
     }
 
     public void Move(Vector3 moveVector)
