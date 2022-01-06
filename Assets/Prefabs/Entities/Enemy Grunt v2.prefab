@@ -306,6 +306,11 @@ PrefabInstance:
       propertyPath: turnSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6581894835941375534, guid: 01658cb7021bd424d81f1bdcad37f65f,
+        type: 3}
+      propertyPath: isKeyboardControls
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6886260895574867610, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: weapon

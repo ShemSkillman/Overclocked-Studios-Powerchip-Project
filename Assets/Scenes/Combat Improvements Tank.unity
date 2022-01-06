@@ -728,12 +728,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8252364392261264425, guid: 9e1097c482633254db7412ba820e84de,
-        type: 3}
-      propertyPath: animOverride
-      value: 
-      objectReference: {fileID: 22100000, guid: d51f75cc5de883c47ae2148c841859f3,
-        type: 2}
     m_RemovedComponents:
     - {fileID: 2084631721996286643, guid: 9e1097c482633254db7412ba820e84de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9e1097c482633254db7412ba820e84de, type: 3}

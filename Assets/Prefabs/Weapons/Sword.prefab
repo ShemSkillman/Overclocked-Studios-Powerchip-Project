@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: 20
-  attackRange: 3
+  attackRange: 3.5
   baseAttackRate: 0.01
+  animOverride: {fileID: 22100000, guid: d51f75cc5de883c47ae2148c841859f3, type: 2}
 --- !u!114 &8876579452884307218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +63,7 @@ MonoBehaviour:
   baseDamage: 40
   attackRange: 1
   baseAttackRate: 0.8
+  animOverride: {fileID: 0}
 --- !u!1001 &763272134284237147
 PrefabInstance:
   m_ObjectHideFlags: 0

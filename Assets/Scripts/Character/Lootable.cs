@@ -25,13 +25,10 @@ public class Lootable : MonoBehaviour
 
     public void DropChip()
     {
-        print("dropping chip");
-
         if (Random.value > dropChance)
         {
             return;
         }
-        print("Dropped chip");
 
         ChipObject chipObject = Resources.Load<ChipObject>("Base Chip Object");
         ChipObject instance = Instantiate(chipObject, transform.position, Quaternion.identity);
