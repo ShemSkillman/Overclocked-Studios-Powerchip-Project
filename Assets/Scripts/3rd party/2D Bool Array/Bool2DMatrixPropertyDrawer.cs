@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections;
 
 // Source: https://www.youtube.com/watch?v=uoHc-Lz9Lsc&ab_channel=SumeetKhobare
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ArrayLayout))]
 public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 {
@@ -40,3 +40,4 @@ public class Bool2DMatrixPropertyDrawer : PropertyDrawer
 		return checkboxSize * (ArrayLayout.size + 1);
 	}
 }
+# endif

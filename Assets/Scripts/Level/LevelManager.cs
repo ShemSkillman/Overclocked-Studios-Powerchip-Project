@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ExitLevel exitTrigger, bottomTrigger;
+    [SerializeField] private string levelToLoad;
 
     private void OnEnable()
     {
@@ -21,6 +22,6 @@ public class LevelManager : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene(levelToLoad);
     }
 }
