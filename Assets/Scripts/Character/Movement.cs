@@ -25,7 +25,9 @@ public class Movement : MonoBehaviour
 
         if (lookAt != null)
         {
-            transform.forward = Vector3.RotateTowards(transform.forward, (lookAt.position - transform.position).normalized, Time.deltaTime * turnSpeed, 0.0f);
+            Vector3 lookAtDir = (lookAt.position - transform.position).normalized;
+            lookAtDir.y = 0;
+            transform.forward = Vector3.RotateTowards(transform.forward, lookAtDir, Time.deltaTime * turnSpeed, 0.0f);
         }
         else if (moveVector != Vector3.zero)
         {

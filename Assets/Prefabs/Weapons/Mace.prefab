@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6564892613056083098}
+  - component: {fileID: 555726230414337144}
   m_Layer: 0
   m_Name: Mace
   m_TagString: Untagged
@@ -31,6 +32,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &555726230414337144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188762975341184454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2a1a4f8e60bcd47907ecdf389e8641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseDamage: 20
+  attackRange: 3
+  baseAttackRate: 0.75
+  animOverride: {fileID: 22100000, guid: 3d8945feb59534846b249e2254fd7a30, type: 2}
 --- !u!1001 &1540141700379676259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38,6 +55,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6564892613056083098}
     m_Modifications:
+    - target: {fileID: 8294908776270397762, guid: 7fcc8774c9b13494a8f4b10f548bacfc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8483823792684557762, guid: 7fcc8774c9b13494a8f4b10f548bacfc,
         type: 3}
       propertyPath: m_RootOrder

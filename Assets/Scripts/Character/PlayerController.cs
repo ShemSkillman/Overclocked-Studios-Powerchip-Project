@@ -49,9 +49,15 @@ public class PlayerController : MonoBehaviour
 
         movement.Move(direction);
 
-        if (direction != Vector3.zero && !isAttacking)
+        if (movement.lookAt != null)
         {
-            movement.lookAt = null;
+            Vector3 closestPoint = movement.lookAt.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+
+            if (Vector3.Distance(transform.position, closestPoint) > combat.GetWeaponRange())
+            {
+                movement.lookAt.GetComponent<AIController>().SetTargetMarkerVisibility(false);
+                movement.lookAt = null;
+            }
         }
 
         if (isAttacking)
@@ -70,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     public void Swivel()
     {
-        Collider[] colliders = combat.GetTargetColliders(swivelRange);
+        Collider[] colliders = combat.GetTargetColliders();
 
         bool isEnemyInRange = false;
         Transform closestEnemy = null;
@@ -78,8 +84,9 @@ public class PlayerController : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
+            Vector3 closestPoint = collider.ClosestPointOnBounds(transform.position);
             Vector3 enemyDir = collider.transform.position - transform.position;
-            float dist = Vector3.Distance(collider.transform.position, transform.position);
+            float dist = Vector3.Distance(closestPoint, transform.position);
 
             if (closestEnemy == null)
             {
@@ -103,6 +110,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (movement.lookAt != closestEnemy)
+        {
+            if (movement.lookAt != null)
+            {
+                movement.lookAt.GetComponent<AIController>().SetTargetMarkerVisibility(false);
+            }
+
+            if (closestEnemy != null)
+            {
+                closestEnemy.GetComponent<AIController>().SetTargetMarkerVisibility(true);
+            }
+        }
+        
         movement.lookAt = closestEnemy;
     }
 }

@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a1a4f8e60bcd47907ecdf389e8641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
+  baseDamage: 100
   attackRange: 3
-  baseAttackRate: 0.01
+  baseAttackRate: 1
   animOverride: {fileID: 22100000, guid: b833112cf6ade174daac97f1c970a70e, type: 2}
 --- !u!1001 &2939831732475023805
 PrefabInstance:
@@ -123,6 +123,11 @@ PrefabInstance:
     - target: {fileID: 287832759668912480, guid: ebe9704fe738e1343a00e0f722a06d0b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 323726947227329847, guid: ebe9704fe738e1343a00e0f722a06d0b,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 627485728963128282, guid: ebe9704fe738e1343a00e0f722a06d0b,

@@ -95,10 +95,7 @@ public class Combat : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            // Check if collider is in front
-            Vector3 enemyDir = collider.transform.position - transform.position;
-
-            if (Vector3.Dot(transform.forward, enemyDir) < 0)
+            if (IsTargetBehind(collider.transform))
             {
                 continue;
             }
@@ -109,6 +106,23 @@ public class Combat : MonoBehaviour
                 health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
             }
         }
+    }
+
+    public bool IsTargetBehind(Transform target)
+    {
+        Vector3 enemyDir = target.position - transform.position;
+
+        if (Vector3.Dot(transform.forward, enemyDir) < 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public float GetWeaponRange()
+    {
+        return weapon.AttackRange;
     }
 
     private void OnDrawGizmos()

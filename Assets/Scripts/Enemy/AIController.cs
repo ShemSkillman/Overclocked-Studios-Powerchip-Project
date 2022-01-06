@@ -18,6 +18,8 @@ public class AIController : MonoBehaviour
     [SerializeField] private float minIdleTime = 1f, maxIdleTime = 5f;
     private float currentIdleTime, targetIdleTime;
 
+    [SerializeField] GameObject targetMarker;
+
     enum Behaviour { Idle, Wander, Pursue, Attack };
 
     void Start()
@@ -90,6 +92,12 @@ public class AIController : MonoBehaviour
                 break;
         }
     }
+
+    public void SetTargetMarkerVisibility(bool isEnabled)
+    {
+        targetMarker.SetActive(isEnabled);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -188,7 +196,7 @@ public class AIController : MonoBehaviour
         {
             if (collider.gameObject.tag == "Player")
             {
-                return true;
+                return !enemyCombat.IsTargetBehind(collider.transform);
             }
         }
         return false;
