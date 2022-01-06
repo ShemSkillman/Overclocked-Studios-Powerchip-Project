@@ -122,7 +122,12 @@ public class Combat : MonoBehaviour
 
     public Collider[] GetTargetColliders()
     {
-        return Physics.OverlapSphere(GetMeleeAttackCenter(), weapon.AttackRange, LayerMask.GetMask(targetLayerName));
+        return GetTargetColliders(weapon.AttackRange);
+    }
+
+    public Collider[] GetTargetColliders(float range)
+    {
+        return Physics.OverlapSphere(GetMeleeAttackCenter(), range, LayerMask.GetMask(targetLayerName));
     }
 
     public void StartMeleeAttack()

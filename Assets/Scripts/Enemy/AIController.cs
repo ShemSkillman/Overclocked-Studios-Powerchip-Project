@@ -6,15 +6,13 @@ using UnityEngine.AI;
 public class AIController : MonoBehaviour
 {
     private Movement enemyMovement;
-
-    private Transform playerTransform;
-
     private NavMeshAgent agent;
     private Vector3 velocity;
     private CharacterController controller;
     private Combat enemyCombat;
 
     [SerializeField] private Behaviour currentBehaviour = Behaviour.Idle;
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private float wanderRange = 5f;
 
     [SerializeField] private float minIdleTime = 1f, maxIdleTime = 5f;
@@ -38,32 +36,46 @@ public class AIController : MonoBehaviour
         switch (currentBehaviour)
         {
             case Behaviour.Idle:
+                UpdateIdleBehaviour();
+
                 if (playerTransform != null)
                 {
                     currentBehaviour = Behaviour.Pursue;
-                } else
+                }
+                else if (currentIdleTime >= targetIdleTime)
                 {
-                    UpdateIdleBehaviour();
+                    StartWanderBehaviour();
+                    currentIdleTime = 0f;
                 }
                 break;
 
             case Behaviour.Wander:
                 UpdateWanderBehaviour();
+
+                if (playerTransform != null)
+                {
+                    currentBehaviour = Behaviour.Pursue;
+                }
+                else if (IsAtDestination())
+                {
+                    StartIdleBehaviour();
+                }               
                 break;
 
-            case Behaviour.Pursue:
+            case Behaviour.Pursue:                
                 if (playerTransform == null)
                 {
                     StartIdleBehaviour();
                 }
-                else if (IsPlayerInRange())
-                {
-                    currentBehaviour = Behaviour.Attack;
-                }
                 else
                 {
-                    PursueBehaviour();
-                }
+                    UpdatePursueBehaviour();
+
+                    if (IsPlayerInRange())
+                    {
+                        currentBehaviour = Behaviour.Attack;
+                    }
+                }                
                 break;
 
             case Behaviour.Attack:
@@ -73,7 +85,7 @@ public class AIController : MonoBehaviour
                 }
                 else
                 {
-                    AttackBehaviour();
+                    UpdateAttackBehaviour();
                 }
                 break;
         }
@@ -117,13 +129,6 @@ public class AIController : MonoBehaviour
         enemyMovement.Move(Vector3.zero);
 
         currentIdleTime += Time.deltaTime;
-
-        if(currentIdleTime >= targetIdleTime)
-        {
-            StartWanderBehaviour();
-
-            currentIdleTime = 0f;
-        }
     }
 
     private void MoveToLocation()
@@ -159,22 +164,17 @@ public class AIController : MonoBehaviour
     }
 
     private void UpdateWanderBehaviour()
-    {
-        if (IsAtDestination())
-        {
-            StartIdleBehaviour();
-        }
-
+    {        
         MoveToLocation();
     }
 
-    private void PursueBehaviour()
+    private void UpdatePursueBehaviour()
     {
         agent.destination = playerTransform.position;
         MoveToLocation();
     }
 
-    private void AttackBehaviour()
+    private void UpdateAttackBehaviour()
     {
         enemyCombat.StartMeleeAttack();
         enemyMovement.Move(Vector3.zero);
