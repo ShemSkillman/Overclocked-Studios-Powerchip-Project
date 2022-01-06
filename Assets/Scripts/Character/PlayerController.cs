@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     float timeSinceSwivel = 0f;
     [SerializeField] float swivelRefreshRate = 0.5f;
+    [SerializeField] float swivelRange = 5f;
 
     public void ConstantAttack(bool isAttacking)
     {
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     public void Swivel()
     {
-        Collider[] colliders = combat.GetTargetColliders();
+        Collider[] colliders = combat.GetTargetColliders(swivelRange);
 
         bool isEnemyInRange = false;
         Transform closestEnemy = null;
