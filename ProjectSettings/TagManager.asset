@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PickUpItem
   - InventoryItem
+  - Level1
+  - Level2
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Player
   - Pickup
   - Terrain
-  - 
+  - Post-Processing
   - 
   - 
   - 
