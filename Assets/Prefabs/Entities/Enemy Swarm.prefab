@@ -429,6 +429,11 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7881812554146893122, guid: 01658cb7021bd424d81f1bdcad37f65f,
+        type: 3}
+      propertyPath: knockBackResistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9075109138184824523, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: m_AnchorMax.x

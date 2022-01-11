@@ -114,12 +114,12 @@ public class PlayerController : MonoBehaviour
         {
             if (movement.lookAt != null)
             {
-                movement.lookAt.GetComponent<AIController>().SetTargetMarkerVisibility(false);
+                movement.lookAt.GetComponentInParent<AIController>().SetTargetMarkerVisibility(false);
             }
 
             if (closestEnemy != null)
             {
-                closestEnemy.GetComponent<AIController>().SetTargetMarkerVisibility(true);
+                closestEnemy.GetComponentInParent<AIController>().SetTargetMarkerVisibility(true);
             }
         }
         

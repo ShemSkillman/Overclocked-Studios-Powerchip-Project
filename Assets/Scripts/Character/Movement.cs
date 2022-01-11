@@ -7,21 +7,21 @@ public class Movement : MonoBehaviour
     [SerializeField] private float turnSpeed = 5f;
     [SerializeField] private bool isKeyboardControls = true;
 
-    private CharacterController charController;
+    private CharacterPhysics characterPhysics;
     private EntityStats stats;
 
-    private Vector3 moveVector;
     public Transform lookAt;
 
     private void Awake()
     {
-        charController = GetComponent<CharacterController>();
+        characterPhysics = GetComponent<CharacterPhysics>();
         stats = GetComponent<EntityStats>();
     }
 
     private void LateUpdate()
     {
-        charController.SimpleMove(moveVector * stats.MovementSpeed);
+        Vector3 moveVector = characterPhysics.DesiredMovement;
+        characterPhysics.ApplyDesiredCharacterMovement();
 
         if (lookAt != null)
         {
@@ -38,13 +38,14 @@ public class Movement : MonoBehaviour
 
     public void Move(Vector3 moveVector)
     {
-        if (isKeyboardControls)
+        if (!isKeyboardControls)
         {
-            this.moveVector = moveVector;
+            moveVector = Quaternion.AngleAxis(45, Vector3.up) * moveVector;
         }
-        else
+
+        if (moveVector != Vector3.zero)
         {
-            this.moveVector = Quaternion.AngleAxis(45, Vector3.up) * moveVector;
+            characterPhysics.EntityMove(moveVector * stats.MovementSpeed);
         }        
     }
 }

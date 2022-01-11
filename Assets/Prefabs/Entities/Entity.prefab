@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 1242436610170805892}
   - component: {fileID: 294557456440890904}
   - component: {fileID: 883854797485946289}
+  - component: {fileID: -5267169235563518528}
   m_Layer: 0
   m_Name: Entity
   m_TagString: Player
@@ -501,6 +502,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 1000
   destroyOnDeath: 1
+--- !u!114 &-5267169235563518528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483432812954621819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a68eaae2899d14f8dfe2ac1388bbb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 80
+  maxFallSpeed: 50
+  horizontalDrag: 0.01
+  groundFriction: 0.02
+  knockBackResistance: 5
+  knockBackDecay: 0.8
 --- !u!1 &5495385553089127738
 GameObject:
   m_ObjectHideFlags: 0

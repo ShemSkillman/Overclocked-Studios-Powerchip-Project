@@ -104,6 +104,17 @@ public class Combat : MonoBehaviour
             if (health != null)
             {
                 health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
+
+                if (!health.IsDead() && weapon.HasKnockback)
+                {
+                    Vector3 dir = (collider.transform.position - transform.position).normalized;
+                    dir.y = weapon.VerticalKnockback;
+
+                    Vector3 knockBackForce = dir * weapon.KnockbackForce * Random.Range(1f, 1f + weapon.KnockbackRandomness); //Generate random magnitude
+
+                    health.GetComponent<CharacterPhysics>().KnockBack(knockBackForce, 3f, Time.time);
+                }
+                
             }
         }
     }
@@ -131,7 +142,11 @@ public class Combat : MonoBehaviour
         {
             charController = GetComponentInParent<CharacterController>();
         }
-        Gizmos.DrawWireSphere(GetMeleeAttackCenter(), weapon.AttackRange);
+
+        if (charController != null && weapon != null)
+        {
+            Gizmos.DrawWireSphere(GetMeleeAttackCenter(), weapon.AttackRange);
+        }        
     }
 
     public Collider[] GetTargetColliders()
