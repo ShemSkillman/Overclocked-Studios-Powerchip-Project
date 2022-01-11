@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/MenuScene.unity
+    path: Assets/Scenes/Old Scenes/MenuScene.unity
     guid: 3936001cb0c69db43b11060a51eb0f90
   - enabled: 0
     path: Assets/Scenes/Old Scenes/LootBoxDemo.unity
@@ -18,9 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Old Scenes/MobileIntegradation.unity
     guid: 3dead4a55dc9eb64cab7cb27e16a4463
   - enabled: 1
-    path: Assets/Scenes/Sprint 6.unity
+    path: Assets/Scenes/Old Scenes/Sprint 6.unity
     guid: 5a96a0bef762a5440b50df3f54520688
   - enabled: 0
-    path: Assets/Scenes/Demo_Exterior.unity
+    path: Assets/Scenes/Main Menu.unity
     guid: 7dc0f3408c08040458ba7cc777331949
   m_configObjects: {}
