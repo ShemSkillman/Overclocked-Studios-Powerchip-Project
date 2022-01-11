@@ -98,7 +98,7 @@ public class Combat : MonoBehaviour
 
     public void MeleeHit()
     {
-        Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), weapon.AttackRange, LayerMask.GetMask(targetLayerName));
+        Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), weapon.AttackRange, LayerMask.GetMask("Player", "Enemy"));
 
         foreach (Collider collider in colliders)
         {
@@ -111,10 +111,11 @@ public class Combat : MonoBehaviour
             if (health != null)
             {
                 CharacterPhysics charPhysics = collider.GetComponent<CharacterPhysics>();
-                if (charPhysics == null || !charPhysics.IsDodging)
+                if ((charPhysics == null || !charPhysics.IsDodging) &&
+                    collider.gameObject.layer != gameObject.layer)
                 {
                     health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
-                }                
+                }
 
                 if (!health.IsDead() && weapon.HasKnockback)
                 {
