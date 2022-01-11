@@ -21,17 +21,17 @@ public class CharacterPhysics : MonoBehaviour
 
     // Stores desired movement for that frame depending
     //on controller input
-    Vector3 desiredMovement;
+    Vector3 desiredMovement, lastDesiredMovement;
 
     public Vector3 DesiredMovement { get { return desiredMovement; } }
 
     //Stored movement values effected by drag and gravity
     Vector3 characterVelocity;
 
-    // Blocks player movement during knockback
-    Coroutine knockBackProgress;
+    Coroutine knockBackProgress, dodgeProgress;
 
     public bool IsKnockedBack { get { return knockBackProgress != null; } }
+    public bool IsDodging { get { return dodgeProgress != null; } }
 
     public bool IsStuck { get; private set; } = false;
 
@@ -48,7 +48,7 @@ public class CharacterPhysics : MonoBehaviour
     //at a constant horizontal speed
     public void ApplyDesiredCharacterMovement()
     {
-        if (knockBackProgress != null) return;
+        if (knockBackProgress != null || dodgeProgress != null) return;
 
         ApplyGravity(); //Only external force that is applied when entity controls movement
 
@@ -82,6 +82,8 @@ public class CharacterPhysics : MonoBehaviour
         }            
 
         if (knockBackProgress != null) StopCoroutine(knockBackProgress); //Reset knockback progress
+        if (dodgeProgress != null) StopCoroutine(dodgeProgress);
+
         knockBackProgress = StartCoroutine(KnockBackProgress(force)); //Apply knockback force for duration
     }
 
@@ -105,6 +107,48 @@ public class CharacterPhysics : MonoBehaviour
 
         knockBackProgress = null; //Knockback progress finished
     }
+    public void Dodge(float speed, float distance)
+    {
+        Vector3 force = lastDesiredMovement.normalized;
+        if (force == Vector3.zero)
+        {
+            force = transform.forward;
+        }
+
+        force *= speed;
+
+        if (dodgeProgress != null) StopCoroutine(dodgeProgress);
+        dodgeProgress = StartCoroutine(DodgeProgress(force, distance));
+    }
+
+    IEnumerator DodgeProgress(Vector3 force, float distance)
+    {
+        Physics.IgnoreLayerCollision(6, 3, true);
+
+        characterVelocity = force; //Immediately apply full knockback force
+
+        transform.forward = force.normalized;
+
+        float travelled = 0f;
+        do
+        {
+            Vector3 moveVector = characterVelocity * Time.deltaTime;
+            charController.Move(moveVector);
+
+            travelled += moveVector.magnitude;
+
+            yield return null;
+        }
+        while (travelled < distance);
+
+        desiredMovement = Vector3.zero; //Ensures input remains blocked and reset
+
+        dodgeProgress = null; //Knockback progress finished
+
+        charController.detectCollisions = true;
+
+        Physics.IgnoreLayerCollision(6, 3, false);
+    }
 
     //Only used during knockback to slow horizontal force
     private void ApplyDrag()
@@ -125,7 +169,8 @@ public class CharacterPhysics : MonoBehaviour
         if (knockBackProgress != null) return false;
 
         desiredMovement = movement;
-        
+        lastDesiredMovement = movement;
+
         return true;
     }
 

@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!characterPhysics.IsKnockedBack)
+        if (!characterPhysics.IsKnockedBack && !characterPhysics.IsDodging)
         {
             Vector3 moveVector = characterPhysics.DesiredMovement;
             characterPhysics.ApplyDesiredCharacterMovement();
@@ -49,5 +49,10 @@ public class Movement : MonoBehaviour
         {
             characterPhysics.EntityMove(moveVector * stats.MovementSpeed);
         }        
+    }
+
+    public void Dodge()
+    {
+        characterPhysics.Dodge(50f, 5f);
     }
 }

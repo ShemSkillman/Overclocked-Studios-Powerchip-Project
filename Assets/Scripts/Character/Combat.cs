@@ -45,7 +45,7 @@ public class Combat : MonoBehaviour
 
         animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
 
-        if (characterPhysics.IsKnockedBack)
+        if (characterPhysics.IsKnockedBack || characterPhysics.IsDodging)
         {
             DisableSlashEffect();
         }
@@ -110,7 +110,10 @@ public class Combat : MonoBehaviour
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
             if (health != null)
             {
-                health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
+                if (!health.GetComponent<CharacterPhysics>().IsDodging)
+                {
+                    health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
+                }                
 
                 if (!health.IsDead() && weapon.HasKnockback)
                 {
@@ -168,7 +171,7 @@ public class Combat : MonoBehaviour
 
     public void StartMeleeAttack()
     {
-        if (characterPhysics.IsKnockedBack)
+        if (characterPhysics.IsKnockedBack || characterPhysics.IsDodging)
         {
             return;
         }

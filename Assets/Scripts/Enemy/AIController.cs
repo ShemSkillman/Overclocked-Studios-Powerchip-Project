@@ -108,7 +108,6 @@ public class AIController : MonoBehaviour
         }
 
         playerTransform = other.transform;
-        Debug.Log("Player has entered the collider");
         agent.destination = playerTransform.position;
     }
 
@@ -121,8 +120,6 @@ public class AIController : MonoBehaviour
         }
 
         playerTransform = null;
-        agent.destination = transform.position;
-        Debug.Log("Player has exited the collider");
     }
 
     private void StartIdleBehaviour()
