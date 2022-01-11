@@ -30,7 +30,7 @@ public class EntityStats : MonoBehaviour
     {
         get
         {
-            return baseDodgeRechargeTime;
+            return Mathf.Max(1f, baseDodgeRechargeTime + GetBuffAdditive(BuffType.DodgeRecharge));
         }
     }
 

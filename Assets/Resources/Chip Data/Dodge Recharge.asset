@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efba03d4406826a44ae1d4b65e59b061, type: 3}
-  m_Name: 1x1 Attack Damage
+  m_Name: Dodge Recharge
   m_EditorClassIdentifier: 
-  itemName: Basic Attack Damage
-  chipSprite: {fileID: 21300000, guid: 37e0fb83e5c07044eaf0fa09991629d4, type: 3}
+  itemName: Basic Attack Speed
+  chipSprite: {fileID: 21300000, guid: 41885042dd462394da45b3dec5b7e1e7, type: 3}
   chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
     type: 3}
-  chipMeshMaterial: {fileID: 2100000, guid: 0c2f621d93d180c4cb704ecb07d107c4, type: 2}
+  chipMeshMaterial: {fileID: 2100000, guid: f11225f212a9f504b81947b75e1ac312, type: 2}
   chipBuffs:
-  - buffType: 2
-    addiditiveValue: 10
+  - buffType: 1
+    addiditiveValue: -1
   chipLayoutMap:
     rows:
-    - row: 00000000
     - row: 01000000
     - row: 01000000
-    - row: 01010000
+    - row: 01000000
+    - row: 01000000

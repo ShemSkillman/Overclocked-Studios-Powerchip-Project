@@ -88,7 +88,7 @@ public class Combat : MonoBehaviour
 
     private float GetAttackRate()
     {
-        return Mathf.Max(minAttackRate, weapon.BaseAttackRate + stats.GetBuffAdditive(BuffType.AttackSpeed));
+        return Mathf.Max(minAttackRate, weapon.BaseAttackRate);
     }
 
     private Vector3 GetMeleeAttackCenter()
@@ -102,7 +102,8 @@ public class Combat : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (IsTargetBehind(collider.transform))
+            if (collider.gameObject == gameObject ||
+                IsTargetBehind(collider.transform))
             {
                 continue;
             }

@@ -13,7 +13,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     [SerializeField]
     private RectTransform nearbyChips;
 
-    [SerializeField] Transform inventoryGrid;
+    [SerializeField] Transform inventoryItemManager;
 
     [SerializeField] float pickupRadius = 5f;
 
@@ -119,7 +119,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
         playerStats.ResetBuffs();
 
-        foreach (ChipUI equippedChip in inventoryGrid.GetComponentsInChildren<ChipUI>())
+        foreach (ChipUI equippedChip in inventoryItemManager.GetComponentsInChildren<ChipUI>())
         {
             playerStats.AddBuff(equippedChip.itemData.chipBuffs);
         }

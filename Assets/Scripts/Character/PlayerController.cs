@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.GetComponent<AIController>() == null)
             {
-                return;
+                continue;
             }
 
             Vector3 closestPoint = collider.ClosestPointOnBounds(transform.position);
