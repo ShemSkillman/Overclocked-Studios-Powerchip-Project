@@ -19,10 +19,6 @@ public class CharacterPhysics : MonoBehaviour
 
     CharacterController charController;
 
-    //Time until character can be controlled
-    //Otherwise character affected by knockback forces
-    float knockOutTimeRemaining = 0f;
-
     // Stores desired movement for that frame depending
     //on controller input
     Vector3 desiredMovement;
@@ -34,6 +30,8 @@ public class CharacterPhysics : MonoBehaviour
 
     // Blocks player movement during knockback
     Coroutine knockBackProgress;
+
+    public bool IsKnockedBack { get { return knockBackProgress != null; } }
 
     public bool IsStuck { get; private set; } = false;
 
@@ -71,7 +69,7 @@ public class CharacterPhysics : MonoBehaviour
 
     //Knocks back this entity by set force and blocks input for set duration
     //ID prevents same knockback force from being applied more than once to this entity
-    public void KnockBack(Vector3 force, float duration, float id)
+    public void KnockBack(Vector3 force, float id)
     {
         KnockBackID = id;
         if (force.magnitude <= knockBackResistance)
@@ -84,31 +82,22 @@ public class CharacterPhysics : MonoBehaviour
         }            
 
         if (knockBackProgress != null) StopCoroutine(knockBackProgress); //Reset knockback progress
-        knockBackProgress = StartCoroutine(KnockBackProgress(force, duration)); //Apply knockback force for duration
-        
-        // TODO: Block controller input
+        knockBackProgress = StartCoroutine(KnockBackProgress(force)); //Apply knockback force for duration
     }
 
     //Runs for duration of set knockback time while input is blocked
-    IEnumerator KnockBackProgress(Vector3 force, float duration)
+    IEnumerator KnockBackProgress(Vector3 force)
     {
         characterVelocity = force; //Immediately apply full knockback force
 
-        float time = 0f;
-
         do
         {
-            time += Time.deltaTime;
-            knockOutTimeRemaining = duration - time;
-
             charController.Move(characterVelocity * Time.deltaTime);
 
             ApplyGravity();
             ApplyDrag(); //Slows horizontal knockback force overtime
 
             yield return null;
-
-            print("Mag: " + characterVelocity.magnitude + " Resist: " + knockBackResistance);
         }
         while (characterVelocity.magnitude > knockBackResistance);
 
@@ -173,7 +162,7 @@ public class CharacterPhysics : MonoBehaviour
         if (charPhysics == null || charPhysics.KnockBackID == KnockBackID) return;
 
         //Knockback decay prevents infinite chain of knockback
-        charPhysics.KnockBack(characterVelocity * knockBackDecay, knockOutTimeRemaining * knockBackDecay, KnockBackID);
+        charPhysics.KnockBack(characterVelocity * knockBackDecay, KnockBackID);
     }
 
 }

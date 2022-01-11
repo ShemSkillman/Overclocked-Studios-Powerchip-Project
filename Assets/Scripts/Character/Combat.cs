@@ -17,12 +17,14 @@ public class Combat : MonoBehaviour
     [SerializeField] ParticleSystem slashEffect;
 
     private CharacterController charController;
+    private CharacterPhysics characterPhysics;
 
     private EntityStats stats;
 
     private void Awake()
     {
         charController = GetComponentInParent<CharacterController>();
+        characterPhysics = GetComponentInParent<CharacterPhysics>();
         animator = GetComponent<Animator>();
         stats = GetComponent<EntityStats>();
 
@@ -42,6 +44,11 @@ public class Combat : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
+
+        if (characterPhysics.IsKnockedBack)
+        {
+            DisableSlashEffect();
+        }
     }
 
     private void OverrideAnimation()
@@ -112,7 +119,7 @@ public class Combat : MonoBehaviour
 
                     Vector3 knockBackForce = dir * weapon.KnockbackForce * Random.Range(1f, 1f + weapon.KnockbackRandomness); //Generate random magnitude
 
-                    health.GetComponent<CharacterPhysics>().KnockBack(knockBackForce, 3f, Time.time);
+                    health.GetComponent<CharacterPhysics>().KnockBack(knockBackForce, Time.time);
                 }
                 
             }
@@ -161,6 +168,11 @@ public class Combat : MonoBehaviour
 
     public void StartMeleeAttack()
     {
+        if (characterPhysics.IsKnockedBack)
+        {
+            return;
+        }
+
         if (timeSinceAttack >= GetAttackRate())
         {
             animator.SetTrigger("MeleeAttack");

@@ -990,6 +990,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitTrigger: {fileID: 0}
   bottomTrigger: {fileID: 0}
+  levelToLoad: 
+  enemyGoal: 0
+  switchGoal: 0
 --- !u!1 &5343007282037028540
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,6 +4725,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5343007282177446588}
     m_Modifications:
+    - target: {fileID: 606917097871110851, guid: 280de43cd5259144e9ae2e839aba064d,
+        type: 3}
+      propertyPath: turnSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3371760383271168550, guid: 280de43cd5259144e9ae2e839aba064d,
         type: 3}
       propertyPath: m_AnchorMax.x

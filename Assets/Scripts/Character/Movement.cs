@@ -20,20 +20,22 @@ public class Movement : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 moveVector = characterPhysics.DesiredMovement;
-        characterPhysics.ApplyDesiredCharacterMovement();
+        if (!characterPhysics.IsKnockedBack)
+        {
+            Vector3 moveVector = characterPhysics.DesiredMovement;
+            characterPhysics.ApplyDesiredCharacterMovement();
 
-        if (lookAt != null)
-        {
-            Vector3 lookAtDir = (lookAt.position - transform.position).normalized;
-            lookAtDir.y = 0;
-            transform.forward = Vector3.RotateTowards(transform.forward, lookAtDir, Time.deltaTime * turnSpeed, 0.0f);
-        }
-        else if (moveVector != Vector3.zero)
-        {
-            transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
-        }
-        
+            if (lookAt != null)
+            {
+                Vector3 lookAtDir = (lookAt.position - transform.position).normalized;
+                lookAtDir.y = 0;
+                transform.forward = Vector3.RotateTowards(transform.forward, lookAtDir, Time.deltaTime * turnSpeed, 0.0f);
+            }
+            else if (moveVector != Vector3.zero)
+            {
+                transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
+            }
+        }        
     }
 
     public void Move(Vector3 moveVector)
