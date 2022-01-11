@@ -110,7 +110,8 @@ public class Combat : MonoBehaviour
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
             if (health != null)
             {
-                if (!health.GetComponent<CharacterPhysics>().IsDodging)
+                CharacterPhysics charPhysics = collider.GetComponent<CharacterPhysics>();
+                if (charPhysics == null || !charPhysics.IsDodging)
                 {
                     health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
                 }                

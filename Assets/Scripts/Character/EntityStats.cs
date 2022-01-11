@@ -6,6 +6,7 @@ public class EntityStats : MonoBehaviour
 {
     [SerializeField] float baseMaxHitpoints = 100;
     [SerializeField] float baseMovementSpeed = 5;
+    [SerializeField] float baseDodgeRechargeTime = 5f;
 
     List<ChipBuff> buffs = new List<ChipBuff>();
 
@@ -22,6 +23,14 @@ public class EntityStats : MonoBehaviour
         get
         {
             return baseMovementSpeed + GetBuffAdditive(BuffType.MovementSpeed);
+        }
+    }
+
+    public float DodgeRechargeTime
+    {
+        get
+        {
+            return baseDodgeRechargeTime;
         }
     }
 

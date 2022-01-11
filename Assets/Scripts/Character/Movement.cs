@@ -50,9 +50,4 @@ public class Movement : MonoBehaviour
             characterPhysics.EntityMove(moveVector * stats.MovementSpeed);
         }        
     }
-
-    public void Dodge()
-    {
-        characterPhysics.Dodge(50f, 5f);
-    }
 }
