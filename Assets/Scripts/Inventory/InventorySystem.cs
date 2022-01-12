@@ -116,8 +116,6 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         {
             Destroy(inventoryChip.gameObject);
         }
-
-        
     }
 
     private void RefreshBuffs()

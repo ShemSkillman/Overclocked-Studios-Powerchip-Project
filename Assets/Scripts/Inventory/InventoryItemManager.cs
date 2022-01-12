@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] GridLayoutGroup inventoryGrid;
     [SerializeField] InventoryNearbyItems inventoryNearby;
@@ -215,13 +215,13 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         return cellCentrePos;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if(eventData.pointerClick == null)
-        {
-            return;
-        }
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    if(eventData.pointerClick == null)
+    //    {
+    //        return;
+    //    }
 
-        eventData.pointerClick.GetComponent<ChipUI>().targetOutline.enabled = true;
-    }
+    //    eventData.pointerClick.GetComponent<ChipUI>().targetOutline.enabled = true;
+    //}
 }

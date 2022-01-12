@@ -25,5 +25,23 @@ public class CharacterStats : MonoBehaviour
             + playerStats.GetBuffAdditive(BuffType.AttackStrength)).ToString();
 
         movementText.text = "Movement Speed: " + playerStats.MovementSpeed.ToString();
+        
+        if(ChipUI.selectedChip != null)
+        {
+            ChipBuff chipBuff = ChipUI.selectedChip.itemData.chipBuffs[0];
+
+            switch (chipBuff.buffType)
+            {
+                case BuffType.Health:
+                    healthText.text = healthText.text + " (+" + chipBuff.addiditiveValue + ")";
+                    break;
+                case BuffType.AttackStrength:
+                    damageText.text = damageText.text + " (+" + chipBuff.addiditiveValue + ")";
+                    break;
+                case BuffType.MovementSpeed:
+                    movementText.text = movementText.text + " (+" + chipBuff.addiditiveValue + ")";
+                    break;
+            }
+        }
     }
 }
