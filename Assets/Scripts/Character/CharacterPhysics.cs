@@ -18,15 +18,17 @@ public class CharacterPhysics : MonoBehaviour
     [SerializeField] float knockBackDecay = 0.8f;
 
     CharacterController charController;
+    Animator animator;
 
     // Stores desired movement for that frame depending
     //on controller input
-    Vector3 desiredMovement, lastDesiredMovement;
+    Vector3 desiredMovement;
+    Vector3 lastDesiredMovement;
 
     public Vector3 DesiredMovement { get { return desiredMovement; } }
 
     //Stored movement values effected by drag and gravity
-    Vector3 characterVelocity;
+    [SerializeField] Vector3 characterVelocity;
 
     Coroutine knockBackProgress, dodgeProgress;
 
@@ -42,13 +44,15 @@ public class CharacterPhysics : MonoBehaviour
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     //When entity is not knockedback they are free to move in any direction they want
     //at a constant horizontal speed
     public void ApplyDesiredCharacterMovement()
     {
-        if (knockBackProgress != null || dodgeProgress != null) return;
+        if (knockBackProgress != null || dodgeProgress != null || 
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
 
         ApplyGravity(); //Only external force that is applied when entity controls movement
 
@@ -56,6 +60,8 @@ public class CharacterPhysics : MonoBehaviour
 
         var flags = charController.Move(desiredMovement * Time.deltaTime);
         ProcessFlags(flags);
+
+        print(desiredMovement);
 
         desiredMovement = Vector3.zero; //reset input movement
     }

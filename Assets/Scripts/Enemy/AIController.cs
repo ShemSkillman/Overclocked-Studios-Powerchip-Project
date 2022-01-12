@@ -18,6 +18,10 @@ public class AIController : MonoBehaviour
     [SerializeField] private float minIdleTime = 1f, maxIdleTime = 5f;
     private float currentIdleTime, targetIdleTime;
 
+    [SerializeField] private float minAttackIdleTime = 0.5f, maxAttackIdleTime = 1.5f;
+    float timeUntilNextAttack = 0f;
+    float timeSinceAttack = Mathf.Infinity;
+
     [SerializeField] GameObject targetMarker;
 
     enum Behaviour { Idle, Wander, Pursue, Attack };
@@ -35,6 +39,8 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
+        timeSinceAttack += Time.deltaTime;
+
         switch (currentBehaviour)
         {
             case Behaviour.Idle:
@@ -73,7 +79,7 @@ public class AIController : MonoBehaviour
                 {
                     UpdatePursueBehaviour();
 
-                    if (IsPlayerInRange())
+                    if (IsPlayerInRange(false))
                     {
                         currentBehaviour = Behaviour.Attack;
                     }
@@ -81,9 +87,10 @@ public class AIController : MonoBehaviour
                 break;
 
             case Behaviour.Attack:
-                if (!IsPlayerInRange())
+                if (!IsPlayerInRange(true))
                 {
                     currentBehaviour = Behaviour.Pursue;
+                    enemyMovement.lookAt = null;
                 }
                 else
                 {
@@ -141,7 +148,6 @@ public class AIController : MonoBehaviour
         velocity = agent.desiredVelocity;
 
         enemyMovement.Move(velocity.normalized);
-        agent.velocity = controller.velocity;
     }
 
     private bool IsAtDestination()
@@ -181,11 +187,21 @@ public class AIController : MonoBehaviour
 
     private void UpdateAttackBehaviour()
     {
+        enemyMovement.lookAt = playerTransform;
+
+        if (timeSinceAttack < timeUntilNextAttack)
+        {
+            return;
+        }
+
+        timeSinceAttack = 0f;
+        timeUntilNextAttack = Random.Range(minAttackIdleTime, maxAttackIdleTime) + enemyCombat.GetAttackRate();
+
         enemyCombat.StartMeleeAttack();
         enemyMovement.Move(Vector3.zero);
     }
 
-    private bool IsPlayerInRange()
+    private bool IsPlayerInRange(bool ignoreBehind)
     {
         Collider[] targetColliders = enemyCombat.GetTargetColliders();
 
@@ -193,7 +209,14 @@ public class AIController : MonoBehaviour
         {
             if (collider.gameObject.tag == "Player")
             {
-                return !enemyCombat.IsTargetBehind(collider.transform);
+                if (ignoreBehind)
+                {
+                    return true;
+                }
+                else
+                {
+                    return !enemyCombat.IsTargetBehind(collider.transform);
+                }
             }
         }
         return false;

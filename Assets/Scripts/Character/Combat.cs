@@ -35,7 +35,6 @@ public class Combat : MonoBehaviour
     {
         DisableSlashEffect();
 
-        //animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = weapon.AnimationOverride;
     }
 
@@ -86,7 +85,7 @@ public class Combat : MonoBehaviour
         slashEffect.gameObject.SetActive(false);
     }
 
-    private float GetAttackRate()
+    public float GetAttackRate()
     {
         return Mathf.Max(minAttackRate, weapon.BaseAttackRate);
     }

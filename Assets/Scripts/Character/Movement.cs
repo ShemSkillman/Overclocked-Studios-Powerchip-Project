@@ -11,19 +11,22 @@ public class Movement : MonoBehaviour
     private EntityStats stats;
 
     public Transform lookAt;
+    public Animator animator;
 
     private void Awake()
     {
         characterPhysics = GetComponent<CharacterPhysics>();
         stats = GetComponent<EntityStats>();
+        animator = GetComponent<Animator>();
     }
 
     private void LateUpdate()
     {
-        if (!characterPhysics.IsKnockedBack && !characterPhysics.IsDodging)
+
+        if (!characterPhysics.IsKnockedBack && !characterPhysics.IsDodging &&
+            !(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && gameObject.tag == "Enemy"))
         {
             Vector3 moveVector = characterPhysics.DesiredMovement;
-            characterPhysics.ApplyDesiredCharacterMovement();
 
             if (lookAt != null)
             {
@@ -35,7 +38,9 @@ public class Movement : MonoBehaviour
             {
                 transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
             }
-        }        
+        }
+
+        characterPhysics.ApplyDesiredCharacterMovement();
     }
 
     public void Move(Vector3 moveVector)
