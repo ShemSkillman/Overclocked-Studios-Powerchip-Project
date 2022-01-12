@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [SerializeField] Image debugSquarePrefab;
 
@@ -25,10 +25,14 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     Image debugSquare;
 
+    public Outline targetOutline;
+
     public delegate void OnStartDrag(ChipUI chipUI);
     public OnStartDrag onStartDrag;
 
     public static float chipCellSize;
+
+    public static ChipUI selectedChip;
 
     void Awake()
     {
@@ -48,11 +52,13 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         image.preserveAspect = true;
         image.sprite = itemData.chipSprite;
 
-        debugSquare = Instantiate(debugSquarePrefab, Vector3.zero, Quaternion.identity, transform);
+        //debugSquare = Instantiate(debugSquarePrefab, Vector3.zero, Quaternion.identity, transform);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        SetSelectedChip(null);
+
         PreviousParent = transform.parent;
 
         canvasGroup.blocksRaycasts = false;
@@ -63,16 +69,38 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
         transform.position = Input.mousePosition;
 
-        debugSquare.enabled = true;
+        //debugSquare.enabled = true;
 
         onStartDrag?.Invoke(this);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Nearby Items being touched");
+
+        SetSelectedChip(this);
+    }
+
+    public static void SetSelectedChip(ChipUI toSelect)
+    {
+        if(selectedChip != null)
+        {
+            selectedChip.targetOutline.enabled = false;
+        }
+
+        selectedChip = toSelect;
+
+        if (selectedChip != null)
+        {
+            selectedChip.targetOutline.enabled = true;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 
-        debugSquare.rectTransform.anchoredPosition = GetLocalChipCellPosition(0,0);
+        //debugSquare.rectTransform.anchoredPosition = GetLocalChipCellPosition(0,0);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -90,7 +118,7 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
         canvasGroup.blocksRaycasts = true;
 
-        debugSquare.enabled = false;
+        //debugSquare.enabled = false;
     }
 
     public Vector2 GetLocalChipCellPosition(int x, int y)

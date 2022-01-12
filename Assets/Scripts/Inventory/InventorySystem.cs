@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventorySystem : MonoBehaviour, IDropHandler
 {
@@ -13,7 +14,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     [SerializeField]
     private RectTransform nearbyChips;
 
-    [SerializeField] Transform inventoryGrid;
+    [SerializeField] InventoryItemManager inventoryItemManager;
 
     [SerializeField] float pickupRadius = 5f;
 
@@ -46,6 +47,21 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         }
     }
 
+    private Collider[] GetItemColliders()
+    {
+        return Physics.OverlapSphere(player.transform.position, pickupRadius, LayerMask.GetMask("Pickup"));
+    }
+
+    public bool IsChipNearby()
+    {
+        return GetItemColliders().Length > 1;
+    }
+
+    public bool IsInventoryEmpty()
+    {
+        return inventoryItemManager.transform.childCount < 1;
+    }
+
     public void ToggleInventoryView(bool isInventoryOpen)
     {
         if (isInventoryOpen)
@@ -68,9 +84,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     {
         pickUps = new Dictionary<string, ChipObject>();
 
-        Collider[] itemColliders = Physics.OverlapSphere(player.transform.position, pickupRadius, LayerMask.GetMask("Pickup"));
-
-        foreach (var itemCol in itemColliders)
+        foreach (var itemCol in GetItemColliders())
         {
             ChipObject pickUp = itemCol.GetComponentInParent<ChipObject>();
             CreateChipUI(pickUp);
@@ -116,13 +130,26 @@ public class InventorySystem : MonoBehaviour, IDropHandler
         {
             Destroy(inventoryChip.gameObject);
         }
+    }
 
+    private void RefreshBuffs()
+    {
         playerStats.ResetBuffs();
 
-        foreach (ChipUI equippedChip in inventoryGrid.GetComponentsInChildren<ChipUI>())
+        foreach (ChipUI equippedChip in inventoryItemManager.GetComponentsInChildren<ChipUI>())
         {
             playerStats.AddBuff(equippedChip.itemData.chipBuffs);
         }
+    }
+
+    private void OnEnable()
+    {
+        inventoryItemManager.onChipMoved += RefreshBuffs;
+    }
+
+    private void OnDisable()
+    {
+        inventoryItemManager.onChipMoved -= RefreshBuffs;
     }
 
     private void CreateChipObject(ChipUI chipUI)

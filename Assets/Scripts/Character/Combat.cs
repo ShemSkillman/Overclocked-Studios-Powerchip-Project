@@ -89,6 +89,14 @@ public class Combat : MonoBehaviour
         return charController.transform.TransformPoint(charController.center);
     }
 
+    public float GetBaseWeaponDamage
+    {
+        get
+        {
+            return weapon.BaseDamage;
+        }
+    }
+
     public void MeleeHit()
     {
         Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), weapon.AttackRange, LayerMask.GetMask(targetLayerName));
