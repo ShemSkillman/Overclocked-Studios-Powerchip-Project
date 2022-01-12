@@ -51,7 +51,7 @@ public class CharacterPhysics : MonoBehaviour
     //at a constant horizontal speed
     public void ApplyDesiredCharacterMovement()
     {
-        if (knockBackProgress != null || dodgeProgress != null || 
+        if (knockBackProgress != null || dodgeProgress != null ||
             animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
 
         ApplyGravity(); //Only external force that is applied when entity controls movement
@@ -60,8 +60,6 @@ public class CharacterPhysics : MonoBehaviour
 
         var flags = charController.Move(desiredMovement * Time.deltaTime);
         ProcessFlags(flags);
-
-        print(desiredMovement);
 
         desiredMovement = Vector3.zero; //reset input movement
     }
@@ -131,7 +129,7 @@ public class CharacterPhysics : MonoBehaviour
     {
         Physics.IgnoreLayerCollision(6, 3, true);
 
-        characterVelocity = force; //Immediately apply full knockback force
+        characterVelocity = force;
 
         transform.forward = force.normalized;
 
@@ -150,8 +148,6 @@ public class CharacterPhysics : MonoBehaviour
         desiredMovement = Vector3.zero; //Ensures input remains blocked and reset
 
         dodgeProgress = null; //Knockback progress finished
-
-        charController.detectCollisions = true;
 
         Physics.IgnoreLayerCollision(6, 3, false);
     }

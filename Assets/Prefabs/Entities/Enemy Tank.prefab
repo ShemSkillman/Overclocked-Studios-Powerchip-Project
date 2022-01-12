@@ -136,6 +136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5384218543918609926, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
+      propertyPath: baseMaxHitpoints
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384218543918609926, guid: 01658cb7021bd424d81f1bdcad37f65f,
+        type: 3}
       propertyPath: baseMovementSpeed
       value: 1
       objectReference: {fileID: 0}
