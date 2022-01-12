@@ -48,6 +48,10 @@ MonoBehaviour:
   attackRange: 4
   baseAttackRate: 0.5
   animOverride: {fileID: 22100000, guid: d51f75cc5de883c47ae2148c841859f3, type: 2}
+  hasKnockback: 1
+  verticalKnockback: 0.5
+  knockbackForce: 15
+  knockbackRandomness: 0.1
 --- !u!114 &8876579452884307218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +68,10 @@ MonoBehaviour:
   attackRange: 1
   baseAttackRate: 0.8
   animOverride: {fileID: 0}
+  hasKnockback: 0
+  verticalKnockback: 0.5
+  knockbackForce: 20
+  knockbackRandomness: 0.1
 --- !u!1001 &763272134284237147
 PrefabInstance:
   m_ObjectHideFlags: 0

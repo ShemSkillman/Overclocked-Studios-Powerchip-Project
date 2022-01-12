@@ -42,7 +42,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &360262538116868430
 Rigidbody:
@@ -77,6 +77,8 @@ MonoBehaviour:
   wanderRange: 10
   minIdleTime: 1
   maxIdleTime: 5
+  minAttackIdleTime: 0.5
+  maxAttackIdleTime: 1.5
   targetMarker: {fileID: 2690726041681992025}
 --- !u!195 &7832157607505949063
 NavMeshAgent:
@@ -89,7 +91,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 0
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -280,7 +282,7 @@ PrefabInstance:
     - target: {fileID: 4483432812954621819, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4483432812954621823, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
         type: 3}

@@ -7,44 +7,52 @@ public class Movement : MonoBehaviour
     [SerializeField] private float turnSpeed = 5f;
     [SerializeField] private bool isKeyboardControls = true;
 
-    private CharacterController charController;
+    private CharacterPhysics characterPhysics;
     private EntityStats stats;
 
-    private Vector3 moveVector;
     public Transform lookAt;
+    public Animator animator;
 
     private void Awake()
     {
-        charController = GetComponent<CharacterController>();
+        characterPhysics = GetComponent<CharacterPhysics>();
         stats = GetComponent<EntityStats>();
+        animator = GetComponent<Animator>();
     }
 
     private void LateUpdate()
     {
-        charController.SimpleMove(moveVector * stats.MovementSpeed);
 
-        if (lookAt != null)
+        if (!characterPhysics.IsKnockedBack && !characterPhysics.IsDodging &&
+            !(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && gameObject.tag == "Enemy"))
         {
-            Vector3 lookAtDir = (lookAt.position - transform.position).normalized;
-            lookAtDir.y = 0;
-            transform.forward = Vector3.RotateTowards(transform.forward, lookAtDir, Time.deltaTime * turnSpeed, 0.0f);
+            Vector3 moveVector = characterPhysics.DesiredMovement;
+
+            if (lookAt != null)
+            {
+                Vector3 lookAtDir = (lookAt.position - transform.position).normalized;
+                lookAtDir.y = 0;
+                transform.forward = Vector3.RotateTowards(transform.forward, lookAtDir, Time.deltaTime * turnSpeed, 0.0f);
+            }
+            else if (moveVector != Vector3.zero)
+            {
+                transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
+            }
         }
-        else if (moveVector != Vector3.zero)
-        {
-            transform.forward = Vector3.RotateTowards(transform.forward, moveVector, Time.deltaTime * turnSpeed, 0.0f);
-        }
-        
+
+        characterPhysics.ApplyDesiredCharacterMovement();
     }
 
     public void Move(Vector3 moveVector)
     {
-        if (isKeyboardControls)
+        if (!isKeyboardControls)
         {
-            this.moveVector = moveVector;
+            moveVector = Quaternion.AngleAxis(45, Vector3.up) * moveVector;
         }
-        else
+
+        if (moveVector != Vector3.zero)
         {
-            this.moveVector = Quaternion.AngleAxis(45, Vector3.up) * moveVector;
+            characterPhysics.EntityMove(moveVector * stats.MovementSpeed);
         }        
     }
 }

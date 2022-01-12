@@ -266,6 +266,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1808471285259356176, guid: 01658cb7021bd424d81f1bdcad37f65f,
+        type: 3}
+      propertyPath: minAttackIdleTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2684537111339537883, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: m_RootOrder
@@ -299,7 +304,7 @@ PrefabInstance:
     - target: {fileID: 6581894835941375534, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: turnSpeed
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6581894835941375534, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
@@ -440,6 +445,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881812554146893122, guid: 01658cb7021bd424d81f1bdcad37f65f,
+        type: 3}
+      propertyPath: knockBackResistance
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9075109138184824523, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}

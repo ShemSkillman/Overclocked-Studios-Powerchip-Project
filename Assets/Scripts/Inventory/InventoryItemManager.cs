@@ -128,12 +128,10 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 
                 if (currentGridCoords.x >= gridTakenSpaces.GetLength(0) || currentGridCoords.x < 0 || currentGridCoords.y >= gridTakenSpaces.GetLength(1) || currentGridCoords.y < 0)
                 {
-                    print("out of bounds!");
                     isValid = false;
                 }
                 else if (gridTakenSpaces[currentGridCoords.x, currentGridCoords.y] == true)
                 {
-                    print("space occupied!");
                     isValid = false;
                 }
             }
@@ -156,9 +154,6 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
     public void OnStartDrag(ChipUI chipUI)
     {
         chipUI.onStartDrag -= OnStartDrag;
-
-        print(chipUI.itemData.itemName + " is being dragged!");
-        chipUI.targetOutline.enabled = false;
 
         Vector2Int chipOriginGridCoords = storedChips[chipUI];
 

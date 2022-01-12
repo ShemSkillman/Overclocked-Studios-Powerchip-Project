@@ -12,7 +12,7 @@ public class ChipBuff
 public enum BuffType
 {
     Health,
-    AttackSpeed,
+    DodgeRecharge,
     AttackStrength,
     MovementSpeed
 }

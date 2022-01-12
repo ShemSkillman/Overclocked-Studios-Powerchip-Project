@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
+            if (collider.GetComponent<AIController>() == null)
+            {
+                continue;
+            }
+
             Vector3 closestPoint = collider.ClosestPointOnBounds(transform.position);
             Vector3 enemyDir = collider.transform.position - transform.position;
             float dist = Vector3.Distance(closestPoint, transform.position);
@@ -114,12 +119,12 @@ public class PlayerController : MonoBehaviour
         {
             if (movement.lookAt != null)
             {
-                movement.lookAt.GetComponent<AIController>().SetTargetMarkerVisibility(false);
+                movement.lookAt.GetComponentInParent<AIController>().SetTargetMarkerVisibility(false);
             }
 
             if (closestEnemy != null)
             {
-                closestEnemy.GetComponent<AIController>().SetTargetMarkerVisibility(true);
+                closestEnemy.GetComponentInParent<AIController>().SetTargetMarkerVisibility(true);
             }
         }
         

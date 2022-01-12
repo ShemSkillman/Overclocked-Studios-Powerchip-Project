@@ -7,6 +7,7 @@ public class CameraXRay : MonoBehaviour
 
     [SerializeField] float xRayDistance = 15f;
     [SerializeField] [Range(0f, 1f)] float transparencyAlpha = 0.3f;
+    [SerializeField] CharacterController player;
 
     private void Start()
     {
@@ -23,14 +24,14 @@ public class CameraXRay : MonoBehaviour
 
     void Update()
     {
-
         foreach (Renderer rend in GetObstructions())
         {
             trackedObstructions[rend] = false;
         }
 
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, transform.forward, xRayDistance, LayerMask.GetMask("Terrain"));
+        Vector3 playerWorldPos = player.transform.position + player.center;
+        hits = Physics.RaycastAll(transform.position, (playerWorldPos - transform.position).normalized, xRayDistance, LayerMask.GetMask("Terrain"));
 
         for (int i = 0; i < hits.Length; i++)
         {

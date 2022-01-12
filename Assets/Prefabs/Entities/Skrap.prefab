@@ -16,6 +16,20 @@ MonoBehaviour:
   useKeyboard: 0
   swivelRefreshRate: 0
   swivelRange: 8
+--- !u!114 &1881432230022748255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928665291612238612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978944aeccf4fa2418ee740f6566b838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dodgeSpeed: 50
+  dodgeDistance: 5
 --- !u!1 &1194513595778943689
 GameObject:
   m_ObjectHideFlags: 0

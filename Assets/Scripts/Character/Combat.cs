@@ -17,12 +17,14 @@ public class Combat : MonoBehaviour
     [SerializeField] ParticleSystem slashEffect;
 
     private CharacterController charController;
+    private CharacterPhysics characterPhysics;
 
     private EntityStats stats;
 
     private void Awake()
     {
         charController = GetComponentInParent<CharacterController>();
+        characterPhysics = GetComponentInParent<CharacterPhysics>();
         animator = GetComponent<Animator>();
         stats = GetComponent<EntityStats>();
 
@@ -33,7 +35,6 @@ public class Combat : MonoBehaviour
     {
         DisableSlashEffect();
 
-        //animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = weapon.AnimationOverride;
     }
 
@@ -42,6 +43,11 @@ public class Combat : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
+
+        if (characterPhysics.IsKnockedBack || characterPhysics.IsDodging)
+        {
+            DisableSlashEffect();
+        }
     }
 
     private void OverrideAnimation()
@@ -79,9 +85,9 @@ public class Combat : MonoBehaviour
         slashEffect.gameObject.SetActive(false);
     }
 
-    private float GetAttackRate()
+    public float GetAttackRate()
     {
-        return Mathf.Max(minAttackRate, weapon.BaseAttackRate + stats.GetBuffAdditive(BuffType.AttackSpeed));
+        return Mathf.Max(minAttackRate, weapon.BaseAttackRate);
     }
 
     private Vector3 GetMeleeAttackCenter()
@@ -99,11 +105,12 @@ public class Combat : MonoBehaviour
 
     public void MeleeHit()
     {
-        Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), weapon.AttackRange, LayerMask.GetMask(targetLayerName));
+        Collider[] colliders = Physics.OverlapSphere(GetMeleeAttackCenter(), weapon.AttackRange, LayerMask.GetMask("Player", "Enemy"));
 
         foreach (Collider collider in colliders)
         {
-            if (IsTargetBehind(collider.transform))
+            if (collider.gameObject == gameObject ||
+                IsTargetBehind(collider.transform))
             {
                 continue;
             }
@@ -111,7 +118,23 @@ public class Combat : MonoBehaviour
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
             if (health != null)
             {
-                health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
+                CharacterPhysics charPhysics = collider.GetComponent<CharacterPhysics>();
+                if ((charPhysics == null || !charPhysics.IsDodging) &&
+                    collider.gameObject.layer != gameObject.layer)
+                {
+                    health.TakeDamage(weapon.BaseDamage + stats.GetBuffAdditive(BuffType.AttackStrength));
+                }
+
+                if (!health.IsDead() && weapon.HasKnockback)
+                {
+                    Vector3 dir = (collider.transform.position - transform.position).normalized;
+                    dir.y = weapon.VerticalKnockback;
+
+                    Vector3 knockBackForce = dir * weapon.KnockbackForce * Random.Range(1f, 1f + weapon.KnockbackRandomness); //Generate random magnitude
+
+                    health.GetComponent<CharacterPhysics>().KnockBack(knockBackForce, Time.time);
+                }
+                
             }
         }
     }
@@ -139,7 +162,11 @@ public class Combat : MonoBehaviour
         {
             charController = GetComponentInParent<CharacterController>();
         }
-        Gizmos.DrawWireSphere(GetMeleeAttackCenter(), weapon.AttackRange);
+
+        if (charController != null && weapon != null)
+        {
+            Gizmos.DrawWireSphere(GetMeleeAttackCenter(), weapon.AttackRange);
+        }        
     }
 
     public Collider[] GetTargetColliders()
@@ -154,6 +181,11 @@ public class Combat : MonoBehaviour
 
     public void StartMeleeAttack()
     {
+        if (characterPhysics.IsKnockedBack || characterPhysics.IsDodging)
+        {
+            return;
+        }
+
         if (timeSinceAttack >= GetAttackRate())
         {
             animator.SetTrigger("MeleeAttack");

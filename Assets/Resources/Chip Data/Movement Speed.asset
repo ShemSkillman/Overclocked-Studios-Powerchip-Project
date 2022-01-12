@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efba03d4406826a44ae1d4b65e59b061, type: 3}
-  m_Name: 1x1 Attack Speed
+  m_Name: Movement Speed
   m_EditorClassIdentifier: 
-  itemName: Basic Attack Speed
-  chipSprite: {fileID: 21300000, guid: 41885042dd462394da45b3dec5b7e1e7, type: 3}
+  itemName: Basic Movement Speed
+  chipSprite: {fileID: 21300000, guid: 09a16e3c97a014a49b190bd7d68f8d7c, type: 3}
   chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
     type: 3}
-  chipMeshMaterial: {fileID: 2100000, guid: f11225f212a9f504b81947b75e1ac312, type: 2}
+  chipMeshMaterial: {fileID: 2100000, guid: d3602cb6ff59aaa4589022a2ab6f44f7, type: 2}
   chipBuffs:
-  - buffType: 1
-    addiditiveValue: -0.1
+  - buffType: 3
+    addiditiveValue: 1
   chipLayoutMap:
     rows:
+    - row: 00000000
+    - row: 00000000
+    - row: 00000000
     - row: 01000000
-    - row: 01000000
-    - row: 01000000
-    - row: 01000000
+    - row: 0000000000
+    - row: 
+    - row: 
