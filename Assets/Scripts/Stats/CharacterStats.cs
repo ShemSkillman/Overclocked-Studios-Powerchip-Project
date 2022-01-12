@@ -6,6 +6,7 @@ public class CharacterStats : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text damageText;
     public TMP_Text movementText;
+    public TMP_Text dodgeText;
 
     EntityStats playerStats;
     private GameObject player;
@@ -25,8 +26,10 @@ public class CharacterStats : MonoBehaviour
             + playerStats.GetBuffAdditive(BuffType.AttackStrength)).ToString();
 
         movementText.text = "Movement Speed: " + playerStats.MovementSpeed.ToString();
-        
-        if(ChipUI.selectedChip != null)
+
+        dodgeText.text = "Dodge Cooldown: " + playerStats.DodgeRechargeTime.ToString() + "s";
+
+        if (ChipUI.selectedChip != null)
         {
             ChipBuff chipBuff = ChipUI.selectedChip.itemData.chipBuffs[0];
 
@@ -35,11 +38,17 @@ public class CharacterStats : MonoBehaviour
                 case BuffType.Health:
                     healthText.text = healthText.text + " (+" + chipBuff.addiditiveValue + ")";
                     break;
+
                 case BuffType.AttackStrength:
                     damageText.text = damageText.text + " (+" + chipBuff.addiditiveValue + ")";
                     break;
+
                 case BuffType.MovementSpeed:
                     movementText.text = movementText.text + " (+" + chipBuff.addiditiveValue + ")";
+                    break;
+
+                case BuffType.DodgeRecharge:
+                    dodgeText.text = dodgeText.text + " (" + chipBuff.addiditiveValue + "s)";
                     break;
             }
         }

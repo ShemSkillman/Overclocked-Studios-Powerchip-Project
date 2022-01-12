@@ -54,7 +54,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
 
     public bool IsChipNearby()
     {
-        return GetItemColliders().Length > 1;
+        return GetItemColliders().Length > 0;
     }
 
     public bool IsInventoryEmpty()

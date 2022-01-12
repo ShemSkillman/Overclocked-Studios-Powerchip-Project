@@ -31,7 +31,7 @@ public class CameraXRay : MonoBehaviour
 
         RaycastHit[] hits;
         Vector3 playerWorldPos = player.transform.position + player.center;
-        hits = Physics.RaycastAll(transform.position, (playerWorldPos - transform.position).normalized, xRayDistance, LayerMask.GetMask("Terrain"));
+        hits = Physics.RaycastAll(transform.position, (playerWorldPos - transform.position).normalized, xRayDistance, LayerMask.GetMask("Terrain", "Post-Processing"));
 
         for (int i = 0; i < hits.Length; i++)
         {
