@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
     [SerializeField] Image debugSquarePrefab;
 
@@ -24,6 +24,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     public Transform PreviousParent { get; set; }
 
     Image debugSquare;
+
+    public Outline targetOutline;
 
     public delegate void OnStartDrag(ChipUI chipUI);
     public OnStartDrag onStartDrag;
@@ -53,6 +55,8 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        targetOutline.enabled = false;
+
         PreviousParent = transform.parent;
 
         canvasGroup.blocksRaycasts = false;
@@ -66,6 +70,13 @@ public class ChipUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         debugSquare.enabled = true;
 
         onStartDrag?.Invoke(this);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("Nearby Items being touched");
+
+        targetOutline.enabled = true;
     }
 
     public void OnDrag(PointerEventData eventData)

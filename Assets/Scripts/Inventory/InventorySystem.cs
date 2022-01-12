@@ -13,7 +13,7 @@ public class InventorySystem : MonoBehaviour, IDropHandler
     [SerializeField]
     private RectTransform nearbyChips;
 
-    [SerializeField] Transform inventoryGrid;
+    [SerializeField] InventoryItemManager inventoryItemManager;
 
     [SerializeField] float pickupRadius = 5f;
 
@@ -117,12 +117,27 @@ public class InventorySystem : MonoBehaviour, IDropHandler
             Destroy(inventoryChip.gameObject);
         }
 
+        
+    }
+
+    private void RefreshBuffs()
+    {
         playerStats.ResetBuffs();
 
-        foreach (ChipUI equippedChip in inventoryGrid.GetComponentsInChildren<ChipUI>())
+        foreach (ChipUI equippedChip in inventoryItemManager.GetComponentsInChildren<ChipUI>())
         {
             playerStats.AddBuff(equippedChip.itemData.chipBuffs);
         }
+    }
+
+    private void OnEnable()
+    {
+        inventoryItemManager.onChipMoved += RefreshBuffs;
+    }
+
+    private void OnDisable()
+    {
+        inventoryItemManager.onChipMoved -= RefreshBuffs;
     }
 
     private void CreateChipObject(ChipUI chipUI)

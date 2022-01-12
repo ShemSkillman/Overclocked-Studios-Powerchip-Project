@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     [SerializeField] GridLayoutGroup inventoryGrid;
     [SerializeField] InventoryNearbyItems inventoryNearby;
@@ -103,7 +103,13 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         chipUI.onStartDrag += OnStartDrag;
         storedChips[chipUI] = chipOriginGridCoords;
         chipRect.anchoredPosition = GetSlotLocalPosition(chipOriginGridCoords.x, chipOriginGridCoords.y) - chipUI.GetLocalChipCellPosition(0,0);
+
+        onChipMoved?.Invoke();
     }
+
+    public delegate void OnChipMoved();
+
+    public OnChipMoved onChipMoved;
 
     bool IsChipPlacementValid(bool[,] chipMap, Vector2Int chipOriginGridCoords)
     {
@@ -152,6 +158,7 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         chipUI.onStartDrag -= OnStartDrag;
 
         print(chipUI.itemData.itemName + " is being dragged!");
+        chipUI.targetOutline.enabled = false;
 
         Vector2Int chipOriginGridCoords = storedChips[chipUI];
 
@@ -169,6 +176,8 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
                 gridTakenSpaces[chipOriginGridCoords.x + x, chipOriginGridCoords.y + y] = false;
             }
         }
+
+        onChipMoved?.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -204,5 +213,15 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
         Vector2 cellCentrePos = new Vector2((x * cellSize) + (cellSize / 2.0f), -rectTransform.rect.width + (y * cellSize) + (cellSize / 2.0f));
 
         return cellCentrePos;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(eventData.pointerClick == null)
+        {
+            return;
+        }
+
+        eventData.pointerClick.GetComponent<ChipUI>().targetOutline.enabled = true;
     }
 }
