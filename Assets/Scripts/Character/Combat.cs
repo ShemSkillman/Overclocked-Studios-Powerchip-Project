@@ -86,7 +86,7 @@ public class Combat : MonoBehaviour
 
     private Vector3 GetMeleeAttackCenter()
     {
-        return charController.transform.TransformPoint(charController.center);
+        return charController.transform.TransformPoint(charController.center.x, charController.center.y, charController.center.z + weapon.ZOffset);
     }
 
     public void MeleeHit()
