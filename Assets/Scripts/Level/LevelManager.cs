@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ExitLevel exitTrigger, bottomTrigger;
-    [SerializeField] private string levelToLoad;
+
+    [SerializeField] private string exitTriggerLoad, bottomTriggerLoad;
     [SerializeField] public bool enemyGoal, switchGoal;
+    public int enemyCounter = 0;
 
     private void Start()
     {
-        //find every enemy
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        
     }
 
     private void Update()
@@ -46,19 +47,24 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        exitTrigger.OnPlayerEnter += ReturnToMainMenu;
+        exitTrigger.OnPlayerEnter += LoadNewLevel;
         bottomTrigger.OnPlayerEnter += ReturnToMainMenu;
         
     }
 
     private void OnDisable()
     {
-        exitTrigger.OnPlayerEnter -= ReturnToMainMenu;
+        exitTrigger.OnPlayerEnter -= LoadNewLevel;
         bottomTrigger.OnPlayerEnter -= ReturnToMainMenu;
     }
 
     private void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(levelToLoad);
+        SceneManager.LoadScene(bottomTriggerLoad);
+    }
+
+    private void LoadNewLevel()
+    {
+        SceneManager.LoadScene(exitTriggerLoad);
     }
 }

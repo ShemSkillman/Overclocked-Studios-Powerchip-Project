@@ -28,6 +28,7 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
+
         enemyMovement = GetComponent<Movement>();
         enemyCombat = GetComponent<Combat>();
 
