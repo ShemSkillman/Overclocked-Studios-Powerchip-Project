@@ -9,6 +9,11 @@ public class EntityHealth : BaseHealth
     private void Awake()
     {
         stats = GetComponent<EntityStats>();
+        
+        if (gameObject.tag == "Enemy")
+        {
+            LevelManager.EnemyCounter++;
+        }
     }
 
     public float MaxHitPoints { get { return stats.MaxHitpoints; } }

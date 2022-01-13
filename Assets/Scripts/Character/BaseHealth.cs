@@ -15,14 +15,16 @@ public class BaseHealth : MonoBehaviour
     public void TakeDamage(float dmgPoints)
     {
         hitPoints -= dmgPoints;
-
+        
         OnHealthChange?.Invoke();
 
         if (hitPoints <= 0)
         {
             OnDead?.Invoke();
+
+            
             if (destroyOnDeath)
-            {
+            {              
                 Destroy(gameObject);
             }
         }
@@ -31,5 +33,13 @@ public class BaseHealth : MonoBehaviour
     public bool IsDead()
     {
         return hitPoints <= 0;
+    }
+
+    private void OnDestroy()
+    {
+        if (gameObject.tag == "Enemy")
+        {
+            LevelManager.EnemyCounter--;
+        }
     }
 }

@@ -9,7 +9,12 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private string exitTriggerLoad, bottomTriggerLoad;
     [SerializeField] public bool enemyGoal, switchGoal;
-    public int enemyCounter = 0;
+    [SerializeField] public Animation doorOpen;
+    private bool openDoor = false;
+
+    
+    private static int enemyCounter = 0;
+    public static int EnemyCounter { get {  return enemyCounter; } set { enemyCounter = value; } }
 
     private void Start()
     {
@@ -27,10 +32,14 @@ public class LevelManager : MonoBehaviour
         if(enemyGoal == true)
         {
             //if every enemy is killed 
-            //if(enemie)
+
+            if(enemyCounter == 0)
             {
-                //enable exit trigger
-                //play animation
+                if(!openDoor)
+                {
+                    openDoor = true;
+                    doorOpen.Play();
+                }                            
             }
         }
 

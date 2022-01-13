@@ -116,6 +116,7 @@ public class Combat : MonoBehaviour
             }
 
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
+
             if (health != null)
             {
                 CharacterPhysics charPhysics = collider.GetComponent<CharacterPhysics>();
@@ -137,8 +138,12 @@ public class Combat : MonoBehaviour
                 
             }
         }
-
-        Instantiate(weapon.HitEffect, GetMeleeAttackCenter(), Quaternion.identity);
+        //create hit effect
+        if(weapon.HitEffect != null)
+        {
+            Instantiate(weapon.HitEffect, GetMeleeAttackCenter(), Quaternion.identity);
+        }
+        
     }
 
     public bool IsTargetBehind(Transform target)
