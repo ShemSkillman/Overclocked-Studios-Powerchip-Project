@@ -92,7 +92,7 @@ public class Combat : MonoBehaviour
 
     private Vector3 GetMeleeAttackCenter()
     {
-        return charController.transform.TransformPoint(charController.center);
+        return charController.transform.TransformPoint(charController.center + weapon.AttackOffset);
     }
 
     public float GetBaseWeaponDamage
@@ -137,6 +137,8 @@ public class Combat : MonoBehaviour
                 
             }
         }
+
+        Instantiate(weapon.HitEffect, GetMeleeAttackCenter(), Quaternion.identity);
     }
 
     public bool IsTargetBehind(Transform target)
