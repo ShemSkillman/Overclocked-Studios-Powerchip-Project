@@ -2020,16 +2020,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 163403178, guid: cf7027b5212728f4480cf58ef9b20a89, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 163403178, guid: cf7027b5212728f4480cf58ef9b20a89, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 922599239, guid: cf7027b5212728f4480cf58ef9b20a89, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.41119385
       objectReference: {fileID: 0}
     - target: {fileID: 1180675555578218651, guid: cf7027b5212728f4480cf58ef9b20a89,
         type: 3}

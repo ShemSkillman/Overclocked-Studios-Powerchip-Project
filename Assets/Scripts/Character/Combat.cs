@@ -16,6 +16,18 @@ public class Combat : MonoBehaviour
     [SerializeField] private float minAttackRate = 0.3f;
     [SerializeField] ParticleSystem slashEffect;
 
+    [Header("Energy System")]
+    [SerializeField] bool useEnergySystem = false;
+    [SerializeField] float maxEnergy = 3;
+    [SerializeField] float energyGainedPerSecond = 1;
+    [SerializeField] float energyUsedPerAttack = 1;
+    [SerializeField] float delayBeforeRecharge = 1f;
+
+    float currentEnergy;
+
+    public float MaxEnergy { get { return maxEnergy; } }
+    public float CurrentEnergy { get { return currentEnergy; } }
+
     private CharacterController charController;
     private CharacterPhysics characterPhysics;
 
@@ -27,6 +39,8 @@ public class Combat : MonoBehaviour
         characterPhysics = GetComponentInParent<CharacterPhysics>();
         animator = GetComponent<Animator>();
         stats = GetComponent<EntityStats>();
+
+        currentEnergy = maxEnergy;
 
         OverrideAnimation();
     }
@@ -41,6 +55,11 @@ public class Combat : MonoBehaviour
     private void Update()
     {
         timeSinceAttack += Time.deltaTime;
+
+        if (timeSinceAttack >= delayBeforeRecharge)
+        {
+            currentEnergy = Mathf.Min(maxEnergy, currentEnergy + (Time.deltaTime * energyGainedPerSecond));
+        }
 
         animator.SetFloat("attackSpeedMult", 1 / GetAttackRate());
 
@@ -181,14 +200,15 @@ public class Combat : MonoBehaviour
 
     public void StartMeleeAttack()
     {
-        if (characterPhysics.IsKnockedBack || characterPhysics.IsDodging)
+        if (characterPhysics.IsKnockedBack || characterPhysics.IsDodging || currentEnergy < energyUsedPerAttack)
         {
             return;
         }
 
-        if (timeSinceAttack >= GetAttackRate())
+        if (timeSinceAttack >= GetAttackRate() && currentEnergy >= energyUsedPerAttack)
         {
-            animator.SetTrigger("MeleeAttack");
+            currentEnergy -= energyUsedPerAttack;
+            animator.SetTrigger("MeleeAttack");            
             timeSinceAttack = 0f;
         }        
     }

@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] VariableJoystick joystick;
     [SerializeField] bool useKeyboard = false;
 
+    [SerializeField] bool useEnergySystem = true;
+
     bool isAttacking = false;
 
     float timeSinceSwivel = 0f;
