@@ -10,6 +10,7 @@ public class EntityHealth : BaseHealth
     {
         stats = GetComponent<EntityStats>();
         
+        
         if (gameObject.tag == "Enemy")
         {
             LevelManager.EnemyCounter++;
