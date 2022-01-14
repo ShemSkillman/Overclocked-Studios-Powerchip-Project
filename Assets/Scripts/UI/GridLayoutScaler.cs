@@ -8,12 +8,12 @@ public class GridLayoutScaler : MonoBehaviour
 {
     private GridLayoutGroup gridLayout;
     RectTransform rectTransform;
+    bool isFlexible;
 
     private void Start()
     {
         gridLayout = GetComponentInChildren<GridLayoutGroup>();
         rectTransform = GetComponent<RectTransform>();
-
 
         float cellWidth = rectTransform.rect.width / gridLayout.constraintCount;
         float cellHeight = rectTransform.rect.height / gridLayout.constraintCount;
