@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Basic Attack Speed
   chipSprite: {fileID: 21300000, guid: 41885042dd462394da45b3dec5b7e1e7, type: 3}
-  chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
+  chipModel: {fileID: 6283666981608338714, guid: 5ed26698f1c6ad048baeede4abdbbdee,
     type: 3}
   chipMeshMaterial: {fileID: 2100000, guid: f11225f212a9f504b81947b75e1ac312, type: 2}
   chipBuffs:

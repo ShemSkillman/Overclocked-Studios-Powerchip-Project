@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Basic Health
   chipSprite: {fileID: 21300000, guid: 19064271c2a9e9e4b9a3fcf037ba798e, type: 3}
-  chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
+  chipModel: {fileID: 7748235726474513346, guid: 870d0daf776bb804499c583a3b692e45,
     type: 3}
   chipMeshMaterial: {fileID: 2100000, guid: 3f94bb5e81a939c4ea81365c4474395d, type: 2}
   chipBuffs:

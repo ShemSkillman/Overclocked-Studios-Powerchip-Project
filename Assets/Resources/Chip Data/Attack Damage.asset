@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Basic Attack Damage
   chipSprite: {fileID: 21300000, guid: 37e0fb83e5c07044eaf0fa09991629d4, type: 3}
-  chipModel: {fileID: 3520798510047699326, guid: 6cf1e20b8fbdc1e47914df792febf3e6,
+  chipModel: {fileID: 8007305715637305721, guid: c45025f660c365940a62d9b7406ad6ae,
     type: 3}
   chipMeshMaterial: {fileID: 2100000, guid: 0c2f621d93d180c4cb704ecb07d107c4, type: 2}
   chipBuffs:
