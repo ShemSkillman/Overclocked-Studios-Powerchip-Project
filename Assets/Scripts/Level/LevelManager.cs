@@ -6,13 +6,19 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ExitLevel exitTrigger, bottomTrigger;
-    [SerializeField] private string levelToLoad;
+
+    [SerializeField] private string exitTriggerLoad, bottomTriggerLoad;
     [SerializeField] public bool enemyGoal, switchGoal;
+    [SerializeField] public Animation doorOpen;
+    private bool openDoor = false;
+
+    
+    private static int enemyCounter = 0;
+    public static int EnemyCounter { get {  return enemyCounter; } set { enemyCounter = value; } }
 
     private void Start()
     {
-        //find every enemy
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        
     }
 
     private void Update()
@@ -26,10 +32,14 @@ public class LevelManager : MonoBehaviour
         if(enemyGoal == true)
         {
             //if every enemy is killed 
-            //if(enemie)
+
+            if(enemyCounter == 0)
             {
-                //enable exit trigger
-                //play animation
+                if(!openDoor)
+                {
+                    openDoor = true;
+                    doorOpen.Play();
+                }                            
             }
         }
 
@@ -46,19 +56,24 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        exitTrigger.OnPlayerEnter += ReturnToMainMenu;
+        exitTrigger.OnPlayerEnter += LoadNewLevel;
         bottomTrigger.OnPlayerEnter += ReturnToMainMenu;
         
     }
 
     private void OnDisable()
     {
-        exitTrigger.OnPlayerEnter -= ReturnToMainMenu;
+        exitTrigger.OnPlayerEnter -= LoadNewLevel;
         bottomTrigger.OnPlayerEnter -= ReturnToMainMenu;
     }
 
     private void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(levelToLoad);
+        SceneManager.LoadScene(bottomTriggerLoad);
+    }
+
+    private void LoadNewLevel()
+    {
+        SceneManager.LoadScene(exitTriggerLoad);
     }
 }

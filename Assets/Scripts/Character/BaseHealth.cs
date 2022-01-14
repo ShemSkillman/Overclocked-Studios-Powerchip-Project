@@ -7,6 +7,7 @@ public class BaseHealth : MonoBehaviour
 {
     [SerializeField] protected float hitPoints;
     [SerializeField] private bool destroyOnDeath = true;
+    [SerializeField] private AudioClip deathSound;
 
     public UnityAction OnDead, OnHealthChange;
 
@@ -15,14 +16,23 @@ public class BaseHealth : MonoBehaviour
     public void TakeDamage(float dmgPoints)
     {
         hitPoints -= dmgPoints;
-
+        
         OnHealthChange?.Invoke();
 
         if (hitPoints <= 0)
         {
             OnDead?.Invoke();
+
+            
             if (destroyOnDeath)
-            {
+            {              
+                if(gameObject.tag == "Enemy")
+                {
+                    AudioClip clip = gameObject.gameObject.GetComponent<AudioSource>().clip;
+                    Debug.Log("PLAYING");
+                    gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+                   
+                }
                 Destroy(gameObject);
             }
         }
@@ -31,5 +41,13 @@ public class BaseHealth : MonoBehaviour
     public bool IsDead()
     {
         return hitPoints <= 0;
+    }
+    
+    private void OnDestroy()
+    {
+        if (gameObject.tag == "Enemy")
+        {       
+            LevelManager.EnemyCounter--;
+        }
     }
 }

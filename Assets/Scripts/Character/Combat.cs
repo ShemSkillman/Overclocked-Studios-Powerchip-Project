@@ -111,7 +111,7 @@ public class Combat : MonoBehaviour
 
     private Vector3 GetMeleeAttackCenter()
     {
-        return charController.transform.TransformPoint(charController.center);
+        return charController.transform.TransformPoint(charController.center + weapon.AttackOffset);
     }
 
     public float GetBaseWeaponDamage
@@ -135,6 +135,7 @@ public class Combat : MonoBehaviour
             }
 
             BaseHealth health = collider.gameObject.GetComponentInParent<BaseHealth>();
+
             if (health != null)
             {
                 CharacterPhysics charPhysics = collider.GetComponent<CharacterPhysics>();
@@ -156,6 +157,12 @@ public class Combat : MonoBehaviour
                 
             }
         }
+        //create hit effect
+        if(weapon.HitEffect != null)
+        {
+            Instantiate(weapon.HitEffect, GetMeleeAttackCenter(), Quaternion.identity);
+        }
+        
     }
 
     public bool IsTargetBehind(Transform target)
