@@ -373,7 +373,7 @@ PrefabInstance:
     - target: {fileID: 5384218543918609926, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: baseMaxHitpoints
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5384218543918609926, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
@@ -553,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 7881812554146893122, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: knockBackResistance
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9075109138184824523, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
