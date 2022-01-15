@@ -24,6 +24,8 @@ public class AIController : MonoBehaviour
 
     [SerializeField] GameObject targetMarker;
 
+    [SerializeField] bool canWonder = true;
+
     enum Behaviour { Idle, Wander, Pursue, Attack };
 
     void Start()
@@ -176,8 +178,11 @@ public class AIController : MonoBehaviour
     }
 
     private void UpdateWanderBehaviour()
-    {        
-        MoveToLocation();
+    {
+        if (canWonder)
+        {
+            MoveToLocation();
+        }
     }
 
     private void UpdatePursueBehaviour()

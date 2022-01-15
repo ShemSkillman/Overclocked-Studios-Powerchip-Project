@@ -10,7 +10,6 @@ public class TutorialManager : MonoBehaviour
     private bool isDone = false;
     [SerializeField] VariableJoystick joystick;
 
-
     void Update()
     {
 
