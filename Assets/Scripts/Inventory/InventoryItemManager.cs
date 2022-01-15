@@ -17,11 +17,9 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 
     RectTransform rectTransform;
 
-    private void Start()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-
-        ChipUI.chipCellSize = inventoryGrid.cellSize.x;
     }
 
     void Update()
