@@ -4171,7 +4171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryGrid: {fileID: 5343007282357706079}
   inventoryNearby: {fileID: 2143865249}
-  chipActivate: {fileID: 8300000, guid: f498e216da33ba04cbc551a889f93c81, type: 3}
+  chipActivate: {fileID: 8300000, guid: 377cfc8414cd2d94bbb69bc9bc7a66a3, type: 3}
   chipPickup: {fileID: 8300000, guid: 1390e5007cd90d349850f457b22917bb, type: 3}
 --- !u!222 &1537007285
 CanvasRenderer:

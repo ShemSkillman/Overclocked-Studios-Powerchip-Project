@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 10
   destroyOnDeath: 0
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: bc781da2e331d904f98896a5eff78abc, type: 3}
   deathSound: {fileID: 0}
 --- !u!208 &-8446706592605635197
 NavMeshObstacle:
