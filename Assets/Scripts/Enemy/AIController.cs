@@ -24,6 +24,8 @@ public class AIController : MonoBehaviour
 
     [SerializeField] GameObject targetMarker;
 
+    [SerializeField] bool canMove = true;
+
     enum Behaviour { Idle, Wander, Pursue, Attack };
 
     void Start()
@@ -146,9 +148,12 @@ public class AIController : MonoBehaviour
 
     private void MoveToLocation()
     {
-        velocity = agent.desiredVelocity;
+        if (canMove)
+        {
+            velocity = agent.desiredVelocity;
 
-        enemyMovement.Move(velocity.normalized);
+            enemyMovement.Move(velocity.normalized);
+        }
     }
 
     private bool IsAtDestination()
