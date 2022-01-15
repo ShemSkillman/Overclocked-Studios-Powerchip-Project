@@ -24,11 +24,12 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         slider.maxValue = health.MaxHitPoints;
-        slider.value = health.Hitpoints;
+        slider.value = health.GetHitpoints();
     }
 
     private void Update()
     {
+        slider.value = health.GetHitpoints();
         slider.maxValue = health.MaxHitPoints;
 
         if (timeSinceHealthChangeSeconds < visibleTimeSeconds)
@@ -55,6 +56,5 @@ public class HealthBar : MonoBehaviour
     private void UpdateHealthBar()
     {
         timeSinceHealthChangeSeconds = 0f;
-        slider.value = health.Hitpoints;
     }
 }

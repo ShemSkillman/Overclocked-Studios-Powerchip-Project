@@ -62,4 +62,9 @@ public class EntityStats : MonoBehaviour
 
         return total;
     }
+
+    public float GetHitpointsMult()
+    {
+        return (baseMaxHitpoints + GetBuffAdditive(BuffType.Health)) / baseMaxHitpoints;
+    }
 }

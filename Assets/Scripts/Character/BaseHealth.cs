@@ -14,8 +14,11 @@ public class BaseHealth : MonoBehaviour
     
 
     public UnityAction OnDead, OnHealthChange;
-    
-    public float Hitpoints { get { return hitPoints; } }
+
+    public virtual float GetHitpoints()
+    {
+        return hitPoints;
+    }
 
     public void TakeDamage(float dmgPoints)
     {

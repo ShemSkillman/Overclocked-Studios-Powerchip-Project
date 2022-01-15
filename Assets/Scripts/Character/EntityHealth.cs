@@ -8,8 +8,7 @@ public class EntityHealth : BaseHealth
 
     private void Awake()
     {
-        stats = GetComponent<EntityStats>();
-        
+        stats = GetComponent<EntityStats>();        
         
         if (gameObject.tag == "Enemy")
         {
@@ -17,10 +16,15 @@ public class EntityHealth : BaseHealth
         }
     }
 
+    public override float GetHitpoints()
+    {
+        return hitPoints * stats.GetHitpointsMult();
+    }
+
     public float MaxHitPoints { get { return stats.MaxHitpoints; } }
 
     private void Start()
     {
-        hitPoints = MaxHitPoints;
+        hitPoints = MaxHitPoints + stats.GetBuffAdditive(BuffType.Health);
     }
 }

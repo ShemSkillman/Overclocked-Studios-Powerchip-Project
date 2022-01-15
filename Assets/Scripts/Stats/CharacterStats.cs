@@ -19,7 +19,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Update()
     {
-        healthText.text = "Health: " + player.GetComponent<EntityHealth>().Hitpoints.ToString() 
+        healthText.text = "Health: " + player.GetComponent<EntityHealth>().GetHitpoints().ToString() 
             + "/" + playerStats.MaxHitpoints.ToString();
 
         damageText.text = "Weapon Damage: " + (player.GetComponent<Combat>().GetBaseWeaponDamage
