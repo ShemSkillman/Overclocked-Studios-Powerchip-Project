@@ -9,7 +9,9 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private string exitTriggerLoad, bottomTriggerLoad;
     [SerializeField] public bool enemyGoal, switchGoal;
-    [SerializeField] public Animation doorOpen;
+    [SerializeField] public Animation doorOpenAnim;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] AudioClip doorOpenAudio;
     private bool openDoor = false;
 
     
@@ -38,7 +40,10 @@ public class LevelManager : MonoBehaviour
                 if(!openDoor)
                 {
                     openDoor = true;
-                    doorOpen.Play();
+
+                    audioSource.clip = doorOpenAudio;
+                    audioSource.Play();
+                    doorOpenAnim.Play();
                 }                            
             }
         }
