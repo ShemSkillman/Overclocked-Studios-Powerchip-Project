@@ -41,8 +41,11 @@ public class LevelManager : MonoBehaviour
                 {
                     openDoor = true;
 
-                    audioSource.clip = doorOpenAudio;
-                    audioSource.Play();
+                    if (doorOpenAudio != null)
+                    {
+                        audioSource.clip = doorOpenAudio;
+                        audioSource.Play();
+                    }                    
                     doorOpenAnim.Play();
                 }                            
             }
