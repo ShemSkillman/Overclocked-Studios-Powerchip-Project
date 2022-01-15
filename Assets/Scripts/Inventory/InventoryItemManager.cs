@@ -17,7 +17,7 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 
     RectTransform rectTransform;
 
-    private void Awake()
+    private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
 
