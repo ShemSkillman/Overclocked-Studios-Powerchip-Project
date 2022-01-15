@@ -83,10 +83,18 @@ public class CharacterPhysics : MonoBehaviour
         else
         {
             force *=  force.magnitude / (knockBackResistance + force.magnitude);
-        }            
+        }
 
-        if (knockBackProgress != null) StopCoroutine(knockBackProgress); //Reset knockback progress
-        if (dodgeProgress != null) StopCoroutine(dodgeProgress);
+        if (knockBackProgress != null)
+        {
+            StopCoroutine(knockBackProgress); //Reset knockback progress
+            FinishKnockback();
+        }
+        if (dodgeProgress != null)
+        {
+            StopCoroutine(dodgeProgress);
+            FinishDodge();
+        }
 
         knockBackProgress = StartCoroutine(KnockBackProgress(force)); //Apply knockback force for duration
     }
@@ -107,10 +115,16 @@ public class CharacterPhysics : MonoBehaviour
         }
         while (characterVelocity.magnitude > knockBackResistance);
 
+        FinishKnockback();
+    }
+
+    private void FinishKnockback()
+    {
         desiredMovement = Vector3.zero; //Ensures input remains blocked and reset
 
         knockBackProgress = null; //Knockback progress finished
     }
+
     public void Dodge(float speed, float distance)
     {
         Vector3 force = lastDesiredMovement.normalized;
@@ -121,7 +135,11 @@ public class CharacterPhysics : MonoBehaviour
 
         force *= speed;
 
-        if (dodgeProgress != null) StopCoroutine(dodgeProgress);
+        if (dodgeProgress != null)
+        {
+            StopCoroutine(dodgeProgress);
+            FinishDodge();
+        }
         dodgeProgress = StartCoroutine(DodgeProgress(force, distance));
     }
 
@@ -145,6 +163,11 @@ public class CharacterPhysics : MonoBehaviour
         }
         while (travelled < distance);
 
+        FinishDodge();
+    }
+
+    private void FinishDodge()
+    {
         desiredMovement = Vector3.zero; //Ensures input remains blocked and reset
 
         dodgeProgress = null; //Knockback progress finished

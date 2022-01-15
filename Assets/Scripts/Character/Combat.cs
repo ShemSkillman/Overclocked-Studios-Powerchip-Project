@@ -155,9 +155,9 @@ public class Combat : MonoBehaviour
 
                     Vector3 knockBackForce = dir * weapon.KnockbackForce * Random.Range(1f, 1f + weapon.KnockbackRandomness); //Generate random magnitude
 
-                    if (characterPhysics != null)
+                    if (charPhysics != null)
                     {
-                        health.GetComponent<CharacterPhysics>().KnockBack(knockBackForce, Time.time);
+                        charPhysics.KnockBack(knockBackForce, Time.time);
                     }                    
                 }
                 
