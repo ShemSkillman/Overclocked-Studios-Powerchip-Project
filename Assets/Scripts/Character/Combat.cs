@@ -15,6 +15,8 @@ public class Combat : MonoBehaviour
     [SerializeField] private string targetLayerName = "Player";
     [SerializeField] private float minAttackRate = 0.3f;
     [SerializeField] ParticleSystem slashEffect;
+    AudioSource audioSource;
+    [SerializeField] AudioClip weaponSwing;
 
     [Header("Energy System")]
     [SerializeField] bool useEnergySystem = false;
@@ -37,9 +39,10 @@ public class Combat : MonoBehaviour
     {
         charController = GetComponentInParent<CharacterController>();
         characterPhysics = GetComponentInParent<CharacterPhysics>();
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         stats = GetComponent<EntityStats>();
-
+        
         currentEnergy = maxEnergy;
 
         OverrideAnimation();
@@ -214,8 +217,14 @@ public class Combat : MonoBehaviour
 
         if (timeSinceAttack >= GetAttackRate() && currentEnergy >= energyUsedPerAttack)
         {
+            
+
             currentEnergy -= energyUsedPerAttack;
-            animator.SetTrigger("MeleeAttack");            
+
+            animator.SetTrigger("MeleeAttack");
+            audioSource.clip = weaponSwing;
+            audioSource.Play();
+            
             timeSinceAttack = 0f;
         }        
     }
