@@ -94,7 +94,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.118
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -138,7 +138,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.209
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -404,7 +404,7 @@ PrefabInstance:
         type: 3}
       propertyPath: deathSound
       value: 
-      objectReference: {fileID: 8300000, guid: c28d8ac10c6afcf4da9e4d6b8e1bbce8, type: 3}
+      objectReference: {fileID: 8300000, guid: f98151414bf5b87469dc8d35afaf28f5, type: 3}
     - target: {fileID: 6581894835941375534, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: turnSpeed
@@ -425,6 +425,11 @@ PrefabInstance:
       propertyPath: slashEffect
       value: 
       objectReference: {fileID: 5626351851906941356}
+    - target: {fileID: 6886260895574867610, guid: 01658cb7021bd424d81f1bdcad37f65f,
+        type: 3}
+      propertyPath: weaponSwing
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f190bd7fec3d5842b966ada554f89a5, type: 3}
     - target: {fileID: 6901763596401461607, guid: 01658cb7021bd424d81f1bdcad37f65f,
         type: 3}
       propertyPath: m_LocalPosition.x

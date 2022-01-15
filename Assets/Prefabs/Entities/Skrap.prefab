@@ -82,37 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1881432230022748255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928665291612238612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978944aeccf4fa2418ee740f6566b838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dodgeSpeed: 50
-  dodgeDistance: 5
---- !u!114 &9030902989858890415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928665291612238612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3a56c2b11213e84388e9142097e77e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  useKeyboard: 0
-  useEnergySystem: 1
-  swivelRefreshRate: 0
-  swivelRange: 8
 --- !u!82 &5968399744404748373
 AudioSource:
   m_ObjectHideFlags: 0
@@ -209,6 +178,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1881432230022748255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928665291612238612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978944aeccf4fa2418ee740f6566b838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dodgeSpeed: 50
+  dodgeDistance: 5
+  dodgeSound: {fileID: 8300000, guid: 0e2dacaeb2646d94a9a59de044a17f10, type: 3}
+--- !u!114 &9030902989858890415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928665291612238612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a56c2b11213e84388e9142097e77e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
+  useKeyboard: 0
+  useEnergySystem: 1
+  swivelRefreshRate: 0
+  swivelRange: 8
 --- !u!1001 &629719064394703983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +227,11 @@ PrefabInstance:
       propertyPath: slashEffect
       value: 
       objectReference: {fileID: 3645802427829155861}
+    - target: {fileID: 294557456440890904, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
+        type: 3}
+      propertyPath: weaponSwing
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f190bd7fec3d5842b966ada554f89a5, type: 3}
     - target: {fileID: 294557456440890904, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
         type: 3}
       propertyPath: minAttackRate
@@ -306,6 +312,16 @@ PrefabInstance:
       propertyPath: m_StepOffset
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 883854797485946289, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ef9f0fc36926b0a46a6494e1aca23e4a, type: 3}
+    - target: {fileID: 883854797485946289, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
+        type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c28d8ac10c6afcf4da9e4d6b8e1bbce8, type: 3}
     - target: {fileID: 1004153930683393813, guid: d7efc3d0b51585f42a87507ee7c1fbc2,
         type: 3}
       propertyPath: m_Layer
