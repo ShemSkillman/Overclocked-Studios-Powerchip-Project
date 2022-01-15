@@ -44,10 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a1a4f8e60bcd47907ecdf389e8641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 10
+  baseDamage: 30
   attackRange: 1.6
+  attackOffset: {x: 0, y: 0, z: 0}
   baseAttackRate: 0.6
+  hitEffect: {fileID: 0}
   animOverride: {fileID: 22100000, guid: d883f349e3a1d1d4aa2882d35305a50d, type: 2}
+  hasKnockback: 0
+  verticalKnockback: 0.5
+  knockbackForce: 20
+  knockbackRandomness: 0.1
 --- !u!1001 &5694620896129005192
 PrefabInstance:
   m_ObjectHideFlags: 0
