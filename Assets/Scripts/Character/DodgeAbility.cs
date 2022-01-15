@@ -9,12 +9,15 @@ public class DodgeAbility : MonoBehaviour
 
     [SerializeField] float dodgeSpeed = 50f;
     [SerializeField] float dodgeDistance = 5f;
+    [SerializeField] AudioClip dodgeSound;
+    AudioSource audioSource;
 
     float timeSinceLastDodge = Mathf.Infinity;
     
 
     private void Awake()
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
         characterPhysics = GetComponent<CharacterPhysics>();
         stats = GetComponent<EntityStats>();
     }
@@ -28,6 +31,9 @@ public class DodgeAbility : MonoBehaviour
     {
         if (timeSinceLastDodge >= stats.DodgeRechargeTime)
         {
+            audioSource.clip = dodgeSound;
+            audioSource.Play();
+
             characterPhysics.Dodge(dodgeSpeed, dodgeDistance);
             timeSinceLastDodge = 0f;
         }        

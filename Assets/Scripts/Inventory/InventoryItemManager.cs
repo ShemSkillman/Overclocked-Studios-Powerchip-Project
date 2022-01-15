@@ -8,6 +8,9 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 {
     [SerializeField] GridLayoutGroup inventoryGrid;
     [SerializeField] InventoryNearbyItems inventoryNearby;
+    [SerializeField] AudioClip chipActivate;
+    [SerializeField] AudioClip chipPickup;
+    AudioSource audioSource;
 
     Dictionary<ChipUI, Vector2Int> storedChips = new Dictionary<ChipUI, Vector2Int>();
 
@@ -19,6 +22,8 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 
     private void Awake()
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
+
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -62,6 +67,10 @@ public class InventoryItemManager : MonoBehaviour, IDropHandler, IPointerEnterHa
 
         if (IsChipPlacementValid(chipMap, closestSlotCoord))
         {
+            //play activate sound
+            audioSource.clip = chipActivate;
+            audioSource.Play();
+            
             PlaceChip(chipUI, chipOriginGridCoords);
         }
         else
