@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
-  useKeyboard: 0
+  useKeyboard: 1
   useEnergySystem: 1
   swivelRefreshRate: 0
   swivelRange: 8

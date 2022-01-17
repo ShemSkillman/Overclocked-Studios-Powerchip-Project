@@ -12,4 +12,9 @@ public class MainMenu : MonoBehaviour
         startGameMenu.SetActive(false);
         levelSelectMenu.SetActive(true);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

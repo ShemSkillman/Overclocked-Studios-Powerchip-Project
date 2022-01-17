@@ -3927,7 +3927,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5242718, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5071,6 +5071,7 @@ GameObject:
   - component: {fileID: 2061102248553858205}
   - component: {fileID: 6231555887282699686}
   - component: {fileID: 8873274631140404374}
+  - component: {fileID: 9143810315873071355}
   m_Layer: 5
   m_Name: Home Button
   m_TagString: Untagged
@@ -5204,6 +5205,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &9143810315873071355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6776760672451487160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79cce04349a8c074a90d3231fb7d2d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  homePanel: {fileID: 6103544744180718366}
 --- !u!1 &7141536449167596020
 GameObject:
   m_ObjectHideFlags: 0
@@ -6875,11 +6889,6 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 3031060883380643547}
-    - target: {fileID: 9030902989858890415, guid: 280de43cd5259144e9ae2e839aba064d,
-        type: 3}
-      propertyPath: useKeyboard
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2469773167837550606, guid: 280de43cd5259144e9ae2e839aba064d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 280de43cd5259144e9ae2e839aba064d, type: 3}
@@ -6889,16 +6898,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4514995093750866621}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4898872365912129554 stripped
+--- !u!114 &2644823238070041314 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9030902989858890415, guid: 280de43cd5259144e9ae2e839aba064d,
+  m_CorrespondingSourceObject: {fileID: 1881432230022748255, guid: 280de43cd5259144e9ae2e839aba064d,
     type: 3}
   m_PrefabInstance: {fileID: 4514995093750866621}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3a56c2b11213e84388e9142097e77e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 978944aeccf4fa2418ee740f6566b838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4202244912235934563 stripped
@@ -6925,24 +6934,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635d8c53a870b2347a9ebfe87e96ab82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2644823238070041314 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1881432230022748255, guid: 280de43cd5259144e9ae2e839aba064d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4514995093750866621}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978944aeccf4fa2418ee740f6566b838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &4553856845359100634 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 115669386340782183, guid: 280de43cd5259144e9ae2e839aba064d,
     type: 3}
   m_PrefabInstance: {fileID: 4514995093750866621}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4898872365912129554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9030902989858890415, guid: 280de43cd5259144e9ae2e839aba064d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4514995093750866621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a56c2b11213e84388e9142097e77e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5174146725201603324
 PrefabInstance:
   m_ObjectHideFlags: 0

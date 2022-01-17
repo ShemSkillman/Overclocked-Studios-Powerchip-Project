@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool useEnergySystem = true;
 
     bool isAttacking = false;
+    bool isDodging = false;
 
     float timeSinceSwivel = 0f;
     [SerializeField] float swivelRefreshRate = 0.5f;
@@ -30,23 +31,45 @@ public class PlayerController : MonoBehaviour
         this.isAttacking = isAttacking;
     }
 
+    DodgeAbility dodge;
+
     private void Awake()
     {
         movement = GetComponent<Movement>();
         combat = GetComponent<Combat>();
         animator = GetComponent<Animator>();
+        dodge = GetComponent<DodgeAbility>();
     }
 
     void Update()
     {
-        Vector3 direction;
-        if (useKeyboard)
+        Vector3 direction = Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal;
+        if (direction == Vector3.zero)
         {
             direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         }
-        else
+
+        if (Input.GetMouseButtonDown(0))
         {
-            direction = Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal;
+            ConstantAttack(true);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            ConstantAttack(false);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            isDodging = true;
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            isDodging = false;
+        }
+
+        if (isDodging)
+        {
+            dodge.Dodge();
         }
 
         movement.Move(direction);
